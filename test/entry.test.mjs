@@ -112,9 +112,29 @@ describe('entry validation', () => {
     assert.equal(errorsFor(rights({ basis: 'permission', holder: 'Synthetic Holder', grantedOn: '2026-01-04' })), '');
   });
 
-  it('rejects executable markup in the body', () => {
-    assert.match(errorsFor(syntheticEntry(), { body: 'Hello <script>1</script>' }), /executable markup/);
-    assert.match(errorsFor(syntheticEntry(), { body: '<img src="a.png" onerror=1>' }), /executable markup/);
+  it('rejects raw HTML and unsafe link targets in the body', () => {
+    const bodies = [
+      'Hello <script>1</script>',
+      '<img src="a.png" onerror=1>',
+      '<a href="java&#x73;cript:alert(1)">open</a>',
+      '[open](java&#x73;cript:alert(1))',
+      '[open](javascript:alert(1))',
+      '[open](http://example.com/a)',
+      '[open](data:text/html;base64,AAAA)',
+      '[open](./other.md)',
+      '[open][ref]\n\n[ref]: java&#x73;cript:alert(1)',
+      '[open](https://example.com/a&#x26;b)',
+    ];
+    for (const body of bodies) assert.match(errorsFor(syntheticEntry(), { body }), /raw HTML|link target/, body);
+  });
+
+  it('checks local images in the body against files and rights', () => {
+    for (const reference of ['media/missing.png', '../../outside.png', '/etc/passwd', 'media/a/b.png']) {
+      assert.match(errorsFor(syntheticEntry(), { body: `![Demo](${reference})` }), /missing\.png is referenced but missing|link target/, reference);
+    }
+    const unrecorded = syntheticEntry({ rights: { assets: [] }, media: [] });
+    assert.match(errorsFor(unrecorded, { body: '![Demo](media/cover.png)' }), /without a rights record/);
+    assert.equal(errorsFor(syntheticEntry(), { body: 'Text [source](https://example.com/a?x=1&y=2), [top](#top)\n\n![Demo](media/cover.png)\n' }), '');
   });
 
   it('keeps prompt choice separate from verification status', () => {

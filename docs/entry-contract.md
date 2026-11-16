@@ -5,11 +5,20 @@ One item is one directory. Hey Atu Market and this repository both read the same
 ```text
 entries/<id>/
 ├── entry.json    fields below
-├── body.md       item-specific body, Markdown, no executable markup
+├── body.md       item-specific body, Markdown, rules below
 └── media/        stored assets, one level: media/<name>.<ext>
 ```
 
 Nothing else is allowed in the directory. Symbolic links are rejected. Allowed extensions: `png`, `jpg`, `jpeg`, `webp`, `gif`, `mp4`, `webm`. Scripts, HTML and SVG stay rejected until a later contract change and code review.
+
+## Body
+
+`body.md` is Markdown for this item. It has no fixed layout. These rules keep it free of executable content:
+
+- No raw HTML. Any `<` that starts a tag, comment or declaration fails. Use `[text](https://...)` for links.
+- A link or image target is one of: a public `https` URL, an `#anchor`, or `media/<name>`. Anything else fails, for example `http:`, `data:`, `javascript:` and relative paths.
+- A target has no character reference (such as `&#x73;`) and no backslash.
+- A `media/<name>` target must be a stored file with a rights record.
 
 ## ID and link
 

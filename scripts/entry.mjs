@@ -12,7 +12,10 @@ const ASSET_PATH = new RegExp(`^media/[a-z0-9][a-z0-9._-]{0,63}\\.(${ASSET_EXTEN
 const CHOICE_PATTERN = /^[a-z0-9-]{1,32}$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const X_POST_PATH = /^\/[A-Za-z0-9_]{1,15}\/status\/(\d{1,19})$/;
-const EXECUTABLE_MARKUP = /<\s*(script|iframe|object|embed|style)\b|javascript:|<[^>]*\son[a-z]+\s*=/i;
+const RAW_HTML = /<[A-Za-z/!?]/;
+const BODY_DESTINATIONS = [/\]\(\s*([^\s)]*)/g, /^ {0,3}\[[^\]\n]+\]:\s*(\S*)/gm];
+const ANCHOR = /^#[A-Za-z0-9_-]+$/;
+const ESCAPED_TEXT = /&[#\w]+;|\\/;
 const CONTROL_CHARACTERS = /[\u0000-\u0008\u000b-\u001f\u007f]/;
 const PRIVATE_HOST = /^(localhost|.*\.(local|localhost|internal|lan))$|^[\d.]+$|:/;
 
@@ -177,6 +180,21 @@ function checkTags(entry, errors) {
   }
 }
 
+function checkBody(body, errors) {
+  const mediaPaths = new Set();
+  if (body.trim() === '') errors.push('body.md must not be empty');
+  if (RAW_HTML.test(body)) errors.push('body.md must not contain raw HTML');
+  for (const pattern of BODY_DESTINATIONS) {
+    for (const [, target] of body.matchAll(pattern)) {
+      if (ASSET_PATH.test(target)) mediaPaths.add(target);
+      else if (!ANCHOR.test(target) && (ESCAPED_TEXT.test(target) || !parseHttpsUrl(target))) {
+        errors.push(`body.md link target ${JSON.stringify(target.slice(0, 60))} must be a public https URL, an anchor or a media file`);
+      }
+    }
+  }
+  return mediaPaths;
+}
+
 function checkFields(entry, purposeIds, errors) {
   if (!checkObject(entry, TOP_LEVEL, 'entry', errors)) return false;
   for (const field of REQUIRED) if (!(field in entry)) errors.push(`${field} is required`);
@@ -227,13 +245,10 @@ export function loadEntry(dir, purposeIds) {
   const files = readEntryFiles(dir, errors);
   if (!checkFields(entry, purposeIds, errors)) return { entry, errors };
 
-  const body = files.get('body.md')?.toString('utf8');
-  if (body !== undefined && body.trim() === '') errors.push('body.md must not be empty');
-  if (body !== undefined && EXECUTABLE_MARKUP.test(body)) errors.push('body.md must not contain executable markup');
-
+  const bodyMedia = checkBody(files.get('body.md')?.toString('utf8') ?? '', errors);
   const stored = new Set([...files.keys()].filter((name) => name.startsWith('media/')));
   const licensed = checkRights(entry, errors);
-  const referenced = checkMedia(entry, errors);
+  const referenced = new Set([...checkMedia(entry, errors), ...bodyMedia]);
   for (const path of stored) if (!licensed.has(path)) errors.push(`${path} is stored without a rights record`);
   for (const path of licensed) if (!stored.has(path)) errors.push(`${path} has a rights record but no file`);
   for (const path of referenced) {
