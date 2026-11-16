@@ -13,7 +13,7 @@ const CHOICE_PATTERN = /^[a-z0-9-]{1,32}$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const X_POST_PATH = /^\/[A-Za-z0-9_]{1,15}\/status\/(\d{1,19})$/;
 const RAW_HTML = /<[A-Za-z/!?]/;
-const BODY_DESTINATIONS = [/\]\(\s*([^\s)]*)/g, /^ {0,3}\[[^\]\n]+\]:\s*(\S*)/gm];
+const INLINE_TARGET = /\]\(\s*([^\s)]*)/g;
 const ANCHOR = /^#[A-Za-z0-9_-]+$/;
 const ESCAPED_TEXT = /&[#\w]+;|\\/;
 const CONTROL_CHARACTERS = /[\u0000-\u0008\u000b-\u001f\u007f]/;
@@ -184,12 +184,11 @@ function checkBody(body, errors) {
   const mediaPaths = new Set();
   if (body.trim() === '') errors.push('body.md must not be empty');
   if (RAW_HTML.test(body)) errors.push('body.md must not contain raw HTML');
-  for (const pattern of BODY_DESTINATIONS) {
-    for (const [, target] of body.matchAll(pattern)) {
-      if (ASSET_PATH.test(target)) mediaPaths.add(target);
-      else if (!ANCHOR.test(target) && (ESCAPED_TEXT.test(target) || !parseHttpsUrl(target))) {
-        errors.push(`body.md link target ${JSON.stringify(target.slice(0, 60))} must be a public https URL, an anchor or a media file`);
-      }
+  if (body.includes(']:')) errors.push('body.md must not contain reference-style link definitions');
+  for (const [, target] of body.matchAll(INLINE_TARGET)) {
+    if (ASSET_PATH.test(target)) mediaPaths.add(target);
+    else if (!ANCHOR.test(target) && (ESCAPED_TEXT.test(target) || !parseHttpsUrl(target))) {
+      errors.push(`body.md link target ${JSON.stringify(target.slice(0, 60))} must be a public https URL, an anchor or a media file`);
     }
   }
   return mediaPaths;

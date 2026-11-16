@@ -123,9 +123,13 @@ describe('entry validation', () => {
       '[open](data:text/html;base64,AAAA)',
       '[open](./other.md)',
       '[open][ref]\n\n[ref]: java&#x73;cript:alert(1)',
+      '![Demo][cover\\]name]\n\n[cover\\]name]: media/missing.png',
+      '![Demo][cover\\]name]\n\n[cover\\]name]: ../../outside.png',
+      '[open][a\nb]\n\n[a\nb]: java&#x73;cript:alert(1)',
+      '   [ref]: https://example.com/a',
       '[open](https://example.com/a&#x26;b)',
     ];
-    for (const body of bodies) assert.match(errorsFor(syntheticEntry(), { body }), /raw HTML|link target/, body);
+    for (const body of bodies) assert.match(errorsFor(syntheticEntry(), { body }), /raw HTML|link target|reference-style/, body);
   });
 
   it('checks local images in the body against files and rights', () => {

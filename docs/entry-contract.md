@@ -16,6 +16,7 @@ Nothing else is allowed in the directory. Symbolic links are rejected. Allowed e
 `body.md` is Markdown for this item. It has no fixed layout. These rules keep it free of executable content:
 
 - No raw HTML. Any `<` that starts a tag, comment or declaration fails. Use `[text](https://...)` for links.
+- Only inline links and images are allowed: `[text](target)` and `![alt](target)`. A reference-style definition (a line with `]:`) fails.
 - A link or image target is one of: a public `https` URL, an `#anchor`, or `media/<name>`. Anything else fails, for example `http:`, `data:`, `javascript:` and relative paths.
 - A target has no character reference (such as `&#x73;`) and no backslash.
 - A `media/<name>` target must be a stored file with a rights record.
