@@ -1,0 +1,9 @@
+[
+  { "id": "slides", "label": "Slides" },
+  { "id": "images", "label": "Images" },
+  { "id": "animation-video", "label": "Animation and video" },
+  { "id": "coding", "label": "Coding" },
+  { "id": "research", "label": "Research" },
+  { "id": "personal-workflows", "label": "Personal workflows" },
+  { "id": "agent-setup", "label": "Agent setup" }
+]

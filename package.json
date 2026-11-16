@@ -1,0 +1,13 @@
+{
+  "name": "awesome-agent-showcase",
+  "private": true,
+  "type": "module",
+  "license": "MIT AND CC-BY-4.0",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "validate": "node scripts/validate.mjs --history",
+    "readme": "node scripts/readme.mjs",
+    "test": "node --test \"test/*.test.mjs\"",
+    "check": "node scripts/validate.mjs --history && node scripts/readme.mjs --check && node --test \"test/*.test.mjs\""
+  }
+}

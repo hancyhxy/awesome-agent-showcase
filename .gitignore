@@ -1,0 +1,17 @@
+node_modules/
+.DS_Store
+.env
+.env.*
+*.log
+*.jsonl
+*.har
+*.sqlite
+*.sqlite3
+*.db
+*.pem
+*.key
+.worktrees/
+tmp/
+private/
+raw/
+exports/
