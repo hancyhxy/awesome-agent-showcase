@@ -57,7 +57,7 @@
     {
       "path": "media/made-synthwave.webp",
       "kind": "mockup",
-      "alt": "Hey Atu writes three theme files. A coding workspace lights up with a striped gold and pink sunset, glowing mountains, stars, a moving perspective grid and neon pink chat controls.",
+      "alt": "Hey Atu writes three theme files. A centred chat with neon pink controls sits on dark frosted glass, with a striped sunset, glowing mountains, stars and a moving grid at the sides.",
       "caption": "Mockup: a synthwave theme for Claude Code Desktop, made with Hey Atu"
     }
   ],
@@ -71,5 +71,5 @@
       "evidence": "https://code.claude.com/docs/en/plugins/mods/overview"
     }
   ],
-  "revision": "sha256:a5189c0376d4358883a5faf322b55b96cc8c0e3456e6a9f76066344b05c9b681"
+  "revision": "sha256:7aeb30cfd09a671f18335e2c01d5b875cb23305d38e3713717f578e6d4ba0850"
 }
