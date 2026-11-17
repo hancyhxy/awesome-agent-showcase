@@ -57,8 +57,8 @@
     {
       "path": "media/made-synthwave.webp",
       "kind": "mockup",
-      "alt": "A pixel-art chat window over a synthwave sunset: a striped sun, a pink grid that moves toward you, twinkling stars and neon pink borders.",
-      "caption": "Our pixel take on the theme; not a screenshot of Claude Code."
+      "alt": "Hey Atu writes three theme files. A coding workspace lights up with a striped gold and pink sunset, glowing mountains, stars, a moving perspective grid and neon pink chat controls.",
+      "caption": "Mockup: a synthwave theme for Claude Code Desktop, made with Hey Atu"
     }
   ],
   "requirements": [
@@ -71,5 +71,5 @@
       "evidence": "https://code.claude.com/docs/en/plugins/mods/overview"
     }
   ],
-  "revision": "sha256:18d3f6288e64e8a893a15e062ddd168833dfada9404ac2cb8edb81bab2a34d87"
+  "revision": "sha256:a5189c0376d4358883a5faf322b55b96cc8c0e3456e6a9f76066344b05c9b681"
 }
