@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { countPurposes, linkState, loadCollection } from './collection.mjs';
-import { marketUrl } from './entry.mjs';
+import { marketUrl, quotedRights } from './entry.mjs';
 
 export const PLACEMENTS = ['market-hero', 'market-grid', 'market-category'];
 export const BLOCK_START = '<!-- collection:start -->';
@@ -24,7 +24,9 @@ function renderItem(entry, deployments, placement, withCover) {
   const cover = withCover ? coverPath(entry) : null;
   if (!cover) return line;
   const image = `![${title}](entries/${entry.id}/${cover})`;
-  return `${line}\n\n  ${linked ? `[${image}](${trackedUrl(entry.id, placement)})` : image}\n`;
+  const quoted = quotedRights(entry, cover);
+  const via = quoted ? `\n  via [@${quoted.holder}](${quoted.sourceUrl})\n` : '';
+  return `${line}\n\n  ${linked ? `[${image}](${trackedUrl(entry.id, placement)})` : image}\n${via}`;
 }
 
 export function renderBlock({ purposes, entries, deployments }) {

@@ -66,6 +66,16 @@ One record for each stored file. A stored file without a record fails. A record 
 | `original` | none; covered by `LICENSE-CONTENT` |
 | `licensed` | `holder`, `licence`, `licenceUrl` |
 | `permission` | `holder`, `grantedOn` |
+| `quoted` | `holder`, `sourceUrl`, `excerpt` |
+
+A `quoted` record is a short excerpt of the media of the item's own source post, shown with credit and a link. These rules apply, and each failure rejects the entry:
+
+- Only an `x-post` item may use it.
+- `holder` is the handle in `source.author`, without `@`.
+- `sourceUrl` equals `source.url`.
+- `excerpt` is text of at most 200 characters that says which part is quoted, for example `0:16-0:20 of the post video`.
+- The file is a `gif`, `webp` or `mp4`, at most 8 seconds and at most 2 MB. The validator reads the length from the file: the frame delays of a GIF or an animated WebP, and the movie header of an MP4. A file whose length cannot be read fails. A still image has no length and passes.
+- A cover that uses a quoted file shows "via @handle" (the README block, Market cards and wall tiles). A quoted file stays the author's work: [THIRD-PARTY.md](../THIRD-PARTY.md#quoted-excerpts) says how to ask for its removal.
 
 ### Prompts
 

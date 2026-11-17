@@ -35,7 +35,7 @@ describe('this repository', () => {
   });
 
   it('has no importer and no dependency', () => {
-    assert.deepEqual(readdirSync(join(REPO, 'scripts')).sort(), ['collection.mjs', 'entry.mjs', 'readme.mjs', 'revision.mjs', 'scan.mjs', 'validate.mjs']);
+    assert.deepEqual(readdirSync(join(REPO, 'scripts')).sort(), ['collection.mjs', 'entry.mjs', 'media.mjs', 'readme.mjs', 'revision.mjs', 'scan.mjs', 'validate.mjs']);
     assert.equal(JSON.parse(read('package.json')).dependencies, undefined);
   });
 
@@ -47,6 +47,16 @@ describe('this repository', () => {
     assert.ok(uses.length >= 2);
     for (const name of uses) assert.match(name, /@[0-9a-f]{40}$/);
     assert.match(workflow, /node-version: \d+\.\d+\.\d+/);
+  });
+
+  it('states the rules and the removal route of quoted excerpts', () => {
+    const rights = read('THIRD-PARTY.md');
+    assert.match(rights, /## Quoted excerpts/);
+    assert.match(rights, /at most 8 seconds and at most 2 MB/);
+    assert.match(rights, /stays the author's work/);
+    assert.match(rights, /support@heyatu\.com/);
+    assert.match(rights, /open an issue/);
+    assert.match(read('docs/entry-contract.md'), /`quoted` \| `holder`, `sourceUrl`, `excerpt`/);
   });
 
   it('keeps both licence files', () => {

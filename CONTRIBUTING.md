@@ -5,7 +5,7 @@ Open an issue for a correction, a missing credit or a rights concern. A pull req
 ## What a change needs
 
 - Edit one item at a time. An item is the directory `entries/<id>/`. Its fields and files are in [docs/entry-contract.md](docs/entry-contract.md).
-- Do not copy third-party text or media into an item without a rights record. Link to the source when you cannot show that you may reuse it.
+- Do not copy third-party text or media into an item without a rights record. Link to the source when you cannot show that you may reuse it. A short excerpt of the media of the source post itself may use the `quoted` basis ([THIRD-PARTY.md](THIRD-PARTY.md#quoted-excerpts)).
 - Do not add a tool, model or version tag without a public URL that supports it.
 - Mark a prompt `tested` only when you ran it. Use `proposed` for a prompt that you wrote and did not run.
 - Do not add executable files, scripts, HTML, SVG, exports, logs, credentials or machine paths.

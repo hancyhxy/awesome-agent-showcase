@@ -33,7 +33,7 @@ No items are listed yet.
 ## Sources and rights
 
 - Items link to their original public source. The source author gets credit on each item.
-- Third-party media is not stored here unless its rights record allows it. Otherwise an item links to the source.
+- Third-party media is not stored here unless its rights record allows it. Otherwise an item links to the source. A short excerpt of the media of a source post may be stored and credited ("via @handle"); it stays the author's work, and we remove it on request.
 - The code is MIT ([LICENSE](LICENSE)). Our original editorial text and assets are CC BY 4.0 ([LICENSE-CONTENT](LICENSE-CONTENT)). Neither licence covers third-party work.
 - See [THIRD-PARTY.md](THIRD-PARTY.md) for credits and rights, and [CONTRIBUTING.md](CONTRIBUTING.md) to suggest a correction.
 

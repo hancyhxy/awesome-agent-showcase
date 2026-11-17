@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { afterEach, beforeEach, describe, it } from 'node:test';
 import { countPurposes, linkState, loadCollection } from '../scripts/collection.mjs';
 import { BLOCK_START, renderBlock, replaceBlock, trackedUrl } from '../scripts/readme.mjs';
-import { REPO, syntheticPostEntry, syntheticRoot, writeEntry } from './fixture.mjs';
+import { REPO, gifBytes, syntheticPostEntry, syntheticRoot, webpBytes, writeEntry } from './fixture.mjs';
 
 let sandbox;
 beforeEach(() => { sandbox = syntheticRoot(); });
@@ -123,6 +123,21 @@ describe('generated README block', () => {
     assert.equal(block.match(/!\[MP4 ITEM\]\(entries\/x-100000000000000002\/media\/cover\.png\)/g).length, 1);
     assert.doesNotMatch(block, /PLAIN ITEM\]\(entries/);
     assert.doesNotMatch(block, /SYNTHETIC SECRET PROMPT|Make it in Atu/);
+  });
+
+  it('shows "via @handle" under the cover of a quoted file only', () => {
+    const post = 'https://x.com/synthetic_user/status/100000000000000001';
+    const quoted = (path) => ({ path, basis: 'quoted', holder: 'synthetic_user', sourceUrl: post, excerpt: '0:16-0:20 of the post video' });
+    const original = (path) => ({ path, basis: 'original' });
+    writeEntry(sandbox.root, syntheticPostEntry(1, { title: 'QUOTED ITEM', rights: { assets: [quoted('media/loop.gif'), quoted('media/still.webp')] }, media: [], cover: { motion: 'media/loop.gif', still: 'media/still.webp' } }),
+      { files: { 'media/loop.gif': gifBytes([100, 100]), 'media/still.webp': webpBytes([]) } });
+    writeEntry(sandbox.root, syntheticPostEntry(2, { title: 'OWN ITEM', rights: { assets: [original('media/loop.gif'), original('media/cover.png')] }, media: [], cover: { motion: 'media/loop.gif', still: 'media/cover.png' } }),
+      { files: { 'media/loop.gif': Buffer.from('a'), 'media/cover.png': Buffer.from('b') } });
+    const collection = loadCollection(sandbox.root);
+    assert.deepEqual(collection.errors, []);
+    const block = renderBlock(collection);
+    assert.equal(block.match(/via /g).length, 1);
+    assert.match(block, /!\[QUOTED ITEM\]\(entries\/x-100000000000000001\/media\/loop\.gif\)\n\n {2}via \[@synthetic_user\]\(https:\/\/x\.com\/synthetic_user\/status\/100000000000000001\)\n/);
   });
 
   it('lists the empty collection honestly', () => {

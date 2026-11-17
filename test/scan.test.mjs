@@ -26,6 +26,8 @@ describe('public tree scan', () => {
     assert.deepEqual(rules(scanText('a.md', `API_KEY = "${'x'.repeat(24)}"`)), ['credential assignment']);
     assert.deepEqual(rules(scanText('a.md', ['{"type": "sess', 'ion", "id": "synthetic"}'].join(''))), ['session record']);
     assert.deepEqual(rules(scanText('a.md', ['synthetic', 'example.com'].join('@'))), ['email address']);
+    assert.deepEqual(scanText('a.md', 'Write to support@heyatu.com.'), []);
+    assert.deepEqual(rules(scanText('a.md', ['xsupport', 'heyatu.com'].join('@'))), ['email address']);
     assert.deepEqual(scanText('a.md', ['1+synthetic', 'users.noreply.github.com'].join('@')), []);
     assert.equal(scanText('a.md', 'ok\nok\n' + user + '/x')[0].where, 'a.md:3');
   });

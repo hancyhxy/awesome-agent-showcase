@@ -3,7 +3,7 @@ import { mkdirSync, symlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, it } from 'node:test';
 import { loadCollection } from '../scripts/collection.mjs';
-import { syntheticEntry, syntheticPostEntry, syntheticRoot, writeEntry } from './fixture.mjs';
+import { gifBytes, mp4Bytes, syntheticEntry, syntheticPostEntry, syntheticRoot, webpBytes, writeEntry } from './fixture.mjs';
 
 const SYNTHETIC = Buffer.from('SYNTHETIC TEST ASSET');
 
@@ -109,7 +109,7 @@ describe('entry validation', () => {
 
   it('rejects a third-party asset without a valid rights basis', () => {
     const rights = (asset) => syntheticEntry({ rights: { assets: [{ path: 'media/cover.png', ...asset }] } });
-    assert.match(errorsFor(rights({ basis: 'scraped' })), /basis must be original, licensed or permission/);
+    assert.match(errorsFor(rights({ basis: 'scraped' })), /basis must be original, licensed, permission or quoted/);
     assert.match(errorsFor(rights({ basis: 'licensed', holder: 'Synthetic Holder' })), /licence must be/);
     assert.equal(errorsFor(rights({ basis: 'permission', holder: 'Synthetic Holder', grantedOn: '2026-01-04' })), '');
   });
@@ -198,5 +198,70 @@ describe('entry validation', () => {
   it('accepts an empty entries folder', () => {
     mkdirSync(join(sandbox.root, 'entries'));
     assert.deepEqual(loadCollection(sandbox.root).errors, []);
+  });
+  describe('quoted excerpts', () => {
+    const SOURCE_URL = 'https://x.com/synthetic_user/status/100000000000000001';
+    const quoted = (path, overrides = {}) => ({ path, basis: 'quoted', holder: 'synthetic_user', sourceUrl: SOURCE_URL, excerpt: '0:16-0:20 of the post video', ...overrides });
+    const withQuoted = (files, records, overrides = {}) => [
+      syntheticEntry({ rights: { assets: records }, media: [], cover: { motion: 'media/loop.gif', still: 'media/still.webp' }, ...overrides }),
+      { files, body: 'Synthetic body.\n' },
+    ];
+    const files = { 'media/loop.gif': gifBytes([100, 100]), 'media/still.webp': webpBytes([]) };
+    const records = [quoted('media/loop.gif'), quoted('media/still.webp')];
+
+    it('accepts a short GIF, WebP and MP4 of the source post', () => {
+      assert.equal(errorsFor(...withQuoted(files, records)), '');
+      const clip = { 'media/loop.mp4': mp4Bytes(7.9), 'media/still.webp': webpBytes([8000]) };
+      assert.equal(errorsFor(...withQuoted(clip, [quoted('media/loop.mp4'), quoted('media/still.webp')], { cover: { motion: 'media/loop.mp4', still: 'media/still.webp' } })), '');
+    });
+
+    it('is only for an x-post item', () => {
+      const docs = { id: 'tool-synthetic', source: { type: 'package-docs', url: SOURCE_URL, package: 'synthetic-tool', credit: 'Synthetic tool docs', capturedAt: '2026-01-03' } };
+      assert.match(errorsFor(...withQuoted(files, records, docs)), /basis quoted is only for an x-post item/);
+    });
+
+    it('needs the holder, the source URL and the excerpt, and nothing else', () => {
+      for (const field of ['holder', 'sourceUrl', 'excerpt']) {
+        const record = quoted('media/loop.gif');
+        delete record[field];
+        assert.match(errorsFor(...withQuoted(files, [record, quoted('media/still.webp')])), new RegExp(`${field} must be`), field);
+      }
+      assert.match(errorsFor(...withQuoted(files, [quoted('media/loop.gif', { licence: 'CC0' }), quoted('media/still.webp')])), /licence is not allowed/);
+    });
+
+    it('ties the source URL and the holder to the source post', () => {
+      const other = quoted('media/loop.gif', { sourceUrl: 'https://x.com/synthetic_user/status/100000000000000002' });
+      assert.match(errorsFor(...withQuoted(files, [other, quoted('media/still.webp')])), /sourceUrl must equal source.url/);
+      for (const holder of ['someone_else', '@synthetic_user']) {
+        assert.match(errorsFor(...withQuoted(files, [quoted('media/loop.gif', { holder }), quoted('media/still.webp')])), /holder must be the handle in source.author/, holder);
+      }
+    });
+
+    it('allows only a GIF, a WebP or an MP4', () => {
+      const png = { 'media/loop.gif': gifBytes([10]), 'media/still.png': Buffer.from('SYNTHETIC TEST ASSET') };
+      const entry = syntheticEntry({ rights: { assets: [quoted('media/loop.gif'), quoted('media/still.png')] }, media: [], cover: { motion: 'media/loop.gif', still: 'media/still.png' } });
+      assert.match(errorsFor(entry, { files: png }), /assets\[1\]\.path of a quoted file must be gif, webp or mp4/);
+    });
+
+    it('rejects a file longer than 8 seconds, in each format', () => {
+      for (const long of [gifBytes([500, 301]), mp4Bytes(8.01), webpBytes([4000, 4001])]) {
+        const path = long.subarray(0, 4).toString('latin1') === 'RIFF' ? 'media/loop.webp' : long.subarray(0, 3).toString('latin1') === 'GIF' ? 'media/loop.gif' : 'media/loop.mp4';
+        const entry = syntheticEntry({ rights: { assets: [quoted(path)] }, media: [{ path, alt: 'Synthetic excerpt' }] });
+        assert.match(errorsFor(entry, { files: { [path]: long } }), /a quoted file is at most 8 s/, path);
+      }
+    });
+
+    it('rejects a file of more than 2 MB and a file whose length cannot be read', () => {
+      const big = Buffer.concat([gifBytes([10]).subarray(0, -1), Buffer.alloc(2 * 1024 * 1024), Buffer.from([0x3b])]);
+      const entry = (path) => syntheticEntry({ rights: { assets: [quoted(path)] }, media: [{ path, alt: 'Synthetic excerpt' }] });
+      assert.match(errorsFor(entry('media/loop.gif'), { files: { 'media/loop.gif': big } }), /a quoted file is at most 2 MB/);
+      assert.match(errorsFor(entry('media/loop.gif'), { files: { 'media/loop.gif': Buffer.from('SYNTHETIC TEST ASSET') } }), /length of the quoted file cannot be read/);
+      assert.match(errorsFor(entry('media/loop.mp4'), { files: { 'media/loop.mp4': Buffer.from('SYNTHETIC TEST ASSET') } }), /length of the quoted file cannot be read/);
+    });
+
+    it('does not change the rules of another basis', () => {
+      const original = syntheticEntry({ rights: { assets: [{ path: 'media/loop.gif', basis: 'original' }] }, media: [{ path: 'media/loop.gif', alt: 'Synthetic loop' }] });
+      assert.equal(errorsFor(original, { files: { 'media/loop.gif': gifBytes(Array(20).fill(100)) } }), '');
+    });
   });
 });

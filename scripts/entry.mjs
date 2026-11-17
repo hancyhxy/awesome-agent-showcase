@@ -1,5 +1,6 @@
 import { lstatSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { QUOTED_EXTENSIONS, QUOTED_MAX_BYTES, QUOTED_MAX_MS, durationMs } from './media.mjs';
 import { revisionOf } from './revision.mjs';
 
 export const ID_PATTERN = /^[a-z0-9-]{1,32}$/;
@@ -32,7 +33,11 @@ const RIGHTS_FIELDS = {
   original: ['path', 'basis'],
   licensed: ['path', 'basis', 'holder', 'licence', 'licenceUrl'],
   permission: ['path', 'basis', 'holder', 'grantedOn'],
+  quoted: ['path', 'basis', 'holder', 'sourceUrl', 'excerpt'],
 };
+const HANDLE_PATTERN = /^[A-Za-z0-9_]{1,15}$/;
+
+export const quotedRights = (entry, path) => entry.rights?.assets?.find((asset) => asset.path === path && asset.basis === 'quoted') ?? null;
 
 export function parseHttpsUrl(value) {
   if (typeof value !== 'string' || value.length > 300 || /\s/.test(value)) return null;
@@ -121,17 +126,36 @@ function checkSource(entry, errors) {
   }
 }
 
-function checkRights(entry, errors) {
+function checkQuoted(entry, asset, bytes, where, errors) {
+  const { source } = entry;
+  if (source?.type !== 'x-post') errors.push(`${where}.basis quoted is only for an x-post item`);
+  else {
+    if (asset.sourceUrl !== source.url) errors.push(`${where}.sourceUrl must equal source.url`);
+    if (asset.holder !== source.author || !HANDLE_PATTERN.test(asset.holder ?? '')) errors.push(`${where}.holder must be the handle in source.author`);
+  }
+  if (!QUOTED_EXTENSIONS.includes(String(asset.path).split('.').pop())) {
+    errors.push(`${where}.path of a quoted file must be gif, webp or mp4`);
+    return;
+  }
+  if (!bytes) return;
+  if (bytes.length > QUOTED_MAX_BYTES) errors.push(`${where}: a quoted file is at most ${QUOTED_MAX_BYTES / (1024 * 1024)} MB`);
+  const length = durationMs(asset.path, bytes);
+  if (length === null) errors.push(`${where}: the length of the quoted file cannot be read`);
+  else if (length > QUOTED_MAX_MS) errors.push(`${where}: a quoted file is at most ${QUOTED_MAX_MS / 1000} s`);
+}
+
+function checkRights(entry, files, errors) {
   const assets = checkList(entry.rights?.assets, 'rights.assets', errors, 100);
   checkObject(entry.rights, ['assets'], 'rights', errors);
   const seen = new Set();
   for (const [index, asset] of assets.entries()) {
     const where = `rights.assets[${index}]`;
     const fields = RIGHTS_FIELDS[asset?.basis];
-    if (!fields) errors.push(`${where}.basis must be original, licensed or permission`);
+    if (!fields) errors.push(`${where}.basis must be original, licensed, permission or quoted`);
     else if (checkObject(asset, fields, where, errors)) {
+      if (asset.basis === 'quoted') checkQuoted(entry, asset, files.get(asset.path), where, errors);
       for (const field of fields.filter((name) => name !== 'path' && name !== 'basis')) {
-        if (field === 'licenceUrl') checkUrl(asset[field], `${where}.${field}`, errors);
+        if (field === 'licenceUrl' || field === 'sourceUrl') checkUrl(asset[field], `${where}.${field}`, errors);
         else if (field === 'grantedOn') checkDate(asset[field], `${where}.${field}`, errors);
         else checkText(asset[field], `${where}.${field}`, errors, { max: 200 });
       }
@@ -275,7 +299,7 @@ export function loadEntry(dir, purposeIds) {
 
   const bodyMedia = checkBody(files.get('body.md')?.toString('utf8') ?? '', errors);
   const stored = new Set([...files.keys()].filter((name) => name.startsWith('media/')));
-  const licensed = checkRights(entry, errors);
+  const licensed = checkRights(entry, files, errors);
   const referenced = new Set([...checkMedia(entry, errors), ...bodyMedia, ...checkCover(entry, errors)]);
   for (const path of stored) if (!licensed.has(path)) errors.push(`${path} is stored without a rights record`);
   for (const path of licensed) if (!stored.has(path)) errors.push(`${path} has a rights record but no file`);

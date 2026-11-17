@@ -9,7 +9,7 @@ const CONTENT_RULES = [
   ['credential assignment', /(?:api[_-]?key|secret|token|passw(?:or)?d)["']?\s*[:=]\s*["']?[A-Za-z0-9/+_.-]{16,}/i],
   ['bearer token', /\bBearer\s+[A-Za-z0-9._~+/-]{20,}/],
   ['session record', /"type"\s*:\s*"session"/],
-  ['email address', /[\w.+-]+@(?!users\.noreply\.github\.com)[\w-]+\.[\w.-]+/],
+  ['email address', /\b(?!support@heyatu\.com\b)[\w.+-]+@(?!users\.noreply\.github\.com)[\w-]+\.[\w.-]+/],
 ];
 const PATH_RULES = [
   ['private export file', /\.(?:jsonl|har|sqlite3?|db|pem|p12|key)$/i],
