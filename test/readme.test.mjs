@@ -108,6 +108,23 @@ describe('generated README block', () => {
     assert.match(renderBlock(loadCollection(sandbox.root)), /A \\\[link\\\]\(x\) \\<b\\>/);
   });
 
+  it('shows the cover (a GIF, else the still) of an item, in All items only, and never the prompt', () => {
+    const rights = { assets: ['media/cover.png', 'media/loop.gif', 'media/clip.mp4'].map((path) => ({ path, basis: 'original' })) };
+    const files = { 'media/cover.png': Buffer.from('a'), 'media/loop.gif': Buffer.from('b'), 'media/clip.mp4': Buffer.from('c') };
+    const prompts = [{ choice: 'main', status: 'proposed', text: 'SYNTHETIC SECRET PROMPT' }];
+    const action = { label: 'Make it in Atu', prompt: 'main' };
+    writeEntry(sandbox.root, syntheticPostEntry(1, { title: 'GIF ITEM', rights, prompts, action, cover: { motion: 'media/loop.gif', still: 'media/cover.png' } }), { files });
+    writeEntry(sandbox.root, syntheticPostEntry(2, { title: 'MP4 ITEM', rights, cover: { motion: 'media/clip.mp4', still: 'media/cover.png' } }), { files });
+    writeEntry(sandbox.root, syntheticPostEntry(3, { title: 'PLAIN ITEM' }));
+    const collection = loadCollection(sandbox.root);
+    assert.deepEqual(collection.errors, []);
+    const block = renderBlock(collection);
+    assert.equal(block.match(/!\[GIF ITEM\]\(entries\/x-100000000000000001\/media\/loop\.gif\)/g).length, 1);
+    assert.equal(block.match(/!\[MP4 ITEM\]\(entries\/x-100000000000000002\/media\/cover\.png\)/g).length, 1);
+    assert.doesNotMatch(block, /PLAIN ITEM\]\(entries/);
+    assert.doesNotMatch(block, /SYNTHETIC SECRET PROMPT|Make it in Atu/);
+  });
+
   it('lists the empty collection honestly', () => {
     const block = renderBlock(loadCollection(sandbox.root));
     assert.match(block, /No items are listed yet\./);

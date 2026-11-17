@@ -40,6 +40,8 @@ Nothing else is allowed in the directory. Symbolic links are rejected. Allowed e
 | `rights` | `{ "assets": [...] }`, one record for each stored file |
 | `media` | `[{ "path", "alt" }]`, files used by the item |
 | `prompts` | Optional, `[{ "choice", "status", "text", "label"?, "testedOn"? }]` |
+| `action` | `{ "label", "prompt" }`. Required when `prompts` is not empty; not allowed without prompts. See below |
+| `cover` | Optional, `{ "motion", "still" }`. See below |
 | `requirements` | List of text, may be empty |
 | `tags` | Optional, `[{ "kind": "tool" or "model", "name", "version"?, "evidence" }]`. Evidence is a public https URL |
 | `revision` | `sha256:<64 hex characters>` |
@@ -67,7 +69,15 @@ One record for each stored file. A stored file without a record fails. A record 
 
 ### Prompts
 
-`choice` is a stable ID such as `paper-garden`. It is unique in the item. `status` is separate: `original` (the source's own text), `proposed` (written by us, not run) or `tested` (run, needs `testedOn`).
+`choice` is a stable ID such as `paper-garden`. It is unique in the item. `status` is separate: `original` (the source's own text), `proposed` (written by us, not run) or `tested` (run, needs `testedOn`). The prompt that `action.prompt` names is the one that Hey Atu puts in a new chat.
+
+### Action
+
+`action` is the main button of the item page: `label` is text of at most 40 characters (for example `Make a sticker in Atu`). `prompt` is the `choice` of one entry of `prompts`. Hey Atu opens a new chat with that prompt as a draft; it never sends it. The item page and the README never show the prompt text.
+
+### Cover
+
+`cover` is the picture that a card or a wall tile shows: `motion` is `media/<name>` as `gif`, `webp` or `mp4`; `still` is `media/<name>` as `png`, `jpg`, `jpeg` or `webp`. A reader who asks for less motion sees the still. The two files are different. Each file needs a rights record, a stored file and the same checks as other media. The README block shows the GIF cover when `motion` is a GIF, and the still in all other cases.
 
 ## Revision
 

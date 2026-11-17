@@ -15,10 +15,16 @@ export function trackedUrl(id, placement) {
 
 const escapeMarkdown = (text) => text.replace(/[\\`*_[\]<>|]/g, '\\$&');
 
-function renderItem(entry, deployments, placement) {
+export const coverPath = (entry) => (entry.cover ? (entry.cover.motion.endsWith('.gif') ? entry.cover.motion : entry.cover.still) : null);
+
+function renderItem(entry, deployments, placement, withCover) {
   const title = escapeMarkdown(entry.title);
-  const label = linkState(entry, deployments) === 'none' ? title : `[${title}](${trackedUrl(entry.id, placement)})`;
-  return `- ${label}: ${escapeMarkdown(entry.summary)}`;
+  const linked = linkState(entry, deployments) !== 'none';
+  const line = `- ${linked ? `[${title}](${trackedUrl(entry.id, placement)})` : title}: ${escapeMarkdown(entry.summary)}`;
+  const cover = withCover ? coverPath(entry) : null;
+  if (!cover) return line;
+  const image = `![${title}](entries/${entry.id}/${cover})`;
+  return `${line}\n\n  ${linked ? `[${image}](${trackedUrl(entry.id, placement)})` : image}\n`;
 }
 
 export function renderBlock({ purposes, entries, deployments }) {
@@ -36,9 +42,9 @@ export function renderBlock({ purposes, entries, deployments }) {
   ];
   if (total === 0) lines.push('No items are listed yet.', '');
   else {
-    lines.push('### All items', '', ...sorted.map((entry) => renderItem(entry, deployments, 'market-grid')), '');
+    lines.push('### All items', '', ...sorted.map((entry) => renderItem(entry, deployments, 'market-grid', true)), '');
     for (const { id, label, count } of counts.filter(({ count }) => count > 0)) {
-      lines.push(`### ${label} (${count})`, '', ...sorted.filter((entry) => entry.purposes.includes(id)).map((entry) => renderItem(entry, deployments, 'market-category')), '');
+      lines.push(`### ${label} (${count})`, '', ...sorted.filter((entry) => entry.purposes.includes(id)).map((entry) => renderItem(entry, deployments, 'market-category', false)), '');
     }
   }
   lines.push(BLOCK_END);

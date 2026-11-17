@@ -19,7 +19,10 @@ const ESCAPED_TEXT = /&[#\w]+;|\\/;
 const CONTROL_CHARACTERS = /[\u0000-\u0008\u000b-\u001f\u007f]/;
 const PRIVATE_HOST = /^(localhost|.*\.(local|localhost|internal|lan))$|^[\d.]+$|:/;
 
-const TOP_LEVEL = ['id', 'title', 'summary', 'purposes', 'source', 'rights', 'media', 'prompts', 'requirements', 'tags', 'revision'];
+const MOTION_PATH = /\.(gif|webp|mp4)$/;
+const STILL_PATH = /\.(png|jpg|jpeg|webp)$/;
+
+const TOP_LEVEL = ['id', 'title', 'summary', 'purposes', 'source', 'rights', 'media', 'prompts', 'action', 'cover', 'requirements', 'tags', 'revision'];
 const REQUIRED = ['id', 'title', 'summary', 'purposes', 'source', 'rights', 'media', 'requirements', 'revision'];
 const SOURCE_FIELDS = {
   'x-post': ['type', 'url', 'author', 'credit', 'publishedAt', 'capturedAt'],
@@ -169,6 +172,31 @@ function checkPrompts(entry, errors) {
   }
 }
 
+function checkAction(entry, errors) {
+  const choices = new Set(Array.isArray(entry.prompts) ? entry.prompts.map((prompt) => prompt?.choice) : []);
+  if (entry.action === undefined) {
+    if (choices.size > 0) errors.push('action is required when the entry has prompts');
+    return;
+  }
+  if (choices.size === 0) errors.push('action needs a prompt: the entry has none');
+  if (!checkObject(entry.action, ['label', 'prompt'], 'action', errors)) return;
+  checkText(entry.action.label, 'action.label', errors, { max: 40 });
+  if (!choices.has(entry.action.prompt)) errors.push('action.prompt must be the choice of one of the prompts');
+}
+
+function checkCover(entry, errors) {
+  const paths = [];
+  if (entry.cover === undefined) return paths;
+  if (!checkObject(entry.cover, ['motion', 'still'], 'cover', errors)) return paths;
+  for (const [field, kind] of [['motion', MOTION_PATH], ['still', STILL_PATH]]) {
+    const path = entry.cover[field];
+    if (!ASSET_PATH.test(path ?? '') || !kind.test(path)) errors.push(`cover.${field} must be media/<name> as ${field === 'motion' ? 'gif, webp or mp4' : 'png, jpg or webp'}`);
+    else paths.push(path);
+  }
+  if (paths.length === 2 && paths[0] === paths[1]) errors.push('cover.motion and cover.still must be different files');
+  return paths;
+}
+
 function checkTags(entry, errors) {
   for (const [index, tag] of checkList(entry.tags ?? [], 'tags', errors, 20).entries()) {
     const where = `tags[${index}]`;
@@ -207,6 +235,7 @@ function checkFields(entry, purposeIds, errors) {
   for (const [index, line] of checkList(entry.requirements, 'requirements', errors, 20).entries()) checkText(line, `requirements[${index}]`, errors, { max: 200 });
   checkSource(entry, errors);
   checkPrompts(entry, errors);
+  checkAction(entry, errors);
   checkTags(entry, errors);
   return true;
 }
@@ -247,7 +276,7 @@ export function loadEntry(dir, purposeIds) {
   const bodyMedia = checkBody(files.get('body.md')?.toString('utf8') ?? '', errors);
   const stored = new Set([...files.keys()].filter((name) => name.startsWith('media/')));
   const licensed = checkRights(entry, errors);
-  const referenced = new Set([...checkMedia(entry, errors), ...bodyMedia]);
+  const referenced = new Set([...checkMedia(entry, errors), ...bodyMedia, ...checkCover(entry, errors)]);
   for (const path of stored) if (!licensed.has(path)) errors.push(`${path} is stored without a rights record`);
   for (const path of licensed) if (!stored.has(path)) errors.push(`${path} has a rights record but no file`);
   for (const path of referenced) {

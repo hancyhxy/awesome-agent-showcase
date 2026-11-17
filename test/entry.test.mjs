@@ -5,6 +5,8 @@ import { afterEach, beforeEach, describe, it } from 'node:test';
 import { loadCollection } from '../scripts/collection.mjs';
 import { syntheticEntry, syntheticPostEntry, syntheticRoot, writeEntry } from './fixture.mjs';
 
+const SYNTHETIC = Buffer.from('SYNTHETIC TEST ASSET');
+
 let sandbox;
 beforeEach(() => { sandbox = syntheticRoot(); });
 afterEach(() => sandbox.cleanup());
@@ -146,11 +148,39 @@ describe('entry validation', () => {
       { choice: 'paper-garden', status: 'original', text: 'Synthetic prompt' },
       { choice: 'synthwave', status: 'tested', text: 'Synthetic prompt', testedOn: '2026-01-05' },
     ];
-    assert.equal(errorsFor(syntheticEntry({ prompts })), '');
+    assert.equal(errorsFor(syntheticEntry({ prompts, action: { label: 'Try it in Atu', prompt: 'synthwave' } })), '');
     const bad = [{ choice: 'a', status: 'tested', text: 't' }, { choice: 'a', status: 'proposed', text: 't' }];
     const errors = errorsFor(syntheticEntry({ prompts: bad }));
     assert.match(errors, /testedOn must be a date/);
     assert.match(errors, /choice a is repeated/);
+  });
+
+  it('requires an action that names a prompt choice, and only for an entry with prompts', () => {
+    const prompts = [{ choice: 'first', status: 'proposed', text: 'Synthetic prompt' }, { choice: 'second', status: 'proposed', text: 'Synthetic prompt two' }];
+    const action = { label: 'Make a synthetic thing in Atu', prompt: 'second' };
+    assert.equal(errorsFor(syntheticEntry({ prompts, action })), '');
+    assert.match(errorsFor(syntheticEntry({ prompts })), /action is required when the entry has prompts/);
+    assert.match(errorsFor(syntheticEntry({ prompts, action: { ...action, prompt: 'other' } })), /action.prompt must be the choice/);
+    assert.match(errorsFor(syntheticEntry({ prompts, action: { ...action, label: 'x'.repeat(41) } })), /action.label must be trimmed text of 1 to 40/);
+    assert.match(errorsFor(syntheticEntry({ prompts, action: { ...action, extra: 1 } })), /action.extra is not allowed/);
+    assert.match(errorsFor(syntheticEntry({ action })), /action needs a prompt/);
+  });
+
+  it('checks a cover: two files of the right kind, each stored, recorded and different', () => {
+    const files = { 'media/cover.png': SYNTHETIC, 'media/loop.gif': SYNTHETIC, 'media/clip.mp4': SYNTHETIC };
+    const rights = { assets: ['media/cover.png', 'media/loop.gif', 'media/clip.mp4'].map((path) => ({ path, basis: 'original' })) };
+    const cover = (value) => syntheticEntry({ rights, cover: value });
+    assert.equal(errorsFor(cover({ motion: 'media/loop.gif', still: 'media/cover.png' }), { files }), '');
+    assert.equal(errorsFor(cover({ motion: 'media/clip.mp4', still: 'media/cover.png' }), { files }), '');
+    assert.match(errorsFor(cover({ motion: 'media/cover.png', still: 'media/cover.png' }), { files }), /cover.motion must be media\/<name> as gif, webp or mp4/);
+    assert.match(errorsFor(cover({ motion: 'media/loop.gif', still: 'media/clip.mp4' }), { files }), /cover.still must be media\/<name> as png, jpg or webp/);
+    assert.match(errorsFor(cover({ motion: 'media/loop.gif' }), { files }), /cover.still must be/);
+    assert.match(errorsFor(cover({ motion: 'media/loop.gif', still: 'media/cover.png', extra: 1 }), { files }), /cover.extra is not allowed/);
+    assert.match(errorsFor(cover({ motion: 'media/loop.gif', still: 'media/cover.png' }), { files: { 'media/cover.png': SYNTHETIC } }), /media\/loop.gif is referenced but missing/);
+    const unrecorded = syntheticEntry({ rights: { assets: [{ path: 'media/cover.png', basis: 'original' }] }, cover: { motion: 'media/loop.gif', still: 'media/cover.png' } });
+    assert.match(errorsFor(unrecorded, { files }), /media\/loop.gif is referenced without a rights record|media\/loop.gif is stored without a rights record/);
+    const same = { assets: [{ path: 'media/a.webp', basis: 'original' }] };
+    assert.match(errorsFor(syntheticEntry({ rights: same, media: [], cover: { motion: 'media/a.webp', still: 'media/a.webp' } }), { files: { 'media/a.webp': SYNTHETIC } }), /must be different files/);
   });
 
   it('requires public evidence for a tool tag and rejects unknown fields', () => {
