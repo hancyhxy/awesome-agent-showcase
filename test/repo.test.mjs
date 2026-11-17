@@ -18,6 +18,15 @@ describe('this repository', () => {
     assert.equal(existsSync(join(REPO, 'deployments.json')), false);
   });
 
+  it('has prompts that say where to build: a new folder inside the current project folder', () => {
+    const { entries } = loadCollection(REPO);
+    const prompts = entries.flatMap((entry) => (entry.prompts ?? []).map((prompt) => ({ id: entry.id, text: prompt.text })));
+    assert.ok(prompts.length >= 3);
+    for (const { id, text } of prompts) {
+      if (/\bnew folder\b/i.test(text)) assert.match(text, /\bnew folder inside the current project folder\b/, `${id}: a prompt that names a folder says where it is`);
+    }
+  });
+
   it('lists the seven purposes in order', () => {
     const { purposes } = loadCollection(REPO);
     assert.deepEqual(purposes.map(({ id }) => id), ['slides', 'images', 'animation-video', 'coding', 'research', 'personal-workflows', 'agent-setup']);

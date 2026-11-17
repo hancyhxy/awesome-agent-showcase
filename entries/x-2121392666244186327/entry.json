@@ -41,7 +41,7 @@
     {
       "choice": "synthwave-theme",
       "status": "proposed",
-      "text": "Make me a Claude Code Desktop theme with a synthwave sunset and neon pink accents, as a mod that follows https://code.claude.com/docs/en/plugins/mods/overview. Write it in a new folder, and ask me before you install or load anything.",
+      "text": "Make me a Claude Code Desktop theme with a synthwave sunset and neon pink accents, as a mod that follows https://code.claude.com/docs/en/plugins/mods/overview. Write it in a new folder inside the current project folder, and ask me before you install or load anything.",
       "label": "Synthwave sunset and neon pink"
     }
   ],
@@ -70,5 +70,5 @@
       "evidence": "https://code.claude.com/docs/en/plugins/mods/overview"
     }
   ],
-  "revision": "sha256:04d27050ed331cf84950a1b32bfa79f966443524477eae05c2bbb86b4e20cc50"
+  "revision": "sha256:a0a94ddd5c0c4e98edf1cda74822170cde7fd038f773b2bf27e693f754579322"
 }

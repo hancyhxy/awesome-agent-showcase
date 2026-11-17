@@ -37,7 +37,7 @@
     {
       "choice": "storybook-game",
       "status": "tested",
-      "text": "Make me a small playable storybook game that runs in the browser: a kid and a dog on a long way home through a few hand-painted scenes, calm and gentle, with no timers and no losing. Draw the pictures and make the sounds in code, build it in a new folder, open it in my browser when it is ready, and ask me before you install anything.",
+      "text": "Make me a small playable storybook game that runs in the browser: a kid and a dog on a long way home through a few hand-painted scenes, calm and gentle, with no timers and no losing. Draw the pictures and make the sounds in code, build it in a new folder inside the current project folder, open it in my browser when it is ready, and ask me before you install anything.",
       "label": "A kid and a dog on a long way home",
       "testedOn": "2026-11-17"
     }
@@ -58,5 +58,5 @@
       "evidence": "https://x.com/Rubzem/status/2122013352755126431"
     }
   ],
-  "revision": "sha256:2b6b7564506b7707db049de6dba752b8a3483731057f5743a7f5fb85889d6c8d"
+  "revision": "sha256:0293387cd1bc7bb7c4f98e9fb932ac46c9b82ca3470d2caccd5d996c7228b0e2"
 }

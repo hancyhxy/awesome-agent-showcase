@@ -80,7 +80,7 @@ A `quoted` record is a short excerpt of the media of the item's own source post,
 
 ### Prompts
 
-`choice` is a stable ID such as `paper-garden`. It is unique in the item. `status` is separate: `original` (the source's own text), `proposed` (written by us, not run) or `tested` (run, needs `testedOn`). The prompt that `action.prompt` names is the one that Hey Atu puts in a new chat.
+`choice` is a stable ID such as `paper-garden`. It is unique in the item. `status` is separate: `original` (the source's own text), `proposed` (written by us, not run) or `tested` (run, needs `testedOn`). The prompt that `action.prompt` names is the one that Hey Atu puts in a new chat. A prompt that makes files says where: it names a new folder inside the current project folder, for example "Build it in a new folder inside the current project folder". Without that, Atu may pick a folder such as `~/Documents` (owner decision 2026-11-17).
 
 ### Action
 
@@ -88,7 +88,7 @@ A `quoted` record is a short excerpt of the media of the item's own source post,
 
 ### Made
 
-`made` lists pictures or short animations that we made ourselves to show the result of the item. Market shows each one as a gallery panel **Made in Atu**, after the video. `path` is `media/<name>` as `png`, `jpg`, `jpeg`, `webp`, `gif` or `mp4`, at most 2 MB. Its rights record has the basis `original`: a made file is never a quoted or a licensed file. `alt` is at most 300 characters. `caption` is at most 160 characters and says plainly what the file is, for example "Our pixel take on the theme; not a screenshot of Claude Code". A made file never imitates a screenshot of a product and never carries the logo of another party. Each file needs a stored file and the same checks as other media.
+`made` lists pictures or short animations that we made ourselves to show the result of the item. Market has no gallery panel for it; the first picture is the result image of the In Atu demo and the soft picture behind the action card. `path` is `media/<name>` as `png`, `jpg`, `jpeg`, `webp`, `gif` or `mp4`, at most 2 MB. Its rights record has the basis `original`: a made file is never a quoted or a licensed file. `alt` is at most 300 characters. `caption` is at most 160 characters and says plainly what the file is, for example "Our pixel take on the theme; not a screenshot of Claude Code". A made file never imitates a screenshot of a product and never carries the logo of another party. Each file needs a stored file and the same checks as other media.
 
 ### Cover
 

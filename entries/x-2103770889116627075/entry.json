@@ -37,7 +37,7 @@
     {
       "choice": "cursor-character",
       "status": "tested",
-      "text": "Make a web page with a cute character whose eyes and head follow my mouse cursor. Build it in a new folder with plain HTML, CSS and JavaScript, open it in my browser when it is done, and ask me before you install anything.",
+      "text": "Make a web page with a cute character whose eyes and head follow my mouse cursor. Build it in a new folder inside the current project folder with plain HTML, CSS and JavaScript, open it in my browser when it is done, and ask me before you install anything.",
       "label": "A cute character that follows the cursor",
       "testedOn": "2026-11-17"
     }
@@ -58,5 +58,5 @@
       "evidence": "https://x.com/himanshubuildss/status/2103770889116627075"
     }
   ],
-  "revision": "sha256:f284853d75ebd9d707f74e6a87edd61b9468fc5cba27df8a6a0b0d83e24b0134"
+  "revision": "sha256:b57fd8fe839e9fcaae66dfc5fcbaf2b87bc851ddf3756582154d7e6b3e630446"
 }
