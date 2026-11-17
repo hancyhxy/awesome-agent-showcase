@@ -50,6 +50,32 @@ describe('entry validation', () => {
     assert.equal(errorsFor(docs), '');
   });
 
+  it('accepts the video file of a post only from video.twimg.com', () => {
+    const post = syntheticEntry();
+    const withVideo = video => ({ ...post, source: { ...post.source, video } });
+    const good = 'https://video.twimg.com/amplify_video/1/vid/avc1/1280x720/abc-DEF_1.mp4';
+    assert.equal(errorsFor(withVideo(good)), '');
+    assert.equal(errorsFor(withVideo(`${good}?tag=29`)), '');
+    for (const bad of [
+      'http://video.twimg.com/a/b.mp4',
+      'https://pbs.twimg.com/a/b.mp4',
+      'https://video.twimg.com.example.com/a/b.mp4',
+      'https://example.com/a/b.mp4',
+      'https://video.twimg.com/a/b.m3u8',
+      'https://video.twimg.com/a/b.mp4?x=1',
+      'https://video.twimg.com/a/b.mp4#t=1',
+      `https://user${'@'}video.twimg.com/a/b.mp4`,
+      'https://video.twimg.com:8443/a/b.mp4',
+      'https://video.twimg.com/a/../b.mp4 ',
+      '',
+    ]) assert.match(errorsFor(withVideo(bad)), /source\.video must be an https:\/\/video\.twimg\.com\//, bad);
+    const docs = syntheticEntry({
+      id: 'tool-synthetic',
+      source: { type: 'package-docs', url: 'https://example.com/docs/tool', package: 'synthetic-tool', credit: 'Synthetic tool docs', capturedAt: '2026-01-03', video: good },
+    });
+    assert.match(errorsFor(docs), /source\.video is not allowed/);
+  });
+
   it('rejects duplicate IDs and duplicate source keys', () => {
     const first = syntheticEntry();
     writeEntry(sandbox.root, first);

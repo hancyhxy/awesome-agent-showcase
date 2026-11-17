@@ -29,6 +29,10 @@ const SOURCE_FIELDS = {
   'x-post': ['type', 'url', 'author', 'credit', 'publishedAt', 'capturedAt'],
   'package-docs': ['type', 'url', 'package', 'credit', 'capturedAt'],
 };
+const OPTIONAL_SOURCE_FIELDS = { 'x-post': ['video'] };
+const X_VIDEO_HOST = 'video.twimg.com';
+const X_VIDEO_PATH = /^\/[A-Za-z0-9_\-/.]{1,200}\.mp4$/;
+const X_VIDEO_QUERY = /^(?:\?tag=\d{1,4})?$/;
 const RIGHTS_FIELDS = {
   original: ['path', 'basis'],
   licensed: ['path', 'basis', 'holder', 'licence', 'licenceUrl'],
@@ -56,6 +60,12 @@ export function xPostId(source) {
   const url = parseHttpsUrl(source?.url);
   const onX = url && ['x.com', 'twitter.com'].includes(url.hostname) && !url.search && !url.hash;
   return onX ? X_POST_PATH.exec(url.pathname)?.[1] ?? null : null;
+}
+
+export function xVideoUrl(value) {
+  const url = parseHttpsUrl(value);
+  const ok = url && url.hostname === X_VIDEO_HOST && !url.hash && X_VIDEO_PATH.test(url.pathname) && X_VIDEO_QUERY.test(url.search);
+  return ok ? url.href : null;
 }
 
 export function sourceKey(source) {
@@ -111,7 +121,10 @@ function checkSource(entry, errors) {
     errors.push('source.type must be x-post or package-docs');
     return;
   }
-  if (!checkObject(source, fields, 'source', errors)) return;
+  if (!checkObject(source, [...fields, ...(OPTIONAL_SOURCE_FIELDS[source.type] ?? [])], 'source', errors)) return;
+  if (source.video !== undefined && xVideoUrl(source.video) !== source.video) {
+    errors.push(`source.video must be an https://${X_VIDEO_HOST}/....mp4 URL, with at most a ?tag=<number> query`);
+  }
   for (const field of fields.filter((name) => name !== 'type')) {
     if (field.endsWith('At')) checkDate(source[field], `source.${field}`, errors);
     else if (field === 'url') checkUrl(source.url, 'source.url', errors);

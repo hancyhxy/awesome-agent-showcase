@@ -52,7 +52,7 @@ No other field is allowed. An approval or sign-off field does not exist. A field
 
 Provenance tells a public post from package documentation.
 
-- `x-post`: `type`, `url` (`https://x.com/<handle>/status/<id>`), `author`, `credit`, `publishedAt`, `capturedAt`.
+- `x-post`: `type`, `url` (`https://x.com/<handle>/status/<id>`), `author`, `credit`, `publishedAt`, `capturedAt`. Optional `video`: the MP4 file of the post video, `https://video.twimg.com/<path>.mp4` with at most a `?tag=<number>` query. The page plays it from X when the reader presses play, so choose a variant of at most 720p. No other host is allowed.
 - `package-docs`: `type`, `url`, `package`, `credit`, `capturedAt`.
 
 Dates are `YYYY-MM-DD`. The credit is shown publicly. Two items cannot share a source: an `x-post` source key is `x:<post id>`, a `package-docs` key is `docs:<host><path>`.
