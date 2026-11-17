@@ -1,0 +1,67 @@
+{
+  "id": "x-2119458988165370270",
+  "title": "Pixel Play Wind Garden",
+  "summary": "Bend the wind and send pixel leaves tumbling.",
+  "purposes": [
+    "animation-video",
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/SolutionB2u/status/2119458988165370270",
+    "author": "SolutionB2u",
+    "credit": "via @SolutionB2u",
+    "publishedAt": "2026-11-08",
+    "capturedAt": "2026-11-18",
+    "video": "https://video.twimg.com/amplify_video/2119458435427160064/vid/avc1/1280x720/JzFaLJY6kZJt0e_J.mp4"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/wind-cover.webp",
+        "basis": "quoted",
+        "holder": "SolutionB2u",
+        "sourceUrl": "https://x.com/SolutionB2u/status/2119458988165370270",
+        "excerpt": "0:30–0:36 of the post video"
+      },
+      {
+        "path": "media/wind-cover-still.webp",
+        "basis": "quoted",
+        "holder": "SolutionB2u",
+        "sourceUrl": "https://x.com/SolutionB2u/status/2119458988165370270",
+        "excerpt": "Frame at 0:33 of the post video"
+      },
+      {
+        "path": "media/wind-garden-made-with-atu.mp4",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "wind-garden",
+      "status": "tested",
+      "text": "Build a browser-based pixel-art wind playground: on a flat near-black 16:9 stage, draw a pale-pink cherry tree at the left sixth, a low lime-to-forest-green shrub at the centre, and a wide copper-and-gold maple at the right sixth, rooted at the same invisible ground line about two thirds down, with detailed dark forked branches, thousands of crisp tiny pixels in uneven, sunlit clusters and narrow drifts of fallen leaves below. Keep the rest empty apart from a tiny centred title and a low rounded charcoal toolbar with a windsock, Breezy and Storm weather, Left and Right wind, speed and gust sliders and Grow back; make the branches flex and the canopies visibly shed clouds of matching leaves that blow sideways, tumble and collect on the ground as I change the controls or tap or drag a plant. Build it in a new folder inside the current project folder, open it in the browser when done, and check it works. Ask before installing or loading anything.",
+      "testedOn": "2026-11-18"
+    }
+  ],
+  "action": {
+    "label": "Build a pixel garden in Atu",
+    "prompt": "wind-garden"
+  },
+  "cover": {
+    "motion": "media/wind-cover.webp",
+    "still": "media/wind-cover-still.webp"
+  },
+  "made": [
+    {
+      "path": "media/wind-garden-made-with-atu.mp4",
+      "kind": "atu",
+      "alt": "On a nearly black stage, a pink cherry, green shrub and gold maple sway as the wind reverses. Leaves fly sideways and settle before the plants grow back.",
+      "caption": "Made with Hey Atu: switch the wind to scatter leaves, then grow them back."
+    }
+  ],
+  "requirements": [],
+  "revision": "sha256:5fdc47d7ca6580d0c3b90e9fe30e121f7f655d51c6affaa602acdae0006b1840"
+}
