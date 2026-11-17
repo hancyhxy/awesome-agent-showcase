@@ -1,7 +1,7 @@
 {
   "id": "x-2089289550958903358",
   "title": "A receipt you tear off",
-  "summary": "Drag the receipt away slowly for a clean tear, or fast for a jagged edge.",
+  "summary": "Pull the paper and watch the tear travel across: slow and clean, or quick and rough.",
   "purposes": [
     "coding"
   ],
@@ -41,7 +41,7 @@
     {
       "choice": "tear-off-receipt",
       "status": "tested",
-      "text": "Make a web page on a plain light grey stage, with a thin black pill-shaped slot just wider than a white thermal receipt. Give the receipt black monospace text, neat columns for item prices and totals, a small barcode near the bottom and a fine zigzag bottom edge. No Nike or Apple marks, phone interface or floating instructions. Start with the already-printed receipt hidden behind the slot and slide the whole sheet down through it, bottom end first: the first visible line and the barcode move down with the paper, ending farthest from the slot. Never feed a blank sheet or add text line by line. Stop with the entire receipt hanging from the slot. A slow drag down with a mouse or finger tears the top straight along the slot; a fast pull tears it jagged. Let the detached paper swing away so I can see the torn edge. Keep a Reprint button centred below the fully fed paper, with a clear gap so it never covers the zigzag edge even on a phone, and make it feed the next receipt the same way. Build it with plain HTML, CSS and JavaScript in a new folder inside the current project folder, open it in my browser when it is done, check in a browser that the feed and both tears work, and ask me before installing or loading anything.",
+      "text": "Make a web page on a plain light-grey stage with a thin black pill-shaped printer slot and a white thermal receipt. Give the paper black monospace text, neat price columns, a small shop logo at the top (use a logo file if I give one), a small barcode and a fine zigzag bottom edge. Start with the already-printed receipt hidden behind the slot and slide the whole sheet down, bottom end first: the first visible print moves down with the paper and ends farthest from the slot. Never feed a blank sheet or add text line by line. Keep the whole receipt and a separate Reprint button visible, with no overlap even on a phone.\n\nLet me grip either side of the paper with a mouse or finger. Make the tear feel like paper: it resists a little, then first splits at the corner closest to my grip and travels across the slot as I pull. Show that moving tear line before the paper comes free, even with a quick flick; if I pause partway, leave the remaining side attached. Keep a narrow paper stub in the slot. The stub and the torn piece must have opposite sides of the same cut, not two unrelated edges. A slow pull follows the cutter teeth, nearly straight with fine serrations. A quick pull takes an uneven path with tiny white paper fibres visible at the torn edge. As the last bit lets go, show a small visual snap, then let the torn paper curl, twist and fall with a soft shadow. No sound. Reprint clears the stub and feeds the next already-printed receipt the same way.\n\nBuild it with plain HTML, CSS and JavaScript in a new folder inside the current project folder, open it in my browser when it is done, check in a browser that the feed and both tears work, and ask me before installing or loading anything.",
       "label": "A receipt that tears clean or jagged",
       "testedOn": "2026-11-18"
     }
@@ -55,12 +55,12 @@
     "still": "media/receipt-still.webp"
   },
   "requirements": [],
-  "revision": "sha256:b3416afef3a27f8db2825627e9b76690a3f7c2f864b1819ee181d3f0edb4c30e",
+  "revision": "sha256:e60ea2cbb8c140643c79da7bf8012497a447a252c3ee3e0b131d5f79180ddd1c",
   "made": [
     {
       "path": "media/receipt-made-with-atu.mp4",
       "kind": "atu",
-      "alt": "Printed paper feeds from a dark slot. A slow pull tears it straight; after Reprint, a fast pull leaves a jagged edge.",
+      "alt": "Printed paper with a small shop logo feeds out. A slow pull tears from the left with fine serrations; after Reprint, a fast pull tears from the right with rough fibres.",
       "caption": "Made with Hey Atu"
     }
   ]

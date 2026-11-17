@@ -28,7 +28,7 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 
 ### All items
 
-- A receipt you tear off: Drag the receipt away slowly for a clean tear, or fast for a jagged edge.
+- A receipt you tear off: Pull the paper and watch the tear travel across: slow and clean, or quick and rough.
 
   ![A receipt you tear off](entries/x-2089289550958903358/media/receipt-still.webp)
 
@@ -72,7 +72,7 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 
 ### Coding (3)
 
-- A receipt you tear off: Drag the receipt away slowly for a clean tear, or fast for a jagged edge.
+- A receipt you tear off: Pull the paper and watch the tear travel across: slow and clean, or quick and rough.
 - A character that follows your cursor: Move the mouse and a cute character on a web page turns its eyes and head to follow it.
 - A calm storybook game with a hand-painted feel: A kid, a dog and a long way home: a gentle game that you play in your browser.
 
