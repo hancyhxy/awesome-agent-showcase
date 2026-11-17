@@ -1,0 +1,55 @@
+{
+  "id": "x-2089289550958903358",
+  "title": "A receipt you tear off",
+  "summary": "Drag the receipt away slowly for a clean tear, or fast for a jagged edge.",
+  "purposes": [
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/marmobs/status/2089289550958903358",
+    "author": "marmobs",
+    "credit": "Mobin (@marmobs), public post",
+    "publishedAt": "2026-08-17",
+    "capturedAt": "2026-11-18",
+    "video": "https://video.twimg.com/amplify_video/2089289515865149440/vid/avc1/720x1228/toNSKOkCxqg9cJe6.mp4?tag=29"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/receipt-tear.webp",
+        "basis": "quoted",
+        "holder": "marmobs",
+        "sourceUrl": "https://x.com/marmobs/status/2089289550958903358",
+        "excerpt": "0:01.8-0:07.8 of the first post video, with a blurred fill at the sides"
+      },
+      {
+        "path": "media/receipt-still.webp",
+        "basis": "quoted",
+        "holder": "marmobs",
+        "sourceUrl": "https://x.com/marmobs/status/2089289550958903358",
+        "excerpt": "A frame at 0:05.4 of the first post video, with a blurred fill at the sides"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "tear-off-receipt",
+      "status": "tested",
+      "text": "Make a web page with a paper receipt that I can tear off with the mouse or a finger. If I drag it away slowly, it tears along a clean, even line. If I drag it away fast, the edge comes out jagged and uneven. Build it in a new folder inside the current project folder with plain HTML, CSS and JavaScript, open it in my browser when it is done, and ask me before you install anything.",
+      "label": "A receipt that tears clean or jagged",
+      "testedOn": "2026-11-18"
+    }
+  ],
+  "action": {
+    "label": "Make a receipt you can tear",
+    "prompt": "tear-off-receipt"
+  },
+  "cover": {
+    "motion": "media/receipt-tear.webp",
+    "still": "media/receipt-still.webp"
+  },
+  "requirements": [],
+  "revision": "sha256:39806d3e1aaa1db29c7476da18c0f00427e8f60dbc6cd94d37ee4711bf19bd3f"
+}

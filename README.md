@@ -20,13 +20,19 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 | Slides | 0 |
 | Images | 0 |
 | Animation and video | 0 |
-| Coding | 2 |
+| Coding | 3 |
 | Research | 0 |
 | Personal workflows | 0 |
 | Agent setup | 1 |
-| **All items (each counted once)** | **3** |
+| **All items (each counted once)** | **4** |
 
 ### All items
+
+- A receipt you tear off: Drag the receipt away slowly for a clean tear, or fast for a jagged edge.
+
+  ![A receipt you tear off](entries/x-2089289550958903358/media/receipt-still.webp)
+
+  via [@marmobs](https://x.com/marmobs/status/2089289550958903358)
 
 - A character that follows your cursor: Move the mouse and a cute character on a web page turns its eyes and head to follow it.
 
@@ -47,8 +53,9 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
   via [@Rubzem](https://x.com/Rubzem/status/2122013352755126431)
 
 
-### Coding (2)
+### Coding (3)
 
+- A receipt you tear off: Drag the receipt away slowly for a clean tear, or fast for a jagged edge.
 - A character that follows your cursor: Move the mouse and a cute character on a web page turns its eyes and head to follow it.
 - A calm storybook game with a hand-painted feel: A kid, a dog and a long way home: a gentle game that you play in your browser.
 
