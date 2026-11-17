@@ -19,12 +19,12 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 | --- | ---: |
 | Slides | 0 |
 | Images | 0 |
-| Animation and video | 1 |
+| Animation and video | 2 |
 | Coding | 3 |
 | Research | 0 |
 | Personal workflows | 0 |
 | Agent setup | 1 |
-| **All items (each counted once)** | **5** |
+| **All items (each counted once)** | **6** |
 
 ### All items
 
@@ -46,6 +46,12 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 
   via [@himanshubuildss](https://x.com/himanshubuildss/status/2103770889116627075)
 
+- Name your camera moves: Swap “make it look nice” for a named camera move, and give AI a shot to aim for.
+
+  ![Name your camera moves](entries/x-2109112248832503895/media/whip-pan-still.webp)
+
+  via [@showheyohtaki](https://x.com/showheyohtaki/status/2109112248832503895)
+
 - Custom themes for Claude Code Desktop: Describe the look. Claude Code Desktop builds the theme, backdrop and all.
 
   ![Custom themes for Claude Code Desktop](entries/x-2121392666244186327/media/synthwave-still.webp)
@@ -59,9 +65,10 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
   via [@Rubzem](https://x.com/Rubzem/status/2122013352755126431)
 
 
-### Animation and video (1)
+### Animation and video (2)
 
 - A badge unlock animation: A trophy badge pops in, bursts with light rays and confetti, and settles with a glow, all on a web page.
+- Name your camera moves: Swap “make it look nice” for a named camera move, and give AI a shot to aim for.
 
 ### Coding (3)
 

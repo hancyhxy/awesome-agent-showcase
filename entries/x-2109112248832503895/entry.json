@@ -1,0 +1,67 @@
+{
+  "id": "x-2109112248832503895",
+  "title": "Name your camera moves",
+  "summary": "Swap “make it look nice” for a named camera move, and give AI a shot to aim for.",
+  "purposes": [
+    "animation-video"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/showheyohtaki/status/2109112248832503895",
+    "author": "showheyohtaki",
+    "credit": "Shohei (@showheyohtaki), translated from Japanese",
+    "publishedAt": "2026-10-11",
+    "capturedAt": "2026-10-12",
+    "video": "https://video.twimg.com/amplify_video/2108955068347428864/vid/avc1/480x540/KFboLj0QWHC0zyTw.mp4"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/whip-pan.webp",
+        "basis": "quoted",
+        "holder": "showheyohtaki",
+        "sourceUrl": "https://x.com/showheyohtaki/status/2109112248832503895",
+        "excerpt": "0:00.95–0:07.95 of the third post video, cropped to the whip-pan panel"
+      },
+      {
+        "path": "media/whip-pan-still.webp",
+        "basis": "quoted",
+        "holder": "showheyohtaki",
+        "sourceUrl": "https://x.com/showheyohtaki/status/2109112248832503895",
+        "excerpt": "Frame at 0:02.34 of the third post video, cropped to the whip-pan panel"
+      },
+      {
+        "path": "media/name-the-move.mp4",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "camera-promo",
+      "status": "tested",
+      "text": "Build a 10-second product promo animation as a web page using HTML, CSS and JavaScript, for the product I name or a sample product if I don’t name one, with a dolly in, a rack focus and a whip pan. Build it in a new folder inside the current project folder, open it in the browser when done, check that it plays, and ask before installing or loading anything.",
+      "label": "Make a 10-second product promo",
+      "testedOn": "2026-11-18"
+    }
+  ],
+  "action": {
+    "label": "Make a promo with camera moves in Atu",
+    "prompt": "camera-promo"
+  },
+  "cover": {
+    "motion": "media/whip-pan.webp",
+    "still": "media/whip-pan-still.webp"
+  },
+  "made": [
+    {
+      "kind": "explainer",
+      "path": "media/name-the-move.mp4",
+      "alt": "A plain perfume shot gives way to three diagrams: dolly in moves the camera closer, rack focus shifts what is sharp, and whip pan swings to a new shot. The same bottle scene then demonstrates all three.",
+      "caption": "Explainer"
+    }
+  ],
+  "requirements": [],
+  "revision": "sha256:441a062c1c169925bec8e2266260af6cdee070f1aaa2033a8c3543ec9d141238"
+}
