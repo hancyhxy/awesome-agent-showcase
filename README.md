@@ -28,7 +28,7 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 
 ### All items
 
-- Custom themes for Claude Code Desktop: Describe a look and Claude Code Desktop builds it: your colours and an animated backdrop, like a synthwave sunset behind the chat. It is a mod, and it works in local sessions.
+- Custom themes for Claude Code Desktop: Describe the look. Claude Code Desktop builds the theme, backdrop and all.
 
   ![Custom themes for Claude Code Desktop](entries/x-2121392666244186327/media/synthwave-still.webp)
 
@@ -37,7 +37,7 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 
 ### Agent setup (1)
 
-- Custom themes for Claude Code Desktop: Describe a look and Claude Code Desktop builds it: your colours and an animated backdrop, like a synthwave sunset behind the chat. It is a mod, and it works in local sessions.
+- Custom themes for Claude Code Desktop: Describe the look. Claude Code Desktop builds the theme, backdrop and all.
 
 <!-- collection:end -->
 
