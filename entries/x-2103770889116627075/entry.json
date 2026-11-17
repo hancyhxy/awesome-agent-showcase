@@ -1,0 +1,62 @@
+{
+  "id": "x-2103770889116627075",
+  "title": "A character that follows your cursor",
+  "summary": "Move the mouse and a cute character on a web page turns its eyes and head to follow it.",
+  "purposes": [
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/himanshubuildss/status/2103770889116627075",
+    "author": "himanshubuildss",
+    "credit": "Himanshu Hingorani (@himanshubuildss), public post",
+    "publishedAt": "2026-09-26",
+    "capturedAt": "2026-11-17",
+    "video": "https://video.twimg.com/amplify_video/2103770744014716928/vid/avc1/1220x720/EZ-yekl9W8y-IMUr.mp4?tag=29"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/dog-turns.webp",
+        "basis": "quoted",
+        "holder": "himanshubuildss",
+        "sourceUrl": "https://x.com/himanshubuildss/status/2103770889116627075",
+        "excerpt": "0:01-0:04 of the post video"
+      },
+      {
+        "path": "media/dog-still.webp",
+        "basis": "quoted",
+        "holder": "himanshubuildss",
+        "sourceUrl": "https://x.com/himanshubuildss/status/2103770889116627075",
+        "excerpt": "A frame at 0:02 of the post video"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "cursor-character",
+      "status": "tested",
+      "text": "Make a web page with a cute character whose eyes and head follow my mouse cursor. Build it in a new folder with plain HTML, CSS and JavaScript, open it in my browser when it is done, and ask me before you install anything.",
+      "label": "A cute character that follows the cursor",
+      "testedOn": "2026-11-17"
+    }
+  ],
+  "action": {
+    "label": "Make a cursor-following character",
+    "prompt": "cursor-character"
+  },
+  "cover": {
+    "motion": "media/dog-turns.webp",
+    "still": "media/dog-still.webp"
+  },
+  "requirements": [],
+  "tags": [
+    {
+      "kind": "tool",
+      "name": "Claude Code",
+      "evidence": "https://x.com/himanshubuildss/status/2103770889116627075"
+    }
+  ],
+  "revision": "sha256:f284853d75ebd9d707f74e6a87edd61b9468fc5cba27df8a6a0b0d83e24b0134"
+}

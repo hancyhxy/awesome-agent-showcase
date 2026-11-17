@@ -20,13 +20,19 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 | Slides | 0 |
 | Images | 0 |
 | Animation and video | 0 |
-| Coding | 0 |
+| Coding | 1 |
 | Research | 0 |
 | Personal workflows | 0 |
 | Agent setup | 1 |
-| **All items (each counted once)** | **1** |
+| **All items (each counted once)** | **2** |
 
 ### All items
+
+- A character that follows your cursor: Move the mouse and a cute character on a web page turns its eyes and head to follow it.
+
+  ![A character that follows your cursor](entries/x-2103770889116627075/media/dog-still.webp)
+
+  via [@himanshubuildss](https://x.com/himanshubuildss/status/2103770889116627075)
 
 - Custom themes for Claude Code Desktop: Describe the look. Claude Code Desktop builds the theme, backdrop and all.
 
@@ -34,6 +40,10 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 
   via [@ClaudeDevs](https://x.com/ClaudeDevs/status/2121392666244186327)
 
+
+### Coding (1)
+
+- A character that follows your cursor: Move the mouse and a cute character on a web page turns its eyes and head to follow it.
 
 ### Agent setup (1)
 
