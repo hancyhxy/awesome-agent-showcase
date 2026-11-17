@@ -221,9 +221,13 @@ describe('entry validation', () => {
     };
     const rights = (basis) => ({ assets: [{ path: 'media/cover.png', basis: 'original' }, { path: 'media/made.webp', ...records[basis] }, { path: 'media/other.gif', basis: 'original' }] });
     const made = (value, basis = 'original') => syntheticEntry({ rights: rights(basis), made: value });
-    const one = { path: 'media/made.webp', alt: 'A synthetic made picture', caption: 'Our synthetic picture.' };
-    assert.equal(errorsFor(made([one]), { files }), '');
-    assert.equal(errorsFor(made([one, { ...one, path: 'media/other.gif' }]), { files }), '');
+    const one = { path: 'media/made.webp', kind: 'mockup', alt: 'A synthetic made picture', caption: 'Our synthetic picture.' };
+    for (const kind of ['atu', 'mockup', 'explainer']) assert.equal(errorsFor(made([{ ...one, kind }]), { files }), '', kind);
+    assert.equal(errorsFor(made([one, { ...one, path: 'media/other.gif', kind: 'explainer' }]), { files }), '');
+    for (const kind of [undefined, 'other', null, ['atu']]) {
+      assert.match(errorsFor(made([{ ...one, kind }]), { files }), /made\[0\]\.kind must be atu, mockup or explainer/);
+    }
+    assert.match(errorsFor(made([one, { ...one, path: 'media/other.gif', kind: undefined }]), { files }), /made\[1\]\.kind/);
     for (const basis of ['licensed', 'permission']) assert.match(errorsFor(made([one], basis), { files }), /made\[0\]\.path media\/made\.webp must have rights basis original/, basis);
     assert.match(errorsFor(made([{ ...one, caption: undefined }]), { files }), /made\[0\]\.caption must be trimmed text of 1 to 160/);
     assert.match(errorsFor(made([{ ...one, caption: 'x'.repeat(161) }]), { files }), /caption must be trimmed text of 1 to 160/);

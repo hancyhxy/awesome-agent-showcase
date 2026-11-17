@@ -54,13 +54,6 @@
     "motion": "media/badge-unlock.webp",
     "still": "media/badge-still.webp"
   },
-  "made": [
-    {
-      "path": "media/atu-badge.webp",
-      "alt": "A gold trophy on a blue round badge, with a golden glow, light rays and confetti around it, and a Replay button below.",
-      "caption": "Screenshot of our tested badge page; not a frame of the post video"
-    }
-  ],
   "requirements": [],
-  "revision": "sha256:1eb3b91715fea095712091c5756e96f96f6c7ba72516388a3b385596c60652d4"
+  "revision": "sha256:231a29808a232aad4ad8f624442547e5bf2e0ed4b848e0f03254f1ea623d944e"
 }

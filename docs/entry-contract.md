@@ -42,7 +42,7 @@ Nothing else is allowed in the directory. Symbolic links are rejected. Allowed e
 | `prompts` | Optional, `[{ "choice", "status", "text", "label"?, "testedOn"? }]` |
 | `action` | `{ "label", "prompt" }`. Required when `prompts` is not empty; not allowed without prompts. See below |
 | `cover` | Optional, `{ "motion", "still" }`. See below |
-| `made` | Optional, up to 3 of `[{ "path", "alt", "caption" }]`: what we made ourselves for the item. See below |
+| `made` | Optional, up to 3 of `[{ "path", "kind", "alt", "caption" }]`: what we made ourselves for the item. See below |
 | `requirements` | List of text, may be empty |
 | `tags` | Optional, `[{ "kind": "tool" or "model", "name", "version"?, "evidence" }]`. Evidence is a public https URL |
 | `revision` | `sha256:<64 hex characters>` |
@@ -88,7 +88,17 @@ A `quoted` record is a short excerpt of the media of the item's own source post,
 
 ### Made
 
-`made` lists pictures or short animations that we made ourselves to show the result of the item. Market has no gallery panel for it; the first picture is the result image of the In Atu demo and the soft picture behind the action card. `path` is `media/<name>` as `png`, `jpg`, `jpeg`, `webp`, `gif` or `mp4`, at most 2 MB. Its rights record has the basis `original`: a made file is never a quoted or a licensed file. `alt` is at most 300 characters. `caption` is at most 160 characters and says plainly what the file is, for example "Our pixel take on the theme; not a screenshot of Claude Code". A made file never imitates a screenshot of a product and never carries the logo of another party. Each file needs a stored file and the same checks as other media.
+`made` lists our own media for the item. Market shows the first file in the **In Atu** panel. If the list is absent or empty, the panel does not appear. Each file must have a `kind`:
+
+| `kind` | What the file shows | Panel label |
+| --- | --- | --- |
+| `atu` | A recording of the result that Hey Atu built from the tested prompt | Made with Hey Atu |
+| `mockup` | Our own drawing of a result in a product that Hey Atu does not run | Mockup |
+| `explainer` | A short animation that explains a method. It does not show a run | Explainer |
+
+`path` is `media/<name>` as `png`, `jpg`, `jpeg`, `webp`, `gif` or `mp4`, at most 2 MB. Each file needs an `original` rights record and the same checks as other media. `alt` is at most 300 characters. `caption` is at most 160 characters and says what the file shows.
+
+For a new remake, use a 16:9 animated WebP or MP4 with a 6–10 s loop and the Hey Atu logo in the frame. Do not show the prompt or copy the logos, screens or text of another product. Use pixel art only for a post that uses pixel art.
 
 ### Cover
 

@@ -22,6 +22,7 @@ const PRIVATE_HOST = /^(localhost|.*\.(local|localhost|internal|lan))$|^[\d.]+$|
 
 const MOTION_PATH = /\.(gif|webp|mp4)$/;
 const MADE_PATH = /\.(png|jpe?g|webp|gif|mp4)$/;
+const MADE_KINDS = ['atu', 'mockup', 'explainer'];
 const MADE_MAX_ITEMS = 3;
 const MADE_MAX_BYTES = 2 * 1024 * 1024;
 const STILL_PATH = /\.(png|jpg|jpeg|webp)$/;
@@ -242,7 +243,8 @@ function checkMade(entry, files, errors) {
   if (entry.made === undefined) return paths;
   for (const [index, item] of checkList(entry.made, 'made', errors, MADE_MAX_ITEMS).entries()) {
     const where = `made[${index}]`;
-    if (!checkObject(item, ['path', 'alt', 'caption'], where, errors)) continue;
+    if (!checkObject(item, ['path', 'kind', 'alt', 'caption'], where, errors)) continue;
+    if (!MADE_KINDS.includes(item.kind)) errors.push(`${where}.kind must be atu, mockup or explainer`);
     checkText(item.alt, `${where}.alt`, errors, { max: 300 });
     checkText(item.caption, `${where}.caption`, errors, { max: 160 });
     if (!ASSET_PATH.test(item.path ?? '') || !MADE_PATH.test(item.path)) errors.push(`${where}.path must be media/<name> as png, jpg, webp, gif or mp4`);
