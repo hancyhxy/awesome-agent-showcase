@@ -9,8 +9,11 @@ const CONTENT_RULES = [
   ['credential assignment', /(?:api[_-]?key|secret|token|passw(?:or)?d)["']?\s*[:=]\s*["']?[A-Za-z0-9/+_.-]{16,}/i],
   ['bearer token', /\bBearer\s+[A-Za-z0-9._~+/-]{20,}/],
   ['session record', /"type"\s*:\s*"session"/],
-  ['email address', /\b(?!support@heyatu\.com\b)[\w.+-]+@(?!users\.noreply\.github\.com)[\w-]+\.[\w.-]+/],
 ];
+const EMAIL = /[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g;
+const PUBLIC_ADDRESS = 'support@heyatu.com';
+const NOREPLY_DOMAIN = 'users.noreply.github.com';
+const isPrivateAddress = (address) => address !== PUBLIC_ADDRESS && !address.endsWith(`@${NOREPLY_DOMAIN}`);
 const PATH_RULES = [
   ['private export file', /\.(?:jsonl|har|sqlite3?|db|pem|p12|key)$/i],
   ['environment file', /(?:^|\/)\.env(?:\.|$)/],
@@ -27,6 +30,7 @@ export function scanText(where, text) {
   const findings = [];
   text.split('\n').forEach((line, index) => {
     for (const [rule, pattern] of CONTENT_RULES) if (pattern.test(line)) findings.push({ where: `${where}:${index + 1}`, rule });
+    if ((line.match(EMAIL) ?? []).some(isPrivateAddress)) findings.push({ where: `${where}:${index + 1}`, rule: 'email address' });
   });
   return findings;
 }

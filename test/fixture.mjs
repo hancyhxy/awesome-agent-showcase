@@ -60,18 +60,24 @@ export function gifBytes(delaysCs) {
   return Buffer.concat([Buffer.from('GIF89a'), Buffer.from([1, 0, 1, 0, 0x80, 0, 0, 0, 0, 0, 0xff, 0xff, 0xff]), ...frames, Buffer.from([0x3b])]);
 }
 
-const riffChunk = (name, payload) => Buffer.concat([Buffer.from(name), uint(payload.length, 4), payload, Buffer.alloc(payload.length % 2)]);
+export const riffChunk = (name, payload) => Buffer.concat([Buffer.from(name), uint(payload.length, 4), payload, Buffer.alloc(payload.length % 2)]);
 const uint = (value, length) => {
   const out = Buffer.alloc(length);
   out.writeUIntLE(value, 0, length);
   return out;
 };
 
+export const riffWebp = (...chunks) => {
+  const body = Buffer.concat([Buffer.from('WEBP'), ...chunks]);
+  return Buffer.concat([Buffer.from('RIFF'), uint(body.length, 4), body]);
+};
+
+export const webpStill = () => riffWebp(riffChunk('VP8L', Buffer.from([0x2f, 0, 0, 0, 0, 0, 0, 0, 0])));
+
 export function webpBytes(durationsMs) {
   const header = Buffer.concat([Buffer.from([0x02, 0, 0, 0]), uint(0, 3), uint(0, 3)]);
   const frames = durationsMs.map((ms) => riffChunk('ANMF', Buffer.concat([uint(0, 3), uint(0, 3), uint(0, 3), uint(0, 3), uint(ms, 3), Buffer.from([0])])));
-  const body = Buffer.concat([Buffer.from('WEBP'), riffChunk('VP8X', header), ...frames]);
-  return Buffer.concat([Buffer.from('RIFF'), uint(body.length, 4), body]);
+  return riffWebp(riffChunk('VP8X', header), ...frames);
 }
 
 const box = (name, payload) => {

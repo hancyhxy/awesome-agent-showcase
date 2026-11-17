@@ -48,6 +48,7 @@ function webpDurationMs(bytes) {
   if (bytes.length < 12 || bytes.toString('latin1', 0, 4) !== 'RIFF' || bytes.toString('latin1', 8, 12) !== 'WEBP') return null;
   let pos = 12;
   let total = 0;
+  let hasImage = false;
   while (pos + 8 <= bytes.length) {
     const name = bytes.toString('latin1', pos, pos + 4);
     const size = bytes.readUInt32LE(pos + 4);
@@ -56,10 +57,11 @@ function webpDurationMs(bytes) {
     if (name === 'ANMF') {
       if (size < 16) return null;
       total += frameMs(bytes.readUIntLE(pos + 8 + 12, 3));
-    }
+      hasImage = true;
+    } else if (name === 'VP8 ' || name === 'VP8L') hasImage = true;
     pos = next;
   }
-  return total;
+  return hasImage ? total : null;
 }
 
 function mp4Boxes(bytes, start, end) {

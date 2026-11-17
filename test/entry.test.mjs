@@ -3,7 +3,7 @@ import { mkdirSync, symlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, it } from 'node:test';
 import { loadCollection } from '../scripts/collection.mjs';
-import { gifBytes, mp4Bytes, syntheticEntry, syntheticPostEntry, syntheticRoot, webpBytes, writeEntry } from './fixture.mjs';
+import { gifBytes, mp4Bytes, riffWebp, syntheticEntry, syntheticPostEntry, syntheticRoot, webpBytes, webpStill, writeEntry } from './fixture.mjs';
 
 const SYNTHETIC = Buffer.from('SYNTHETIC TEST ASSET');
 
@@ -206,7 +206,7 @@ describe('entry validation', () => {
       syntheticEntry({ rights: { assets: records }, media: [], cover: { motion: 'media/loop.gif', still: 'media/still.webp' }, ...overrides }),
       { files, body: 'Synthetic body.\n' },
     ];
-    const files = { 'media/loop.gif': gifBytes([100, 100]), 'media/still.webp': webpBytes([]) };
+    const files = { 'media/loop.gif': gifBytes([100, 100]), 'media/still.webp': webpStill() };
     const records = [quoted('media/loop.gif'), quoted('media/still.webp')];
 
     it('accepts a short GIF, WebP and MP4 of the source post', () => {
@@ -257,6 +257,7 @@ describe('entry validation', () => {
       assert.match(errorsFor(entry('media/loop.gif'), { files: { 'media/loop.gif': big } }), /a quoted file is at most 2 MB/);
       assert.match(errorsFor(entry('media/loop.gif'), { files: { 'media/loop.gif': Buffer.from('SYNTHETIC TEST ASSET') } }), /length of the quoted file cannot be read/);
       assert.match(errorsFor(entry('media/loop.mp4'), { files: { 'media/loop.mp4': Buffer.from('SYNTHETIC TEST ASSET') } }), /length of the quoted file cannot be read/);
+      assert.match(errorsFor(entry('media/loop.webp'), { files: { 'media/loop.webp': riffWebp() } }), /length of the quoted file cannot be read/);
     });
 
     it('does not change the rules of another basis', () => {

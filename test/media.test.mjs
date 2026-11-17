@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { durationMs } from '../scripts/media.mjs';
-import { gifBytes, mp4Bytes, webpBytes } from './fixture.mjs';
+import { gifBytes, mp4Bytes, riffChunk, riffWebp, webpBytes, webpStill } from './fixture.mjs';
 
 describe('media length', () => {
   it('adds the frame delays of a GIF and counts a delay of 0 or 1 as 100 ms', () => {
@@ -13,7 +13,7 @@ describe('media length', () => {
   it('adds the frame durations of an animated WebP and gives 0 for a still WebP', () => {
     assert.equal(durationMs('media/a.webp', webpBytes([500, 1500, 20])), 2020);
     assert.equal(durationMs('media/a.webp', webpBytes([0, 5])), 200);
-    assert.equal(durationMs('media/a.webp', webpBytes([])), 0);
+    assert.equal(durationMs('media/a.webp', webpStill()), 0);
   });
 
   it('reads the movie header of an MP4', () => {
@@ -26,6 +26,9 @@ describe('media length', () => {
     assert.equal(durationMs('media/a.gif', gifBytes([10]).subarray(0, 30)), null);
     assert.equal(durationMs('media/a.webp', webpBytes([10]).subarray(0, 40)), null);
     assert.equal(durationMs('media/a.webp', Buffer.from('RIFF....WEBX')), null);
+    assert.equal(durationMs('media/a.webp', riffWebp()), null, 'no image payload');
+    assert.equal(durationMs('media/a.webp', webpBytes([])), null, 'an animation header with no frame');
+    assert.equal(durationMs('media/a.webp', riffWebp(riffChunk('EXIF', Buffer.alloc(4)))), null);
     assert.equal(durationMs('media/a.mp4', Buffer.from('synthetic ftypisom')), null);
     assert.equal(durationMs('media/a.mp4', mp4Bytes(4).subarray(0, 40)), null);
     assert.equal(durationMs('media/a.mp4', mp4Bytes(4).subarray(16)), null);

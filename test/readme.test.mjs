@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { afterEach, beforeEach, describe, it } from 'node:test';
 import { countPurposes, linkState, loadCollection } from '../scripts/collection.mjs';
 import { BLOCK_START, renderBlock, replaceBlock, trackedUrl } from '../scripts/readme.mjs';
-import { REPO, gifBytes, syntheticPostEntry, syntheticRoot, webpBytes, writeEntry } from './fixture.mjs';
+import { REPO, gifBytes, syntheticPostEntry, syntheticRoot, webpStill, writeEntry } from './fixture.mjs';
 
 let sandbox;
 beforeEach(() => { sandbox = syntheticRoot(); });
@@ -130,7 +130,7 @@ describe('generated README block', () => {
     const quoted = (path) => ({ path, basis: 'quoted', holder: 'synthetic_user', sourceUrl: post, excerpt: '0:16-0:20 of the post video' });
     const original = (path) => ({ path, basis: 'original' });
     writeEntry(sandbox.root, syntheticPostEntry(1, { title: 'QUOTED ITEM', rights: { assets: [quoted('media/loop.gif'), quoted('media/still.webp')] }, media: [], cover: { motion: 'media/loop.gif', still: 'media/still.webp' } }),
-      { files: { 'media/loop.gif': gifBytes([100, 100]), 'media/still.webp': webpBytes([]) } });
+      { files: { 'media/loop.gif': gifBytes([100, 100]), 'media/still.webp': webpStill() } });
     writeEntry(sandbox.root, syntheticPostEntry(2, { title: 'OWN ITEM', rights: { assets: [original('media/loop.gif'), original('media/cover.png')] }, media: [], cover: { motion: 'media/loop.gif', still: 'media/cover.png' } }),
       { files: { 'media/loop.gif': Buffer.from('a'), 'media/cover.png': Buffer.from('b') } });
     const collection = loadCollection(sandbox.root);
