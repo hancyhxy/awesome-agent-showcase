@@ -29,6 +29,10 @@
         "holder": "marmobs",
         "sourceUrl": "https://x.com/marmobs/status/2089289550958903358",
         "excerpt": "A frame at 0:05.5 of the first post video, the whole phone frame on a plain light-grey stage"
+      },
+      {
+        "path": "media/receipt-made-with-atu.mp4",
+        "basis": "original"
       }
     ]
   },
@@ -37,7 +41,7 @@
     {
       "choice": "tear-off-receipt",
       "status": "tested",
-      "text": "Make a web page with a paper receipt that I can tear off with the mouse or a finger. If I drag it away slowly, it tears along a clean, even line. If I drag it away fast, the edge comes out jagged and uneven. Build it in a new folder inside the current project folder with plain HTML, CSS and JavaScript, open it in my browser when it is done, and ask me before you install anything.",
+      "text": "Make a web page on a plain light grey stage, with a thin black pill-shaped slot just wider than a white thermal receipt. Give the receipt black monospace text, neat columns for item prices and totals, a small barcode near the bottom and a fine zigzag bottom edge. No Nike or Apple marks, phone interface or floating instructions. Start with the already-printed receipt hidden behind the slot and slide the whole sheet down through it, bottom end first: the first visible line and the barcode move down with the paper, ending farthest from the slot. Never feed a blank sheet or add text line by line. Stop with the entire receipt hanging from the slot. A slow drag down with a mouse or finger tears the top straight along the slot; a fast pull tears it jagged. Let the detached paper swing away so I can see the torn edge. Keep a Reprint button centred below the fully fed paper, with a clear gap so it never covers the zigzag edge even on a phone, and make it feed the next receipt the same way. Build it with plain HTML, CSS and JavaScript in a new folder inside the current project folder, open it in my browser when it is done, check in a browser that the feed and both tears work, and ask me before installing or loading anything.",
       "label": "A receipt that tears clean or jagged",
       "testedOn": "2026-11-18"
     }
@@ -51,5 +55,13 @@
     "still": "media/receipt-still.webp"
   },
   "requirements": [],
-  "revision": "sha256:f65ad5f25a97bee45f555c59b4a4bfab004743547d313ec640d9cf9e3c61ba51"
+  "revision": "sha256:b3416afef3a27f8db2825627e9b76690a3f7c2f864b1819ee181d3f0edb4c30e",
+  "made": [
+    {
+      "path": "media/receipt-made-with-atu.mp4",
+      "kind": "atu",
+      "alt": "Printed paper feeds from a dark slot. A slow pull tears it straight; after Reprint, a fast pull leaves a jagged edge.",
+      "caption": "Made with Hey Atu"
+    }
+  ]
 }
