@@ -1,0 +1,1 @@
+Give the sidebar and page heading more room, bring related cards closer together, and add padding inside each card. Hey Atu opens the original and updated layouts in your browser so you can compare them without changing the app’s content or features.

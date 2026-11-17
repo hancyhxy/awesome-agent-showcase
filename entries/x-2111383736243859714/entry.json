@@ -1,0 +1,67 @@
+{
+  "id": "x-2111383736243859714",
+  "title": "Fix the spacing in your app",
+  "summary": "Make a cramped dashboard easier to scan without changing what it does.",
+  "purposes": [
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/MichaelFilipiuk/status/2111383736243859714",
+    "author": "MichaelFilipiuk",
+    "credit": "Michael Filipiuk, public post",
+    "publishedAt": "2026-10-17",
+    "capturedAt": "2026-10-19",
+    "video": "https://video.twimg.com/amplify_video/2111383719751888896/vid/avc1/960x720/A4VMrbbaeglcKPzD.mp4?tag=16"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/cover.webp",
+        "basis": "quoted",
+        "holder": "MichaelFilipiuk",
+        "sourceUrl": "https://x.com/MichaelFilipiuk/status/2111383736243859714",
+        "excerpt": "0:00.57–0:07.55 of the post video"
+      },
+      {
+        "path": "media/cover-still.webp",
+        "basis": "quoted",
+        "holder": "MichaelFilipiuk",
+        "sourceUrl": "https://x.com/MichaelFilipiuk/status/2111383736243859714",
+        "excerpt": "A frame at 0:06.75 of the post video"
+      },
+      {
+        "path": "media/spacing-explainer.webp",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "improve-spacing",
+      "status": "tested",
+      "text": "Use the idea in this post: https://x.com/MichaelFilipiuk/status/2111383736243859714 (when an app feels off, fix the spacing: sidebar width, top space, gaps between items and padding inside cards). Improve the spacing of my app without changing its content or features, and show me the before and after in the browser. Build it in a new folder inside the current project folder, open it in the browser, and check that it works. Ask me before installing or loading anything.",
+      "testedOn": "2026-11-18"
+    }
+  ],
+  "action": {
+    "label": "Improve app spacing in Atu",
+    "prompt": "improve-spacing"
+  },
+  "cover": {
+    "motion": "media/cover.webp",
+    "still": "media/cover-still.webp"
+  },
+  "made": [
+    {
+      "path": "media/spacing-explainer.webp",
+      "kind": "explainer",
+      "alt": "A grey dashboard wireframe widens its sidebar, adds room around and between sections, narrows the gaps between cards and gives each card more padding. The sample dashboard appears before and after the change.",
+      "caption": "Five spacing changes, then a before and after from a real Hey Atu run."
+    }
+  ],
+  "requirements": [],
+  "tags": [],
+  "revision": "sha256:cb912bd32231cd76b8ffe5d0deb1cba5b96a54a912cb6e84a17c9df4d7b797a9"
+}

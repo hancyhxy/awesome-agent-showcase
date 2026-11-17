@@ -20,11 +20,11 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 | Slides | 0 |
 | Images | 0 |
 | Animation and video | 2 |
-| Coding | 3 |
+| Coding | 4 |
 | Research | 0 |
 | Personal workflows | 0 |
 | Agent setup | 1 |
-| **All items (each counted once)** | **6** |
+| **All items (each counted once)** | **7** |
 
 ### All items
 
@@ -52,6 +52,12 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 
   via [@showheyohtaki](https://x.com/showheyohtaki/status/2109112248832503895)
 
+- Fix the spacing in your app: Make a cramped dashboard easier to scan without changing what it does.
+
+  ![Fix the spacing in your app](entries/x-2111383736243859714/media/cover-still.webp)
+
+  via [@MichaelFilipiuk](https://x.com/MichaelFilipiuk/status/2111383736243859714)
+
 - Custom themes for Claude Code Desktop: Describe the look. Claude Code Desktop builds the theme, backdrop and all.
 
   ![Custom themes for Claude Code Desktop](entries/x-2121392666244186327/media/synthwave-still.webp)
@@ -70,10 +76,11 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 - A badge unlock animation: A trophy badge pops in, bursts with light rays and confetti, and settles with a glow, all on a web page.
 - Name your camera moves: Swap “make it look nice” for a named camera move, and give AI a shot to aim for.
 
-### Coding (3)
+### Coding (4)
 
 - A receipt you tear off: Pull the paper and watch the tear travel across: slow and clean, or quick and rough.
 - A character that follows your cursor: Move the mouse and a cute character on a web page turns its eyes and head to follow it.
+- Fix the spacing in your app: Make a cramped dashboard easier to scan without changing what it does.
 - A calm storybook game with a hand-painted feel: A kid, a dog and a long way home: a gentle game that you play in your browser.
 
 ### Agent setup (1)
