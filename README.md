@@ -20,11 +20,11 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 | Slides | 0 |
 | Images | 0 |
 | Animation and video | 0 |
-| Coding | 1 |
+| Coding | 2 |
 | Research | 0 |
 | Personal workflows | 0 |
 | Agent setup | 1 |
-| **All items (each counted once)** | **2** |
+| **All items (each counted once)** | **3** |
 
 ### All items
 
@@ -40,10 +40,17 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 
   via [@ClaudeDevs](https://x.com/ClaudeDevs/status/2121392666244186327)
 
+- A calm storybook game with a hand-painted feel: A kid, a dog and a long way home: a gentle game that you play in your browser.
 
-### Coding (1)
+  ![A calm storybook game with a hand-painted feel](entries/x-2122013352755126431/media/whale-cove-still.webp)
+
+  via [@Rubzem](https://x.com/Rubzem/status/2122013352755126431)
+
+
+### Coding (2)
 
 - A character that follows your cursor: Move the mouse and a cute character on a web page turns its eyes and head to follow it.
+- A calm storybook game with a hand-painted feel: A kid, a dog and a long way home: a gentle game that you play in your browser.
 
 ### Agent setup (1)
 

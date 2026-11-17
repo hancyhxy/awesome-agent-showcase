@@ -1,0 +1,62 @@
+{
+  "id": "x-2122013352755126431",
+  "title": "A calm storybook game with a hand-painted feel",
+  "summary": "A kid, a dog and a long way home: a gentle game that you play in your browser.",
+  "purposes": [
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/Rubzem/status/2122013352755126431",
+    "author": "Rubzem",
+    "credit": "Rubzem, public post",
+    "publishedAt": "2026-11-15",
+    "capturedAt": "2026-11-17",
+    "video": "https://video.twimg.com/amplify_video/2122012845512744960/vid/avc1/1280x720/ug8mWg1nQTRDF0v8.mp4?tag=29"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/whale-cove-reveal.webp",
+        "basis": "quoted",
+        "holder": "Rubzem",
+        "sourceUrl": "https://x.com/Rubzem/status/2122013352755126431",
+        "excerpt": "1:44-1:48 of the post video"
+      },
+      {
+        "path": "media/whale-cove-still.webp",
+        "basis": "quoted",
+        "holder": "Rubzem",
+        "sourceUrl": "https://x.com/Rubzem/status/2122013352755126431",
+        "excerpt": "A frame at 1:45 of the post video"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "storybook-game",
+      "status": "tested",
+      "text": "Make me a small playable storybook game that runs in the browser: a kid and a dog on a long way home through a few hand-painted scenes, calm and gentle, with no timers and no losing. Draw the pictures and make the sounds in code, build it in a new folder, open it in my browser when it is ready, and ask me before you install anything.",
+      "label": "A kid and a dog on a long way home",
+      "testedOn": "2026-11-17"
+    }
+  ],
+  "action": {
+    "label": "Make a storybook game in Atu",
+    "prompt": "storybook-game"
+  },
+  "cover": {
+    "motion": "media/whale-cove-reveal.webp",
+    "still": "media/whale-cove-still.webp"
+  },
+  "requirements": [],
+  "tags": [
+    {
+      "kind": "model",
+      "name": "Fable 5.2",
+      "evidence": "https://x.com/Rubzem/status/2122013352755126431"
+    }
+  ],
+  "revision": "sha256:2b6b7564506b7707db049de6dba752b8a3483731057f5743a7f5fb85889d6c8d"
+}
