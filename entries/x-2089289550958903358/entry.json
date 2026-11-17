@@ -21,14 +21,14 @@
         "basis": "quoted",
         "holder": "marmobs",
         "sourceUrl": "https://x.com/marmobs/status/2089289550958903358",
-        "excerpt": "0:01.8-0:07.8 of the first post video, with a blurred fill at the sides"
+        "excerpt": "0:02.0-0:07.5 of the first post video, cropped to 16:9 around the receipt"
       },
       {
         "path": "media/receipt-still.webp",
         "basis": "quoted",
         "holder": "marmobs",
         "sourceUrl": "https://x.com/marmobs/status/2089289550958903358",
-        "excerpt": "A frame at 0:05.4 of the first post video, with a blurred fill at the sides"
+        "excerpt": "A frame at 0:05.7 of the first post video, cropped to 16:9 around the receipt"
       }
     ]
   },
@@ -51,5 +51,5 @@
     "still": "media/receipt-still.webp"
   },
   "requirements": [],
-  "revision": "sha256:39806d3e1aaa1db29c7476da18c0f00427e8f60dbc6cd94d37ee4711bf19bd3f"
+  "revision": "sha256:774228ada12de02e667ca692b8c0ba64d2ab688bccb0b8a00cf2f2b466fa41ae"
 }
