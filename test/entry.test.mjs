@@ -214,13 +214,17 @@ describe('entry validation', () => {
 
   it('checks made files: original rights, a kind, a size, an alt, a caption and a count', () => {
     const files = { 'media/cover.png': SYNTHETIC, 'media/made.webp': SYNTHETIC, 'media/other.gif': SYNTHETIC };
-    const rights = (basis) => ({ assets: [{ path: 'media/cover.png', basis: 'original' }, { path: 'media/made.webp', basis }, { path: 'media/other.gif', basis: 'original' }] });
+    const records = {
+      original: { basis: 'original' },
+      licensed: { basis: 'licensed', holder: 'Synthetic Holder', licence: 'CC BY 4.0', licenceUrl: 'https://creativecommons.org/licenses/by/4.0/' },
+      permission: { basis: 'permission', holder: 'Synthetic Holder', grantedOn: '2026-01-04' },
+    };
+    const rights = (basis) => ({ assets: [{ path: 'media/cover.png', basis: 'original' }, { path: 'media/made.webp', ...records[basis] }, { path: 'media/other.gif', basis: 'original' }] });
     const made = (value, basis = 'original') => syntheticEntry({ rights: rights(basis), made: value });
     const one = { path: 'media/made.webp', alt: 'A synthetic made picture', caption: 'Our synthetic picture.' };
     assert.equal(errorsFor(made([one]), { files }), '');
     assert.equal(errorsFor(made([one, { ...one, path: 'media/other.gif' }]), { files }), '');
-    assert.match(errorsFor(made([one], 'licensed'), { files }), /rights/);
-    assert.match(errorsFor(made([one], 'quoted'), { files }), /must have rights basis original/);
+    for (const basis of ['licensed', 'permission']) assert.match(errorsFor(made([one], basis), { files }), /made\[0\]\.path media\/made\.webp must have rights basis original/, basis);
     assert.match(errorsFor(made([{ ...one, caption: undefined }]), { files }), /made\[0\]\.caption must be trimmed text of 1 to 160/);
     assert.match(errorsFor(made([{ ...one, caption: 'x'.repeat(161) }]), { files }), /caption must be trimmed text of 1 to 160/);
     assert.match(errorsFor(made([{ ...one, alt: '' }]), { files }), /made\[0\]\.alt must be trimmed text/);
