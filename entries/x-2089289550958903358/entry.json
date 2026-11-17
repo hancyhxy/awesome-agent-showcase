@@ -21,14 +21,14 @@
         "basis": "quoted",
         "holder": "marmobs",
         "sourceUrl": "https://x.com/marmobs/status/2089289550958903358",
-        "excerpt": "0:02.0-0:07.5 of the first post video, cropped to 16:9 around the receipt"
+        "excerpt": "0:01.8-0:07.5 of the first post video, the whole phone frame on a plain light-grey stage"
       },
       {
         "path": "media/receipt-still.webp",
         "basis": "quoted",
         "holder": "marmobs",
         "sourceUrl": "https://x.com/marmobs/status/2089289550958903358",
-        "excerpt": "A frame at 0:05.7 of the first post video, cropped to 16:9 around the receipt"
+        "excerpt": "A frame at 0:05.5 of the first post video, the whole phone frame on a plain light-grey stage"
       }
     ]
   },
@@ -51,5 +51,5 @@
     "still": "media/receipt-still.webp"
   },
   "requirements": [],
-  "revision": "sha256:774228ada12de02e667ca692b8c0ba64d2ab688bccb0b8a00cf2f2b466fa41ae"
+  "revision": "sha256:f65ad5f25a97bee45f555c59b4a4bfab004743547d313ec640d9cf9e3c61ba51"
 }
