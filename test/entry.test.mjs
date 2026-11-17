@@ -212,6 +212,27 @@ describe('entry validation', () => {
     assert.match(errorsFor(syntheticEntry({ rights: same, media: [], cover: { motion: 'media/a.webp', still: 'media/a.webp' } }), { files: { 'media/a.webp': SYNTHETIC } }), /must be different files/);
   });
 
+  it('checks made files: original rights, a kind, a size, an alt, a caption and a count', () => {
+    const files = { 'media/cover.png': SYNTHETIC, 'media/made.webp': SYNTHETIC, 'media/other.gif': SYNTHETIC };
+    const rights = (basis) => ({ assets: [{ path: 'media/cover.png', basis: 'original' }, { path: 'media/made.webp', basis }, { path: 'media/other.gif', basis: 'original' }] });
+    const made = (value, basis = 'original') => syntheticEntry({ rights: rights(basis), made: value });
+    const one = { path: 'media/made.webp', alt: 'A synthetic made picture', caption: 'Our synthetic picture.' };
+    assert.equal(errorsFor(made([one]), { files }), '');
+    assert.equal(errorsFor(made([one, { ...one, path: 'media/other.gif' }]), { files }), '');
+    assert.match(errorsFor(made([one], 'licensed'), { files }), /rights/);
+    assert.match(errorsFor(made([one], 'quoted'), { files }), /must have rights basis original/);
+    assert.match(errorsFor(made([{ ...one, caption: undefined }]), { files }), /made\[0\]\.caption must be trimmed text of 1 to 160/);
+    assert.match(errorsFor(made([{ ...one, caption: 'x'.repeat(161) }]), { files }), /caption must be trimmed text of 1 to 160/);
+    assert.match(errorsFor(made([{ ...one, alt: '' }]), { files }), /made\[0\]\.alt must be trimmed text/);
+    assert.match(errorsFor(made([{ ...one, extra: 1 }]), { files }), /made\[0\]\.extra is not allowed/);
+    assert.match(errorsFor(made([{ ...one, path: 'media/cover.txt' }]), { files }), /made\[0\]\.path must be media\/<name>/);
+    assert.match(errorsFor(made([one, one]), { files }), /path media\/made\.webp is repeated/);
+    assert.match(errorsFor(made([one, { ...one, path: 'media/other.gif' }, { ...one, path: 'media/cover.png' }, { ...one, path: 'media/x.png' }]), { files }), /made must be a list of at most 3/);
+    assert.match(errorsFor(made([{ ...one, path: 'media/gone.webp' }]), { files }), /gone\.webp is referenced but missing/);
+    assert.match(errorsFor(made([one]), { files: { ...files, 'media/made.webp': Buffer.alloc(2 * 1024 * 1024 + 1) } }), /a made file is at most 2 MB/);
+    assert.match(errorsFor(made('x'), { files }), /made must be a list/);
+  });
+
   it('requires public evidence for a tool tag and rejects unknown fields', () => {
     assert.match(errorsFor(syntheticEntry({ tags: [{ kind: 'tool', name: 'Synthetic' }] })), /evidence must be/);
     assert.match(errorsFor(syntheticEntry({ approved: true })), /approved is not allowed/);

@@ -29,6 +29,10 @@
         "holder": "ClaudeDevs",
         "sourceUrl": "https://x.com/ClaudeDevs/status/2121392666244186327",
         "excerpt": "A frame at 0:24 of the post video"
+      },
+      {
+        "path": "media/made-synthwave.webp",
+        "basis": "original"
       }
     ]
   },
@@ -49,6 +53,13 @@
     "motion": "media/synthwave-reveal.webp",
     "still": "media/synthwave-still.webp"
   },
+  "made": [
+    {
+      "path": "media/made-synthwave.webp",
+      "alt": "A pixel-art chat window over a synthwave sunset: a striped sun, a pink grid that moves toward you, twinkling stars and neon pink borders.",
+      "caption": "Our pixel take on the theme; not a screenshot of Claude Code."
+    }
+  ],
   "requirements": [
     "Claude Code Desktop, latest version"
   ],
@@ -59,5 +70,5 @@
       "evidence": "https://code.claude.com/docs/en/plugins/mods/overview"
     }
   ],
-  "revision": "sha256:88228d7ead218e800f2be5803c1b665d0b6e080078d1871447675a1c92a7194b"
+  "revision": "sha256:04d27050ed331cf84950a1b32bfa79f966443524477eae05c2bbb86b4e20cc50"
 }

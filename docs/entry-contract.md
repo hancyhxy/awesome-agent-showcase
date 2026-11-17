@@ -42,6 +42,7 @@ Nothing else is allowed in the directory. Symbolic links are rejected. Allowed e
 | `prompts` | Optional, `[{ "choice", "status", "text", "label"?, "testedOn"? }]` |
 | `action` | `{ "label", "prompt" }`. Required when `prompts` is not empty; not allowed without prompts. See below |
 | `cover` | Optional, `{ "motion", "still" }`. See below |
+| `made` | Optional, up to 3 of `[{ "path", "alt", "caption" }]`: what we made ourselves for the item. See below |
 | `requirements` | List of text, may be empty |
 | `tags` | Optional, `[{ "kind": "tool" or "model", "name", "version"?, "evidence" }]`. Evidence is a public https URL |
 | `revision` | `sha256:<64 hex characters>` |
@@ -84,6 +85,10 @@ A `quoted` record is a short excerpt of the media of the item's own source post,
 ### Action
 
 `action` is the main button of the item page: `label` is text of at most 40 characters (for example `Make a sticker in Atu`). `prompt` is the `choice` of one entry of `prompts`. Hey Atu opens a new chat with that prompt as a draft; it never sends it. The item page and the README never show the prompt text.
+
+### Made
+
+`made` lists pictures or short animations that we made ourselves to show the result of the item. Market shows each one as a gallery panel **Made in Atu**, after the video. `path` is `media/<name>` as `png`, `jpg`, `jpeg`, `webp`, `gif` or `mp4`, at most 2 MB. Its rights record has the basis `original`: a made file is never a quoted or a licensed file. `alt` is at most 300 characters. `caption` is at most 160 characters and says plainly what the file is, for example "Our pixel take on the theme; not a screenshot of Claude Code". A made file never imitates a screenshot of a product and never carries the logo of another party. Each file needs a stored file and the same checks as other media.
 
 ### Cover
 

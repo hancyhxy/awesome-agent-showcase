@@ -21,9 +21,12 @@ const CONTROL_CHARACTERS = /[\u0000-\u0008\u000b-\u001f\u007f]/;
 const PRIVATE_HOST = /^(localhost|.*\.(local|localhost|internal|lan))$|^[\d.]+$|:/;
 
 const MOTION_PATH = /\.(gif|webp|mp4)$/;
+const MADE_PATH = /\.(png|jpe?g|webp|gif|mp4)$/;
+const MADE_MAX_ITEMS = 3;
+const MADE_MAX_BYTES = 2 * 1024 * 1024;
 const STILL_PATH = /\.(png|jpg|jpeg|webp)$/;
 
-const TOP_LEVEL = ['id', 'title', 'summary', 'purposes', 'source', 'rights', 'media', 'prompts', 'action', 'cover', 'requirements', 'tags', 'revision'];
+const TOP_LEVEL = ['id', 'title', 'summary', 'purposes', 'source', 'rights', 'media', 'prompts', 'action', 'cover', 'made', 'requirements', 'tags', 'revision'];
 const REQUIRED = ['id', 'title', 'summary', 'purposes', 'source', 'rights', 'media', 'requirements', 'revision'];
 const SOURCE_FIELDS = {
   'x-post': ['type', 'url', 'author', 'credit', 'publishedAt', 'capturedAt'],
@@ -234,6 +237,26 @@ function checkCover(entry, errors) {
   return paths;
 }
 
+function checkMade(entry, files, errors) {
+  const paths = [];
+  if (entry.made === undefined) return paths;
+  for (const [index, item] of checkList(entry.made, 'made', errors, MADE_MAX_ITEMS).entries()) {
+    const where = `made[${index}]`;
+    if (!checkObject(item, ['path', 'alt', 'caption'], where, errors)) continue;
+    checkText(item.alt, `${where}.alt`, errors, { max: 300 });
+    checkText(item.caption, `${where}.caption`, errors, { max: 160 });
+    if (!ASSET_PATH.test(item.path ?? '') || !MADE_PATH.test(item.path)) errors.push(`${where}.path must be media/<name> as png, jpg, webp, gif or mp4`);
+    else if (paths.includes(item.path)) errors.push(`${where}.path ${item.path} is repeated`);
+    else {
+      paths.push(item.path);
+      const record = entry.rights?.assets?.find((asset) => asset?.path === item.path);
+      if (record && record.basis !== 'original') errors.push(`${where}.path ${item.path} must have rights basis original`);
+      if ((files.get(item.path)?.length ?? 0) > MADE_MAX_BYTES) errors.push(`${where}: a made file is at most ${MADE_MAX_BYTES / (1024 * 1024)} MB`);
+    }
+  }
+  return paths;
+}
+
 function checkTags(entry, errors) {
   for (const [index, tag] of checkList(entry.tags ?? [], 'tags', errors, 20).entries()) {
     const where = `tags[${index}]`;
@@ -313,7 +336,7 @@ export function loadEntry(dir, purposeIds) {
   const bodyMedia = checkBody(files.get('body.md')?.toString('utf8') ?? '', errors);
   const stored = new Set([...files.keys()].filter((name) => name.startsWith('media/')));
   const licensed = checkRights(entry, files, errors);
-  const referenced = new Set([...checkMedia(entry, errors), ...bodyMedia, ...checkCover(entry, errors)]);
+  const referenced = new Set([...checkMedia(entry, errors), ...bodyMedia, ...checkCover(entry, errors), ...checkMade(entry, files, errors)]);
   for (const path of stored) if (!licensed.has(path)) errors.push(`${path} is stored without a rights record`);
   for (const path of licensed) if (!stored.has(path)) errors.push(`${path} has a rights record but no file`);
   for (const path of referenced) {
