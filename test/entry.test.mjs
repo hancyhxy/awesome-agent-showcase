@@ -225,7 +225,7 @@ describe('entry validation', () => {
     for (const kind of ['atu', 'mockup', 'explainer']) assert.equal(errorsFor(made([{ ...one, kind }]), { files }), '', kind);
     assert.equal(errorsFor(made([one, { ...one, path: 'media/other.gif', kind: 'explainer' }]), { files }), '');
     for (const kind of [undefined, 'other', null, ['atu']]) {
-      assert.match(errorsFor(made([{ ...one, kind }]), { files }), /made\[0\]\.kind must be atu, mockup or explainer/);
+      assert.match(errorsFor(made([{ ...one, kind }]), { files }), /made\[0\]\.kind must be atu, mockup, explainer or recreation/);
     }
     assert.match(errorsFor(made([one, { ...one, path: 'media/other.gif', kind: undefined }]), { files }), /made\[1\]\.kind/);
     for (const basis of ['licensed', 'permission']) assert.match(errorsFor(made([one], basis), { files }), /made\[0\]\.path media\/made\.webp must have rights basis original/, basis);
@@ -266,6 +266,17 @@ describe('entry validation', () => {
     ];
     const files = { 'media/loop.gif': gifBytes([100, 100]), 'media/still.webp': webpStill() };
     const records = [quoted('media/loop.gif'), quoted('media/still.webp')];
+
+    it('requires quoted rights and a public artwork credit link for a recreation only', () => {
+      const path = 'media/remake.mp4';
+      const one = { path, kind: 'recreation', caption: 'Pixel art: Synthetic Artist', alt: 'Leaves in a recreated scene', creditUrl: 'https://example.com/art' };
+      const check = (item, rights) => errorsFor(...withQuoted({ ...files, [path]: mp4Bytes(8) }, [...records, rights], { made: [item] }));
+      assert.equal(check(one, quoted(path)), '');
+      assert.match(check(one, { path, basis: 'original' }), /must have rights basis quoted/);
+      for (const creditUrl of [undefined, 'javascript:void(0)']) assert.match(check({ ...one, creditUrl }, quoted(path)), /creditUrl must be a public https URL/);
+      assert.match(check({ ...one, kind: 'atu' }, quoted(path)), /creditUrl is not allowed/);
+      assert.match(check({ ...one, kind: 'atu' }, quoted(path)), /must have rights basis original/);
+    });
 
     it('accepts a short GIF, WebP and MP4 of the source post', () => {
       assert.equal(errorsFor(...withQuoted(files, records)), '');

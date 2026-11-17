@@ -22,7 +22,7 @@ const PRIVATE_HOST = /^(localhost|.*\.(local|localhost|internal|lan))$|^[\d.]+$|
 
 const MOTION_PATH = /\.(gif|webp|mp4)$/;
 const MADE_PATH = /\.(png|jpe?g|webp|gif|mp4)$/;
-const MADE_KINDS = ['atu', 'mockup', 'explainer'];
+const MADE_KINDS = ['atu', 'mockup', 'explainer', 'recreation'];
 const MADE_MAX_ITEMS = 3;
 const MADE_MAX_BYTES = 2 * 1024 * 1024;
 const STILL_PATH = /\.(png|jpg|jpeg|webp)$/;
@@ -243,8 +243,12 @@ function checkMade(entry, files, errors) {
   if (entry.made === undefined) return paths;
   for (const [index, item] of checkList(entry.made, 'made', errors, MADE_MAX_ITEMS).entries()) {
     const where = `made[${index}]`;
-    if (!checkObject(item, ['path', 'kind', 'alt', 'caption'], where, errors)) continue;
-    if (!MADE_KINDS.includes(item.kind)) errors.push(`${where}.kind must be atu, mockup or explainer`);
+    const recreation = item?.kind === 'recreation';
+    const fields = ['path', 'kind', 'alt', 'caption'];
+    if (recreation) fields.push('creditUrl');
+    if (!checkObject(item, fields, where, errors)) continue;
+    if (!MADE_KINDS.includes(item.kind)) errors.push(`${where}.kind must be atu, mockup, explainer or recreation`);
+    if (recreation) checkUrl(item.creditUrl, `${where}.creditUrl`, errors);
     checkText(item.alt, `${where}.alt`, errors, { max: 300 });
     checkText(item.caption, `${where}.caption`, errors, { max: 160 });
     if (!ASSET_PATH.test(item.path ?? '') || !MADE_PATH.test(item.path)) errors.push(`${where}.path must be media/<name> as png, jpg, webp, gif or mp4`);
@@ -252,7 +256,8 @@ function checkMade(entry, files, errors) {
     else {
       paths.push(item.path);
       const record = entry.rights?.assets?.find((asset) => asset?.path === item.path);
-      if (record && record.basis !== 'original') errors.push(`${where}.path ${item.path} must have rights basis original`);
+      const basis = recreation ? 'quoted' : 'original';
+      if (record && record.basis !== basis) errors.push(`${where}.path ${item.path} must have rights basis ${basis}`);
       if ((files.get(item.path)?.length ?? 0) > MADE_MAX_BYTES) errors.push(`${where}: a made file is at most ${MADE_MAX_BYTES / (1024 * 1024)} MB`);
     }
   }
