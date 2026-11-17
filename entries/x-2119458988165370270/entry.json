@@ -32,11 +32,11 @@
         "excerpt": "Frame at 0:33 of the post video"
       },
       {
-        "path": "media/pixel-play-recreation.mp4",
+        "path": "media/pixel-play-breeze.mp4",
         "basis": "quoted",
         "holder": "SolutionB2u",
         "sourceUrl": "https://x.com/SolutionB2u/status/2119458988165370270",
-        "excerpt": "8-second recording of the recreation showing the Pixel Play tree artwork."
+        "excerpt": "7.68-second recording of the recreation showing the Pixel Play tree artwork in a breeze."
       }
     ]
   },
@@ -59,13 +59,13 @@
   },
   "made": [
     {
-      "path": "media/pixel-play-recreation.mp4",
+      "path": "media/pixel-play-breeze.mp4",
       "kind": "recreation",
-      "alt": "A breeze bends the cherry, shrub and maple. A storm and a pulled branch send leaves tumbling, then the wind stops and the trees grow back.",
+      "alt": "On a light background, a breeze bends the cherry, shrub and maple. Branches flex from the trunk upwards and the crowns ripple and spring back.",
       "caption": "Pixel art: Sarthak Navalekar (FeralUI Pixel Play)",
       "creditUrl": "https://feralui.dev/pixel-play"
     }
   ],
   "requirements": [],
-  "revision": "sha256:cf03559fd4b798352260c44e7c19a873b4b8185b44a306759258be2b63e3513f"
+  "revision": "sha256:df49c336c368dba351b8655d7fb38d58ca931afb47aa5db9a16d48430b86fe02"
 }
