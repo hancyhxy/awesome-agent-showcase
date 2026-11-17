@@ -31,7 +31,7 @@
         "excerpt": "A frame at 0:06.75 of the post video"
       },
       {
-        "path": "media/spacing-explainer.webp",
+        "path": "media/spacing-explainer.mp4",
         "basis": "original"
       }
     ]
@@ -41,7 +41,7 @@
     {
       "choice": "improve-spacing",
       "status": "tested",
-      "text": "Use the idea in this post: https://x.com/MichaelFilipiuk/status/2111383736243859714 (when an app feels off, fix the spacing: sidebar width, top space, gaps between items and padding inside cards). Improve the spacing of my app without changing its content or features, and show me the before and after in the browser. Build it in a new folder inside the current project folder, open it in the browser, and check that it works. Ask me before installing or loading anything.",
+      "text": "Use the idea in this post: https://x.com/MichaelFilipiuk/status/2111383736243859714 (when an app feels off, fix the spacing: sidebar width, top space, gaps between items and padding inside cards). Make a backup copy of my original app first, then improve the spacing directly in the existing app without changing its content or features. Open the backup and the updated app in the browser so I can see before and after, and check that both work. Ask me before installing or loading anything.",
       "testedOn": "2026-11-18"
     }
   ],
@@ -55,13 +55,13 @@
   },
   "made": [
     {
-      "path": "media/spacing-explainer.webp",
+      "path": "media/spacing-explainer.mp4",
       "kind": "explainer",
-      "alt": "A grey dashboard wireframe widens its sidebar, adds room around and between sections, narrows the gaps between cards and gives each card more padding. The sample dashboard appears before and after the change.",
-      "caption": "Five spacing changes, then a before and after from a real Hey Atu run."
+      "alt": "One dashboard changes in place: its sidebar widens, the page and sections gain space, the gaps between cards shrink, and padding inside each card grows. Coloured overlays and values show each change.",
+      "caption": "Watch the real dashboard change in place, using measurements from a Hey Atu run."
     }
   ],
   "requirements": [],
   "tags": [],
-  "revision": "sha256:cb912bd32231cd76b8ffe5d0deb1cba5b96a54a912cb6e84a17c9df4d7b797a9"
+  "revision": "sha256:c122bf02738efef4412dbf6dd99665fd29f30c493f9c33619ade7da48990cc98"
 }
