@@ -22,9 +22,9 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 | Animation and video | 3 |
 | Coding | 5 |
 | Research | 0 |
-| Personal workflows | 0 |
+| Personal workflows | 1 |
 | Agent setup | 1 |
-| **All items (each counted once)** | **8** |
+| **All items (each counted once)** | **9** |
 
 ### All items
 
@@ -33,6 +33,12 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
   ![A receipt you tear off](entries/x-2089289550958903358/media/receipt-still.webp)
 
   via [@marmobs](https://x.com/marmobs/status/2089289550958903358)
+
+- My Morning Paper: Read the day ahead like a newspaper, not a feed.
+
+  ![My Morning Paper](entries/x-2097383854923538770/media/press-still.webp)
+
+  via [@karenxcheng](https://x.com/karenxcheng/status/2097383854923538770)
 
 - A badge unlock animation: A trophy badge pops in, bursts with light rays and confetti, and settles with a glow, all on a web page.
 
@@ -90,6 +96,10 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 - Fix the spacing in your app: Make a cramped dashboard easier to scan without changing what it does.
 - Pixel Play Wind Garden: Bend the wind and send pixel leaves tumbling.
 - A calm storybook game with a hand-painted feel: A kid, a dog and a long way home: a gentle game that you play in your browser.
+
+### Personal workflows (1)
+
+- My Morning Paper: Read the day ahead like a newspaper, not a feed.
 
 ### Agent setup (1)
 

@@ -1,0 +1,64 @@
+{
+  "id": "x-2097383854923538770",
+  "title": "My Morning Paper",
+  "summary": "Read the day ahead like a newspaper, not a feed.",
+  "purposes": ["personal-workflows"],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/karenxcheng/status/2097383854923538770",
+    "author": "karenxcheng",
+    "credit": "Karen X. Cheng, public post",
+    "publishedAt": "2026-09-08",
+    "capturedAt": "2026-09-10",
+    "video": "https://video.twimg.com/amplify_video/2097383651768250368/vid/avc1/480x640/JFHeHag1sgOjbozE.mp4"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/press-excerpt.webp",
+        "basis": "quoted",
+        "holder": "karenxcheng",
+        "sourceUrl": "https://x.com/karenxcheng/status/2097383854923538770",
+        "excerpt": "0:00–0:03.125 of the post video, as the paper comes out of the printer"
+      },
+      {
+        "path": "media/press-still.webp",
+        "basis": "quoted",
+        "holder": "karenxcheng",
+        "sourceUrl": "https://x.com/karenxcheng/status/2097383854923538770",
+        "excerpt": "Still at 0:02.5 of the post video"
+      },
+      {
+        "path": "media/morning-paper.mp4",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "morning-paper",
+      "status": "tested",
+      "text": "Make my morning paper for today as a newspaper-style web page with a newsprint texture, a dated serif masthead, and columns for weather, today's meetings, important emails or messages, to-dos, and one headline; add a short typewriter reveal and make it printable on one A4 page. Use only sources you can already read on this Mac, such as my calendar, and tell me what you could read; ask me for anything you cannot read, and if the project folder is in system Temp, use clearly marked sample content instead of writing private details there.\n\nBuild it in a new folder inside the current project folder, open it in the browser when done, check it works, and ask me before installing or loading anything.",
+      "testedOn": "2026-11-18"
+    }
+  ],
+  "action": {
+    "label": "Make my morning paper in Atu",
+    "prompt": "morning-paper"
+  },
+  "cover": {
+    "motion": "media/press-excerpt.webp",
+    "still": "media/press-still.webp"
+  },
+  "made": [
+    {
+      "path": "media/morning-paper.mp4",
+      "kind": "mockup",
+      "alt": "An antique typewriter feeds out a creased newspaper with a halftone ferry photo, then the printable sample page appears.",
+      "caption": "A typewriter mockup of the morning paper, followed by the sample web page Atu built."
+    }
+  ],
+  "requirements": [],
+  "revision": "sha256:aac638e9993231f685a71026c2d0801436a23a8951f22821db291420a73553b0"
+}
