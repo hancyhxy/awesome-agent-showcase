@@ -68,6 +68,9 @@ describe('entry validation', () => {
       'https://video.twimg.com:8443/a/b.mp4',
       'https://video.twimg.com/a/../b.mp4 ',
       '',
+      null,
+      7,
+      ['https://video.twimg.com/a/b.mp4'],
     ]) assert.match(errorsFor(withVideo(bad)), /source\.video must be an https:\/\/video\.twimg\.com\//, bad);
     const docs = syntheticEntry({
       id: 'tool-synthetic',

@@ -122,7 +122,7 @@ function checkSource(entry, errors) {
     return;
   }
   if (!checkObject(source, [...fields, ...(OPTIONAL_SOURCE_FIELDS[source.type] ?? [])], 'source', errors)) return;
-  if (source.video !== undefined && xVideoUrl(source.video) !== source.video) {
+  if (source.video !== undefined && (typeof source.video !== 'string' || xVideoUrl(source.video) !== source.video)) {
     errors.push(`source.video must be an https://${X_VIDEO_HOST}/....mp4 URL, with at most a ?tag=<number> query`);
   }
   for (const field of fields.filter((name) => name !== 'type')) {
