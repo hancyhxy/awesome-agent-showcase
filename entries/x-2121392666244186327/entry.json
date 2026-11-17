@@ -1,0 +1,62 @@
+{
+  "id": "x-2121392666244186327",
+  "title": "Custom themes for Claude Code Desktop",
+  "summary": "Describe a look and Claude Code Desktop builds it: your colours and an animated backdrop, like a synthwave sunset behind the chat. It is a mod, and it works in local sessions.",
+  "purposes": [
+    "agent-setup"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/ClaudeDevs/status/2121392666244186327",
+    "author": "ClaudeDevs",
+    "credit": "ClaudeDevs (Anthropic), public post",
+    "publishedAt": "2026-11-13",
+    "capturedAt": "2026-11-16"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/synthwave-reveal.webp",
+        "basis": "quoted",
+        "holder": "ClaudeDevs",
+        "sourceUrl": "https://x.com/ClaudeDevs/status/2121392666244186327",
+        "excerpt": "0:23-0:26 of the post video"
+      },
+      {
+        "path": "media/synthwave-still.webp",
+        "basis": "quoted",
+        "holder": "ClaudeDevs",
+        "sourceUrl": "https://x.com/ClaudeDevs/status/2121392666244186327",
+        "excerpt": "A frame at 0:24 of the post video"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "synthwave-theme",
+      "status": "proposed",
+      "text": "Make me a Claude Code Desktop theme with a synthwave sunset and neon pink accents, as a mod that follows https://code.claude.com/docs/en/plugins/mods/overview. Write it in a new folder, and ask me before you install or load anything.",
+      "label": "Synthwave sunset and neon pink"
+    }
+  ],
+  "action": {
+    "label": "Make a Claude Code theme in Atu",
+    "prompt": "synthwave-theme"
+  },
+  "cover": {
+    "motion": "media/synthwave-reveal.webp",
+    "still": "media/synthwave-still.webp"
+  },
+  "requirements": [
+    "Claude Code Desktop, updated to the latest version"
+  ],
+  "tags": [
+    {
+      "kind": "tool",
+      "name": "Claude Code",
+      "evidence": "https://code.claude.com/docs/en/plugins/mods/overview"
+    }
+  ],
+  "revision": "sha256:4cbbc72340582d7288783b8e07465e0b8d5c7a54c90f54d9f4086bfa62ced584"
+}

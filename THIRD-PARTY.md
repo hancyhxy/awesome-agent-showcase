@@ -21,7 +21,7 @@ An `x-post` item may store a short excerpt of the media of its own source post. 
 
 ## Credits
 
-No third-party work is included yet.
+The rights record of each item names the holder and the source of every stored third-party file.
 
 This project has no third-party code. Its scripts use only Node built-in modules.
 

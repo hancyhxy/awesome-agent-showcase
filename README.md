@@ -2,7 +2,7 @@
 
 A curated collection of public posts and tools that show what a personal agent can do for you. Each item will explain one specific outcome, credit its source and say what you need to try it.
 
-**Status: the collection is being prepared.** It lists no items yet. Nothing here is ready to install or reproduce.
+**Status: the collection is being prepared.** It has its first items. Nothing here is ready to install or reproduce.
 
 ## Why this exists
 
@@ -23,10 +23,21 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 | Coding | 0 |
 | Research | 0 |
 | Personal workflows | 0 |
-| Agent setup | 0 |
-| **All items (each counted once)** | **0** |
+| Agent setup | 1 |
+| **All items (each counted once)** | **1** |
 
-No items are listed yet.
+### All items
+
+- Custom themes for Claude Code Desktop: Describe a look and Claude Code Desktop builds it: your colours and an animated backdrop, like a synthwave sunset behind the chat. It is a mod, and it works in local sessions.
+
+  ![Custom themes for Claude Code Desktop](entries/x-2121392666244186327/media/synthwave-still.webp)
+
+  via [@ClaudeDevs](https://x.com/ClaudeDevs/status/2121392666244186327)
+
+
+### Agent setup (1)
+
+- Custom themes for Claude Code Desktop: Describe a look and Claude Code Desktop builds it: your colours and an animated backdrop, like a synthwave sunset behind the chat. It is a mod, and it works in local sessions.
 
 <!-- collection:end -->
 

@@ -11,12 +11,10 @@ import { REPO } from './fixture.mjs';
 const read = (path) => readFileSync(join(REPO, path), 'utf8');
 
 describe('this repository', () => {
-  it('validates as an empty collection without deployment records', () => {
+  it('validates its items without deployment records', () => {
     const { collection, problems } = validate(REPO);
     assert.deepEqual(problems, []);
-    assert.equal(collection.entries.length, 0);
     assert.equal(collection.deployments.length, 0);
-    assert.equal(existsSync(join(REPO, 'entries')), false);
     assert.equal(existsSync(join(REPO, 'deployments.json')), false);
   });
 

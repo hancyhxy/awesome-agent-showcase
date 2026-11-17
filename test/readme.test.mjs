@@ -150,6 +150,7 @@ describe('generated README block', () => {
     cpSync(join(REPO, 'scripts'), join(sandbox.root, 'scripts'), { recursive: true });
     cpSync(join(REPO, 'README.md'), join(sandbox.root, 'README.md'));
     const run = (...args) => spawnSync(process.execPath, ['scripts/readme.mjs', ...args], { cwd: sandbox.root, encoding: 'utf8' });
+    assert.equal(run().status, 0);
     assert.equal(run('--check').status, 0);
     writeEntry(sandbox.root, syntheticPostEntry(1));
     const stale = run('--check');
