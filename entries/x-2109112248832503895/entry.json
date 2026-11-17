@@ -47,7 +47,7 @@
     }
   ],
   "action": {
-    "label": "Make a promo with camera moves in Atu",
+    "label": "Make a camera promo in Atu",
     "prompt": "camera-promo"
   },
   "cover": {
@@ -58,10 +58,10 @@
     {
       "kind": "explainer",
       "path": "media/name-the-move.mp4",
-      "alt": "A plain perfume shot gives way to three diagrams: dolly in moves the camera closer, rack focus shifts what is sharp, and whip pan swings to a new shot. The same bottle scene then demonstrates all three.",
+      "alt": "Two numbered storyboard panels transition from a blue figure to a blue car. The whip pan swings sideways with blur; the cross dissolve blends the views. The AURA promo then uses a whip pan to reach its end card.",
       "caption": "Explainer"
     }
   ],
   "requirements": [],
-  "revision": "sha256:441a062c1c169925bec8e2266260af6cdee070f1aaa2033a8c3543ec9d141238"
+  "revision": "sha256:cb77b8536994350ac931a0afaa3fa14dd002d8a8e5075cba384db60bec0be5c4"
 }
