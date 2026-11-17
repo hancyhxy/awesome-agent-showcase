@@ -1,0 +1,66 @@
+{
+  "id": "x-2103473953868063151",
+  "title": "A badge unlock animation",
+  "summary": "A trophy badge pops in, bursts with light rays and confetti, and settles with a glow, all on a web page.",
+  "purposes": [
+    "animation-video"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/adriankuleszo/status/2103473953868063151",
+    "author": "adriankuleszo",
+    "credit": "Adrian (@adriankuleszo), public post",
+    "publishedAt": "2026-09-25",
+    "capturedAt": "2026-11-18",
+    "video": "https://video.twimg.com/amplify_video/2103473604654473216/vid/avc1/720x720/raD_4uxKojhX2Xr4.mp4?tag=29"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/badge-unlock.webp",
+        "basis": "quoted",
+        "holder": "adriankuleszo",
+        "sourceUrl": "https://x.com/adriankuleszo/status/2103473953868063151",
+        "excerpt": "0:00.4-0:03.6 of the post video, on a matching dark background"
+      },
+      {
+        "path": "media/badge-still.webp",
+        "basis": "quoted",
+        "holder": "adriankuleszo",
+        "sourceUrl": "https://x.com/adriankuleszo/status/2103473953868063151",
+        "excerpt": "A frame at 0:01.8 of the post video, on a matching dark background"
+      },
+      {
+        "path": "media/atu-badge.webp",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "badge-unlock",
+      "status": "tested",
+      "text": "Make me a web page with a polished badge unlock animation: a shiny gold trophy on a bright badge pops in, bursts with light rays and confetti, then settles with a soft glow, and a Replay button. Check in a browser that the effects never block the button and that it plays the animation again every time you click it. Draw it all in code with plain HTML, CSS and JavaScript, build it in a new folder inside the current project folder, open it in my browser when it is done, and ask me before you install or load anything.",
+      "label": "A trophy badge that unlocks with confetti",
+      "testedOn": "2026-11-18"
+    }
+  ],
+  "action": {
+    "label": "Make a badge animation in Atu",
+    "prompt": "badge-unlock"
+  },
+  "cover": {
+    "motion": "media/badge-unlock.webp",
+    "still": "media/badge-still.webp"
+  },
+  "made": [
+    {
+      "path": "media/atu-badge.webp",
+      "alt": "A gold trophy on a blue round badge, with a golden glow, light rays and confetti around it, and a Replay button below.",
+      "caption": "Screenshot of our tested badge page; not a frame of the post video"
+    }
+  ],
+  "requirements": [],
+  "revision": "sha256:1eb3b91715fea095712091c5756e96f96f6c7ba72516388a3b385596c60652d4"
+}

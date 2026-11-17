@@ -19,12 +19,12 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 | --- | ---: |
 | Slides | 0 |
 | Images | 0 |
-| Animation and video | 0 |
+| Animation and video | 1 |
 | Coding | 3 |
 | Research | 0 |
 | Personal workflows | 0 |
 | Agent setup | 1 |
-| **All items (each counted once)** | **4** |
+| **All items (each counted once)** | **5** |
 
 ### All items
 
@@ -33,6 +33,12 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
   ![A receipt you tear off](entries/x-2089289550958903358/media/receipt-still.webp)
 
   via [@marmobs](https://x.com/marmobs/status/2089289550958903358)
+
+- A badge unlock animation: A trophy badge pops in, bursts with light rays and confetti, and settles with a glow, all on a web page.
+
+  ![A badge unlock animation](entries/x-2103473953868063151/media/badge-still.webp)
+
+  via [@adriankuleszo](https://x.com/adriankuleszo/status/2103473953868063151)
 
 - A character that follows your cursor: Move the mouse and a cute character on a web page turns its eyes and head to follow it.
 
@@ -52,6 +58,10 @@ An item can belong to more than one purpose. Each purpose counts an item once. T
 
   via [@Rubzem](https://x.com/Rubzem/status/2122013352755126431)
 
+
+### Animation and video (1)
+
+- A badge unlock animation: A trophy badge pops in, bursts with light rays and confetti, and settles with a glow, all on a web page.
 
 ### Coding (3)
 
