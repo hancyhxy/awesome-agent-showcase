@@ -11,11 +11,10 @@ import { REPO } from './fixture.mjs';
 const read = (path) => readFileSync(join(REPO, path), 'utf8');
 
 describe('this repository', () => {
-  it('validates its items without deployment records', () => {
+  it('validates its items and release records', () => {
     const { collection, problems } = validate(REPO);
     assert.deepEqual(problems, []);
-    assert.equal(collection.deployments.length, 0);
-    assert.equal(existsSync(join(REPO, 'deployments.json')), false);
+    assert.ok(collection.deployments.length >= 9);
   });
 
   it('has prompts that say where to build: a new folder inside the current project folder', () => {
@@ -36,9 +35,8 @@ describe('this repository', () => {
     const run = spawnSync(process.execPath, ['scripts/readme.mjs', '--check'], { cwd: REPO, encoding: 'utf8' });
     assert.equal(run.status, 0, run.stderr);
     const readme = read('README.md');
-    assert.match(readme, /being prepared/);
-    assert.match(readme, /\(https:\/\/heyatu\.com\)/);
-    assert.doesNotMatch(readme, /heyatu\.com\/market/);
+    assert.ok(readme.includes('[Browse on Hey Atu Market](https://heyatu.com/market?utm_source=github&utm_medium=readme&utm_campaign=market-hero)'));
+    assert.ok(readme.includes('[Download Hey Atu for Mac](https://heyatu.com/download)'));
   });
 
   it('has no importer and no dependency', () => {
