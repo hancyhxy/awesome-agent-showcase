@@ -29,8 +29,7 @@ const MADE_MAX_BYTES = 2 * 1024 * 1024;
 const STILL_PATH = /\.(png|jpg|jpeg|webp)$/;
 const BRIEF_MIN = 40;
 const BRIEF_MAX = 400;
-const BRIEF_MARKUP = /[<`*_[\]~\\\u0085\u2028\u2029]|&[#\w]+;|^[#>+-]|^\d+[.)]\s/;
-const BRIEF_LINK = /\b[a-z][a-z0-9+.-]*:\S|www\.|\b[a-z0-9-]+(?:\.[a-z0-9-]+)*\.(?:com|org|net|io|dev|app|ai|co|uk|au|nz|ca|us|de|fr|jp|cn|eu|in|it|nl|ru|br|ch|se|me|ly|gg|tv|so|sh|to|cc|xyz|info|edu|gov|site|online|tech|page|link)\b/i;
+const BRIEF_FORBIDDEN = /[<`\u2028\u2029]|:\/\/|\/\/|www\./i;
 
 const TOP_LEVEL = ['id', 'title', 'summary', 'brief', 'purposes', 'source', 'rights', 'media', 'prompts', 'action', 'cover', 'made', 'requirements', 'tags', 'revision'];
 const REQUIRED = ['id', 'title', 'summary', 'purposes', 'source', 'rights', 'media', 'requirements', 'revision'];
@@ -222,7 +221,7 @@ function checkBrief(entry, errors) {
   if (entry.brief === undefined) return;
   if (!checkText(entry.brief, 'brief', errors, { max: BRIEF_MAX })) return;
   if (entry.brief.length < BRIEF_MIN) errors.push(`brief must be at least ${BRIEF_MIN} characters`);
-  if (BRIEF_MARKUP.test(entry.brief) || BRIEF_LINK.test(entry.brief)) errors.push('brief must be plain text without a URL, Markdown, HTML or a backtick');
+  if (BRIEF_FORBIDDEN.test(entry.brief)) errors.push('brief must not contain a line break, <, a backtick, // or www.');
 }
 
 function checkAction(entry, errors) {

@@ -210,43 +210,36 @@ describe('entry validation', () => {
     assert.match(errorsFor(syntheticEntry({ action })), /action needs a prompt/);
   });
 
-  it('accepts an optional brief of plain text and rejects an unsafe or badly sized one', () => {
+  it('accepts an optional brief of one line and rejects a badly sized or unsafe one', () => {
     const brief = 'A synthetic brief that asks an agent for a small page, with two named details.';
     assert.equal(errorsFor(syntheticEntry({ brief })), '');
     assert.equal(errorsFor(syntheticEntry()), '');
-    const bad = [
+    const rejected = [
       'x'.repeat(39),
       'x'.repeat(401),
-      `${brief}\nSecond paragraph.`,
-      `${brief} See https://example.com/a`,
-      `${brief} See www.example.com`,
-      `${brief} See example.com`,
-      `${brief} See example.co.uk`,
-      `${brief} See ftp://example.org/a`,
-      `${brief} Call tel:+18005550199`,
-      `${brief} Write mailto:someone`,
-      `1. ${brief}`,
-      `2) ${brief}`,
+      `${brief}\nSecond line.`,
+      `${brief}\rSecond line.`,
       `${brief}\u2028Second line.`,
-      `${brief}\u0085Second line.`,
+      `${brief}\u2029Second line.`,
+      `${brief} See https://example.com/a`,
+      `${brief} See ftp://example.org/a`,
+      `${brief} See //example.design/x`,
+      `${brief} See www.example.com`,
       `${brief} <b>bold</b>`,
       `${brief} \`code\``,
-      `${brief} [link](x)`,
-      `${brief} **bold**`,
-      `${brief} snake_case`,
-      `${brief} &amp; more`,
-      `# ${brief}`,
-      `- ${brief}`,
       ` ${brief}`,
     ];
-    for (const text of bad) assert.match(errorsFor(syntheticEntry({ brief: text })), /brief must be/, JSON.stringify(text.slice(0, 50)));
-    for (const text of ['Use Node.js to build a small page with a 1.5 second fade.', '1.5 seconds of motion, then a pause, for a small synthetic page.', 'Result: a small page, drawn in code. Note: keep it plain.']) {
-      assert.equal(errorsFor(syntheticEntry({ brief: text })), '', text);
-    }
-    assert.equal(errorsFor(syntheticEntry({ title: 'Synthetic\u2028title' })), '');
+    for (const text of rejected) assert.match(errorsFor(syntheticEntry({ brief: text })), /brief must/, JSON.stringify(text.slice(-30)));
     assert.match(errorsFor(syntheticEntry({ brief: 7 })), /brief must be trimmed text/);
-    assert.equal(errorsFor(syntheticEntry({ brief: 'x'.repeat(40) })), '');
-    assert.equal(errorsFor(syntheticEntry({ brief: 'x'.repeat(400) })), '');
+    const accepted = [
+      'x'.repeat(40),
+      'x'.repeat(400),
+      'Use Node.js to build a small page with a 1.5 second fade.',
+      'Save the settings as user_preferences and add a reset button.',
+      'Result: a small page, drawn in code. Note: keep it plain, with **bold** left alone.',
+    ];
+    for (const text of accepted) assert.equal(errorsFor(syntheticEntry({ brief: text })), '', text);
+    assert.equal(errorsFor(syntheticEntry({ title: 'Synthetic\u2028title' })), '');
   });
 
   it('checks a cover: two files of the right kind, each stored, recorded and different', () => {

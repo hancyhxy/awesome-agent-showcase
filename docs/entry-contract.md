@@ -36,7 +36,7 @@ Nothing else is allowed in the directory. Symbolic links are rejected. Allowed e
 | `id` | As above |
 | `title` | Text, at most 120 characters |
 | `summary` | Text, at most 280 characters |
-| `brief` | Optional. Plain text of 40 to 400 characters. See below |
+| `brief` | Optional. One line of 40 to 400 characters. See below |
 | `purposes` | One or more ids from `tags/purposes.json` |
 | `source` | See below |
 | `rights` | `{ "assets": [...] }`, one record for each stored file |
@@ -82,7 +82,7 @@ A `quoted` record identifies a short excerpt from the item's source post or its 
 
 ### Brief
 
-`brief` is a short request that a visitor can paste into any coding agent. The README shows it for each item. It is one paragraph of plain text: no URL, no Markdown, no `<`, no backtick and no line break.
+`brief` is a short request that a visitor can paste into any coding agent. The README shows it for each item. It is one line of text. The README shows it only inside a fenced code block, so Markdown in it does not render. The validator rejects a line break (including U+2028 and U+2029), `<`, a backtick, `//` and `www.`. A maintainer reviews the rest.
 
 A brief is our original text. It is not one of `prompts`, has no `status` and never claims to be tested. It says the result and the two or three details that make it work, in fewer words than the tested prompt. It does not copy the tested prompt or the words of the source post.
 
