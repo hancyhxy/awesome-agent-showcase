@@ -70,7 +70,6 @@ h1{font-size:16vmin;letter-spacing:.3em;margin-right:-.3em;opacity:0}
   }
 
   const SCENES = { dolly: [0, 3.5], rack: [3.5, 4.5], whipStart: 6, whipEnd: 6.7 };
-  let prevPan = 0, prevT = 0;
 
   function render(t) {
     const w = innerWidth;
@@ -87,13 +86,13 @@ h1{font-size:16vmin;letter-spacing:.3em;margin-right:-.3em;opacity:0}
 
     const p = whipEase(seg(t, SCENES.whipStart, SCENES.whipEnd));
     pan.style.transform = `translateX(${-p * w}px)`;
-    const dt = Math.max(t - prevT, 1e-3);
-    const speed = Math.abs(p - prevPan) / dt;
+    const sample = 1 / 120;
+    const previous = whipEase(seg(t - sample, SCENES.whipStart, SCENES.whipEnd));
+    const speed = Math.abs(p - previous) / sample;
     const blur = Math.min(speed * 8, 40);
     $('a').style.filter = `blur(${blur}px)`;
     $('b').style.filter = `blur(${blur}px)`;
     pan.style.scale = `${1 + blur / 400} 1`;
-    prevPan = p; prevT = t;
 
     const fade = (el, a, b, y = 20) => {
       const k = easeOut(seg(t, a, b));
