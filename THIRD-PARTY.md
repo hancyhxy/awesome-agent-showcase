@@ -20,6 +20,8 @@ An `x-post` item may store a short excerpt of the media of its own source post. 
 - A quoted excerpt stays the author's work. Our licences do not cover it, and we do not sell it.
 - To ask for removal, write to support@heyatu.com or open an issue. We remove the excerpt on request. We aim to remove the stored file first and fix the item after.
 
+The image at the top of the README plays the quoted covers of nine items. The README credits each source post under Sources and rights.
+
 ## Credits
 
 The rights record of each item names the holder and the source of every stored third-party file.

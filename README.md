@@ -1,14 +1,46 @@
 # Awesome Agent Showcase
 
-Ideas from public posts that you can build with an agent on your own computer.
+<a href="https://heyatu.com/market?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-hero"><picture><source media="(prefers-reduced-motion: reduce) and (max-width: 600px)" srcset="docs/readme/hero-narrow-still.jpg"><source media="(prefers-reduced-motion: reduce)" srcset="docs/readme/hero-still.jpg"><source media="(max-width: 600px)" srcset="docs/readme/hero-narrow.webp"><img src="docs/readme/hero.webp" alt="Hey Atu: Ideas your agent can build. A grid of nine tiles plays short excerpts of the credited source posts, with the author handle on each tile: @marmobs, @karenxcheng, @showheyohtaki, @MichaelFilipiuk, @adriankuleszo, @ClaudeDevs, @himanshubuildss, @Rubzem, @SolutionB2u. Below it: Ask Atu from the Mac app, Terminal, ChatGPT, Claude, Codex and Claude Code, with models from OpenAI, Anthropic, Gemini, DeepSeek, Qwen, Kimi, GLM and OpenRouter." width="100%"></picture></a>
 
-[![Six Hey Atu remakes in tiles: a receipt that tears off, a morning newspaper, camera moves explained, a dashboard with fixed spacing, a badge unlock and a synthwave theme.](docs/readme/made-with-atu.webp)](https://heyatu.com/market?utm_source=github&utm_medium=readme&utm_campaign=market-hero)
+<p align="center">
+<a href="https://heyatu.com?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=badge-heyatu"><img src="docs/readme/badges/heyatu.svg" alt="Hey Atu: heyatu.com"></a> <a href="https://heyatu.com/market?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=badge-market"><img src="docs/readme/badges/market.svg" alt="Market: browse ideas"></a> <a href="https://heyatu.com/download/mac?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=badge-download"><img src="docs/readme/badges/download-mac.svg" alt="Download Hey Atu for Mac"></a> <a href="https://heyatu.com/pricing?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=badge-free-start"><img src="docs/readme/badges/free-start.svg" alt="Free start: 100 actions, no card"></a> <a href="https://github.com/heyatu/awesome-agent-showcase?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=badge-licence#sources-and-rights"><img src="docs/readme/badges/licence.svg" alt="Licence: MIT and CC BY 4.0"></a>
+</p>
 
-[Browse on Hey Atu Market](https://heyatu.com/market?utm_source=github&utm_medium=readme&utm_campaign=market-hero) · [Download Hey Atu for Mac](https://heyatu.com/download) · [Suggest an idea](https://github.com/heyatu/awesome-agent-showcase/issues/new?template=suggest-an-idea.yml)
+<p align="center">
+<a href="#your-own-ai-on-your-own-computer">What is Hey Atu</a> · <a href="#install">Install</a> · <a href="#works-with-your-ai">Works with</a> · <a href="#ideas">Ideas</a> · <a href="#suggest-an-idea">Suggest an idea</a>
+</p>
 
-Each item has a short brief. Copy the brief into your own agent, or open the tested version in Hey Atu with one press.
+## Your own AI, on your own computer
 
-## Collection
+**Hey Atu** runs [Pi](https://heyatu.com/faq) on your Mac or Linux computer, with your files, your tools and the model that you choose. Ask from wherever you are; the work continues when you walk away. Most ideas below open in Hey Atu with one press: a tested prompt where we ran it, and a prompt that we wrote where we did not.
+
+| Works on your computer | Ask from anywhere | Any model you like |
+| --- | --- | --- |
+| Your files and tools, and your Hey Atu chats, stay on your computer. What the Hey Atu phone app and your computer send each other is end-to-end encrypted. An AI app such as ChatGPT or Claude calls from its own cloud, so its provider can read the results. | Ask in the Hey Atu app or the terminal. Or ask from ChatGPT, Claude, Codex or Claude Code (ChatGPT and Claude also work from their phone apps): the AI app does the task on your computer. | In the Hey Atu app and the terminal, sign in with your ChatGPT, Claude or Copilot plan, or bring an API key. 30 providers. |
+
+## Install
+
+| Where | How |
+| --- | --- |
+| [Mac app](https://heyatu.com/download/mac) | Download, open, done. macOS 13 or later, Apple silicon and Intel. |
+| Terminal (Mac or Linux) | `curl -fsSL https://heyatu.com/install \| sh` |
+| [ChatGPT, Claude, Codex, Claude Code](https://heyatu.com/ai-apps) | Add Hey Atu as a connector. The AI app does the task on your computer. |
+| iPhone, iPad, Apple Watch | Coming soon. |
+
+Then open any idea below and press **Run the tested version in Hey Atu**, or **Try it in Hey Atu** for a prompt that we wrote and did not run. The prompt opens as a draft; nothing runs until you send it. [Free start: 100 actions, no card.](https://heyatu.com/pricing)
+
+## Works with your AI
+
+<picture>
+<source media="(max-width: 600px)" srcset="docs/readme/works-with-narrow.png">
+<img src="docs/readme/works-with.png" alt="Ask Atu from six places today: Hey Atu for Mac, Terminal, ChatGPT, Claude, Codex and Claude Code. iPhone, iPad and Apple Watch are coming soon. Models Atu can use, 30 providers by your plan, an API key or your cloud: ChatGPT, Claude, Gemini, GitHub Copilot, DeepSeek, Qwen, Kimi, OpenRouter, xAI Grok, Mistral, Z.ai GLM, MiniMax, Meta, Amazon Bedrock, Azure OpenAI and 15 more." width="100%">
+</picture>
+
+Logos are trademarks of their owners.
+
+## Ideas
+
+Each item has a short brief. Copy the brief into your own agent, or open the idea in Hey Atu with one press.
 
 <!-- collection:start -->
 <!-- Generated by scripts/readme.mjs. Edit entries or tags, then run it again. -->
@@ -246,7 +278,9 @@ Star this repository to see new items.
 
 Each item credits and links its source. Quoted excerpts remain the author’s work. See [third-party rights](THIRD-PARTY.md) to request removal or [contributing](CONTRIBUTING.md) to suggest a correction.
 
-Our code uses the [MIT licence](LICENSE). Our original text and assets, including the briefs and the image at the top, use [CC BY 4.0](LICENSE-CONTENT). Neither licence covers third-party work.
+The image at the top shows short excerpts of nine source posts, one in each tile, with credit on the tile: [@marmobs](https://x.com/marmobs/status/2089289550958903358) · [@karenxcheng](https://x.com/karenxcheng/status/2097383854923538770) · [@showheyohtaki](https://x.com/showheyohtaki/status/2109112248832503895) · [@MichaelFilipiuk](https://x.com/MichaelFilipiuk/status/2111383736243859714) · [@adriankuleszo](https://x.com/adriankuleszo/status/2103473953868063151) · [@ClaudeDevs](https://x.com/ClaudeDevs/status/2121392666244186327) · [@himanshubuildss](https://x.com/himanshubuildss/status/2103770889116627075) · [@Rubzem](https://x.com/Rubzem/status/2122013352755126431) · [@SolutionB2u](https://x.com/SolutionB2u/status/2119458988165370270). They stay the authors’ work.
+
+Our code uses the [MIT licence](LICENSE). Our original text and assets, including the briefs, the badges, the works-with image and the layout of the top image, use [CC BY 4.0](LICENSE-CONTENT). Neither licence covers third-party work, including the excerpts in the top image.
 
 ## Repository
 

@@ -5,10 +5,19 @@ import { join } from 'node:path';
 import { describe, it } from 'node:test';
 import { loadCollection } from '../scripts/collection.mjs';
 import { scanHistory } from '../scripts/scan.mjs';
+import { durationMs } from '../scripts/media.mjs';
 import { validate } from '../scripts/validate.mjs';
 import { REPO } from './fixture.mjs';
 
 const read = (path) => readFileSync(join(REPO, path), 'utf8');
+const HERO_ENTRIES = ['x-2089289550958903358', 'x-2097383854923538770', 'x-2109112248832503895', 'x-2111383736243859714', 'x-2103473953868063151', 'x-2121392666244186327', 'x-2103770889116627075', 'x-2122013352755126431', 'x-2119458988165370270'];
+
+function webpCanvas(bytes) {
+  assert.equal(bytes.toString('latin1', 0, 4), 'RIFF');
+  assert.equal(bytes.toString('latin1', 8, 12), 'WEBP');
+  assert.equal(bytes.toString('latin1', 12, 16), 'VP8X');
+  return { width: 1 + bytes.readUIntLE(24, 3), height: 1 + bytes.readUIntLE(27, 3), animated: (bytes[20] & 2) !== 0 };
+}
 
 describe('this repository', () => {
   it('validates its items and release records', () => {
@@ -33,8 +42,9 @@ describe('this repository', () => {
     const run = spawnSync(process.execPath, ['scripts/readme.mjs', '--check'], { cwd: REPO, encoding: 'utf8' });
     assert.equal(run.status, 0, run.stderr);
     const readme = read('README.md');
-    assert.ok(readme.includes('[Browse on Hey Atu Market](https://heyatu.com/market?utm_source=github&utm_medium=readme&utm_campaign=market-hero)'));
-    assert.ok(readme.includes('[Download Hey Atu for Mac](https://heyatu.com/download)'));
+    assert.ok(readme.includes('[Mac app](https://heyatu.com/download/mac)'));
+    assert.ok(readme.includes('curl -fsSL https://heyatu.com/install \\| sh'));
+    assert.ok(readme.includes('[ChatGPT, Claude, Codex, Claude Code](https://heyatu.com/ai-apps)'));
   });
 
   it('shows a brief for every item and no prompt text in the README', () => {
@@ -47,11 +57,68 @@ describe('this repository', () => {
     }
   });
 
-  it('has a hero image of at most 3 MB, linked to Market, with alt text that names the remakes', () => {
-    const hero = 'docs/readme/made-with-atu.webp';
-    assert.ok(statSync(join(REPO, hero)).size <= 3 * 1024 * 1024);
-    const link = 'https://heyatu.com/market?utm_source=github&utm_medium=readme&utm_campaign=market-hero';
-    assert.match(read('README.md'), new RegExp(`\\[!\\[[^\\]]*Hey Atu remakes[^\\]]*\\]\\(${hero.replaceAll('.', '\\.')}\\)\\]\\(${link.replaceAll('?', '\\?')}\\)`));
+  it('shows the hero as one picture linked to Market, with a still and a narrow variant', () => {
+    const readme = read('README.md');
+    const picture = readme.match(/<a href="([^"]+)"><picture>(.*?)<\/picture><\/a>/);
+    assert.ok(picture, 'the hero is a linked picture');
+    assert.equal(picture[1], 'https://heyatu.com/market?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-hero');
+    const sources = [...picture[2].matchAll(/<source media="([^"]+)" srcset="([^"]+)">/g)].map(([, media, srcset]) => [media, srcset]);
+    assert.deepEqual(sources, [
+      ['(prefers-reduced-motion: reduce) and (max-width: 600px)', 'docs/readme/hero-narrow-still.jpg'],
+      ['(prefers-reduced-motion: reduce)', 'docs/readme/hero-still.jpg'],
+      ['(max-width: 600px)', 'docs/readme/hero-narrow.webp'],
+    ]);
+    assert.match(picture[2], /<img src="docs\/readme\/hero\.webp" alt="[^"]+"/);
+  });
+
+  it('has hero images of the stated size and at most 5 MB, animated for 8 to 10 s, with a still of each', () => {
+    for (const [name, still, width, height] of [['hero', 'hero-still', 1600, 900], ['hero-narrow', 'hero-narrow-still', 900, 1200]]) {
+      const bytes = readFileSync(join(REPO, `docs/readme/${name}.webp`));
+      assert.ok(bytes.length <= 5 * 1024 * 1024, `${name} is at most 5 MB`);
+      assert.deepEqual(webpCanvas(bytes), { width, height, animated: true });
+      const seconds = durationMs(`${name}.webp`, bytes) / 1000;
+      assert.ok(seconds >= 8 && seconds <= 10, `${name} loops for ${seconds} s`);
+      assert.deepEqual([...readFileSync(join(REPO, `docs/readme/${still}.jpg`)).subarray(0, 3)], [0xff, 0xd8, 0xff]);
+    }
+    assert.equal(existsSync(join(REPO, 'docs/readme/made-with-atu.webp')), false);
+  });
+
+  it('credits the nine source posts of the hero tiles in the alt text and in Sources and rights', () => {
+    const readme = read('README.md');
+    const alt = readme.match(/<img src="docs\/readme\/hero\.webp" alt="([^"]+)"/)[1];
+    const rights = readme.slice(readme.indexOf('## Sources and rights'), readme.indexOf('## Repository'));
+    const { entries } = loadCollection(REPO);
+    const tiles = HERO_ENTRIES.map((id) => entries.find((entry) => entry.id === id));
+    for (const entry of tiles) {
+      assert.ok(entry, 'a hero entry exists');
+      const cover = entry.rights.assets.find(({ path }) => path === entry.cover.motion);
+      assert.equal(cover.basis, 'quoted', `${entry.id}: the tile plays a quoted cover`);
+      assert.ok(alt.includes(`@${entry.source.author}`), `${entry.id}: the alt text names the author`);
+      assert.ok(rights.includes(`[@${entry.source.author}](${entry.source.url})`), `${entry.id}: Sources and rights links the post`);
+    }
+    assert.match(alt, /excerpts of the credited source posts/);
+  });
+
+  it('has the badges, each linked with campaign labels, and the works-with wall', () => {
+    const readme = read('README.md');
+    for (const [file, host, campaign] of [['heyatu', 'heyatu.com', 'badge-heyatu'], ['market', 'heyatu.com', 'badge-market'], ['download-mac', 'heyatu.com', 'badge-download'], ['free-start', 'heyatu.com', 'badge-free-start'], ['licence', 'github.com', 'badge-licence']]) {
+      assert.match(readme, new RegExp(`<a href="https://${host.replace('.', '\\.')}[^"#]*utm_source=github&amp;utm_medium=readme&amp;utm_campaign=${campaign}[^"]*"><img src="docs/readme/badges/${file}\\.svg"`));
+    }
+    assert.match(readme, /badge-licence#sources-and-rights"><img/);
+    for (const file of ['heyatu', 'market', 'download-mac', 'free-start', 'licence']) assert.match(read(`docs/readme/badges/${file}.svg`), /^<svg /);
+    assert.match(readme, /srcset="docs\/readme\/works-with-narrow\.png"/);
+    assert.match(readme, /<img src="docs\/readme\/works-with\.png"/);
+    assert.match(readme, /Logos are trademarks of their owners\./);
+    for (const file of ['works-with', 'works-with-narrow']) assert.ok(statSync(join(REPO, `docs/readme/${file}.png`)).size > 0);
+  });
+
+  it('keeps the section links of the head and their headings in order', () => {
+    const readme = read('README.md');
+    const links = [...readme.matchAll(/<a href="#([a-z-]+)">[A-Z]/g)].map(([, anchor]) => anchor);
+    assert.deepEqual(links, ['your-own-ai-on-your-own-computer', 'install', 'works-with-your-ai', 'ideas', 'suggest-an-idea']);
+    const headings = [...readme.matchAll(/^## (.+)$/gm)].map(([, heading]) => heading);
+    assert.deepEqual(headings.slice(0, 5), ['Your own AI, on your own computer', 'Install', 'Works with your AI', 'Ideas', 'Suggest an idea']);
+    assert.doesNotMatch(readme, /open source/i);
   });
 
   it('links the two contribution forms and asks for source, run evidence and rights', () => {
