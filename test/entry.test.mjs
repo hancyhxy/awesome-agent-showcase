@@ -223,6 +223,8 @@ describe('entry validation', () => {
       `${brief} See example.com`,
       `${brief} See example.co.uk`,
       `${brief} See ftp://example.org/a`,
+      `${brief} Call tel:+18005550199`,
+      `${brief} Write mailto:someone`,
       `1. ${brief}`,
       `2) ${brief}`,
       `${brief}\u2028Second line.`,
@@ -238,6 +240,10 @@ describe('entry validation', () => {
       ` ${brief}`,
     ];
     for (const text of bad) assert.match(errorsFor(syntheticEntry({ brief: text })), /brief must be/, JSON.stringify(text.slice(0, 50)));
+    for (const text of ['Use Node.js to build a small page with a 1.5 second fade.', '1.5 seconds of motion, then a pause, for a small synthetic page.', 'Result: a small page, drawn in code. Note: keep it plain.']) {
+      assert.equal(errorsFor(syntheticEntry({ brief: text })), '', text);
+    }
+    assert.equal(errorsFor(syntheticEntry({ title: 'Synthetic\u2028title' })), '');
     assert.match(errorsFor(syntheticEntry({ brief: 7 })), /brief must be trimmed text/);
     assert.equal(errorsFor(syntheticEntry({ brief: 'x'.repeat(40) })), '');
     assert.equal(errorsFor(syntheticEntry({ brief: 'x'.repeat(400) })), '');
