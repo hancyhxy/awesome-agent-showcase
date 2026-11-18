@@ -27,8 +27,11 @@ const MADE_KINDS = ['atu', 'mockup', 'explainer', 'recreation', 'page'];
 const MADE_MAX_ITEMS = 3;
 const MADE_MAX_BYTES = 2 * 1024 * 1024;
 const STILL_PATH = /\.(png|jpg|jpeg|webp)$/;
+const BRIEF_MIN = 40;
+const BRIEF_MAX = 400;
+const BRIEF_FORBIDDEN = /[<`*_[\]~\\]|&[#\w]+;|^[#>+-]|(?:https?:\/\/|www\.)|\w\.(?:com|org|net|io|dev|app|ai)\b/i;
 
-const TOP_LEVEL = ['id', 'title', 'summary', 'purposes', 'source', 'rights', 'media', 'prompts', 'action', 'cover', 'made', 'requirements', 'tags', 'revision'];
+const TOP_LEVEL = ['id', 'title', 'summary', 'brief', 'purposes', 'source', 'rights', 'media', 'prompts', 'action', 'cover', 'made', 'requirements', 'tags', 'revision'];
 const REQUIRED = ['id', 'title', 'summary', 'purposes', 'source', 'rights', 'media', 'requirements', 'revision'];
 const SOURCE_FIELDS = {
   'x-post': ['type', 'url', 'author', 'credit', 'publishedAt', 'capturedAt'],
@@ -214,6 +217,13 @@ function checkPrompts(entry, errors) {
   }
 }
 
+function checkBrief(entry, errors) {
+  if (entry.brief === undefined) return;
+  if (!checkText(entry.brief, 'brief', errors, { max: BRIEF_MAX })) return;
+  if (entry.brief.length < BRIEF_MIN) errors.push(`brief must be at least ${BRIEF_MIN} characters`);
+  if (BRIEF_FORBIDDEN.test(entry.brief)) errors.push('brief must be plain text without a URL, Markdown, HTML or a backtick');
+}
+
 function checkAction(entry, errors) {
   const choices = new Set(Array.isArray(entry.prompts) ? entry.prompts.map((prompt) => prompt?.choice) : []);
   if (entry.action === undefined) {
@@ -312,6 +322,7 @@ function checkFields(entry, purposeIds, errors) {
   for (const purpose of purposes) if (!purposeIds.includes(purpose)) errors.push(`purposes: unknown purpose ${JSON.stringify(purpose)}`);
   for (const [index, line] of checkList(entry.requirements, 'requirements', errors, 20).entries()) checkText(line, `requirements[${index}]`, errors, { max: 200 });
   checkSource(entry, errors);
+  checkBrief(entry, errors);
   checkPrompts(entry, errors);
   checkAction(entry, errors);
   checkTags(entry, errors);

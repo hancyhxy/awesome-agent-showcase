@@ -81,8 +81,8 @@ export function linkState(entry, deployments) {
   return record.revision === entry.revision ? 'live' : 'stale';
 }
 
-export function countPurposes(purposes, entries) {
+export function groupByFirstPurpose(purposes, entries) {
   const unique = new Map(entries.map((entry) => [entry.id, entry]));
-  const counts = purposes.map(({ id, label }) => ({ id, label, count: [...unique.values()].filter((entry) => entry.purposes.includes(id)).length }));
-  return { total: unique.size, counts };
+  const groups = purposes.map(({ id, label }) => ({ id, label, entries: [...unique.values()].filter((entry) => entry.purposes[0] === id).sort((a, b) => (a.id < b.id ? -1 : 1)) }));
+  return { total: unique.size, groups };
 }

@@ -2,6 +2,7 @@
   "id": "x-2121392666244186327",
   "title": "Custom themes for Claude Code Desktop",
   "summary": "Describe the look. Claude Code Desktop builds the theme, backdrop and all.",
+  "brief": "A Claude Code Desktop theme in a synthwave style: a striped sunset with a glowing grid as the animated backdrop, neon pink accents on the controls, and dark frosted glass behind the chat so the text stays easy to read. Build it as a mod that follows the official Claude Code mods documentation.",
   "purposes": [
     "agent-setup"
   ],
@@ -71,5 +72,5 @@
       "evidence": "https://code.claude.com/docs/en/plugins/mods/overview"
     }
   ],
-  "revision": "sha256:7aeb30cfd09a671f18335e2c01d5b875cb23305d38e3713717f578e6d4ba0850"
+  "revision": "sha256:bea0f6bf909c4f7aabc46a33a144113dd83ccb7400917f0e1ed85d019fb6b3f6"
 }

@@ -2,6 +2,7 @@
   "id": "x-2109112248832503895",
   "title": "Name your camera moves",
   "summary": "Swap “make it look nice” for a named camera move, and give AI a shot to aim for.",
+  "brief": "A ten-second product promo that plays in the browser, built from three named camera moves: a dolly in that closes on the product, a rack focus that shifts what is sharp, and a whip pan that swings fast, with blur, into the end card. Use my product or invent a sample one, and give each move its own clear moment.",
   "purposes": [
     "animation-video"
   ],
@@ -78,5 +79,5 @@
     }
   ],
   "requirements": [],
-  "revision": "sha256:04a1512f68381746996c6ef28c87afb6618f8b5e65466836798ce856540eff3c"
+  "revision": "sha256:4e84a96b23559fef371ac393c6d4a97d72dbd104c2f5bbe95d17dbb663ca40b7"
 }

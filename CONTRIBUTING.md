@@ -1,6 +1,6 @@
 # Contributing
 
-Open an issue for a correction, a missing credit or a rights concern. A pull request is welcome for a fix to existing text.
+Suggest a public post with the [suggestion form](https://github.com/heyatu/awesome-agent-showcase/issues/new?template=suggest-a-post.yml). Open an issue for a correction, a missing credit or a rights concern. A pull request is welcome for a fix to existing text.
 
 ## What a change needs
 
@@ -14,6 +14,8 @@ Open an issue for a correction, a missing credit or a rights concern. A pull req
 - Run `node scripts/validate.mjs`, `node scripts/readme.mjs --check` and `node --test "test/*.test.mjs"` before you open a pull request.
 
 ## Review and publication
+
+A suggestion is a request, not an item. A maintainer reviews every suggestion, and we may decline it.
 
 A passing check is not approval. A maintainer reviews every item and every change to an item. A new revision needs a new review. Merging a pull request does not publish an item to Hey Atu Market: a separate, reviewed release does that, and nothing publishes automatically.
 

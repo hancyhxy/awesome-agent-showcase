@@ -2,6 +2,7 @@
   "id": "x-2097383854923538770",
   "title": "My Morning Paper",
   "summary": "Read the day ahead like a newspaper, not a feed.",
+  "brief": "My day as a newspaper, on one web page that prints on a single A4 sheet. A dated serif masthead sits over columns for the weather, my meetings, messages that need a reply, my to-dos and one headline, and the text types in like a typewriter. Fill it from my calendar and messages, and ask me for anything you cannot read.",
   "purposes": [
     "personal-workflows"
   ],
@@ -77,5 +78,5 @@
     }
   ],
   "requirements": [],
-  "revision": "sha256:eeecee1b42baed68cc8c7baaa61fd846b56fc1a86f5c117220f3758a527ecb49"
+  "revision": "sha256:8a9b05f6a79331018ad894e8d9d1f002c3a46772c92e44c49dc2d21457ec3fb6"
 }

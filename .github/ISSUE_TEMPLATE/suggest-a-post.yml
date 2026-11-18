@@ -1,0 +1,37 @@
+name: Suggest a post
+description: Suggest a public post for the showcase.
+title: "Suggest a post: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A maintainer reviews every suggestion. A suggestion does not publish anything, and we may decline it.
+  - type: input
+    id: post-url
+    attributes:
+      label: Post URL
+      description: The link to the public post.
+      placeholder: https://x.com/name/status/123
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you make with it?
+      description: Say the result that you want in one or two sentences.
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Optional. Add anything that helps, such as the tool that the post uses.
+    validations:
+      required: false
+  - type: checkboxes
+    id: public
+    attributes:
+      label: Public post
+      options:
+        - label: The post is public. I did not copy private content into this issue.
+          required: true

@@ -2,6 +2,7 @@
   "id": "x-2111383736243859714",
   "title": "Fix the spacing in your app",
   "summary": "Make a cramped dashboard easier to scan without changing what it does.",
+  "brief": "Fix the spacing of an existing app and change nothing else. Set the sidebar width, add room above the content, tighten or loosen the gaps between cards and give each card comfortable inner padding, so a cramped screen is easy to scan. Every feature and every word of content stays as it is.",
   "purposes": [
     "coding"
   ],
@@ -78,5 +79,5 @@
   ],
   "requirements": [],
   "tags": [],
-  "revision": "sha256:0757445904f99973712cc6b423c6ff9b213b089c597ba0be5047eb2c6a79d5e4"
+  "revision": "sha256:9a552b7e8350c6ce4b5b4317dba8b68ce436486953f60f8fa078a9b89f5bd0b6"
 }

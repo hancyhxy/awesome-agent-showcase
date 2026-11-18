@@ -2,6 +2,7 @@
   "id": "x-2089289550958903358",
   "title": "A receipt you tear off",
   "summary": "Pull the paper and watch the tear travel across: slow and clean, or quick and rough.",
+  "brief": "A web page where a printed shop receipt feeds out of a slot and you tear it off by dragging the paper. The tear starts at the corner nearest your grip and runs across: a slow pull cuts almost straight with fine serrations, a quick pull rips unevenly and leaves paper fibres. The torn piece curls and falls, and a Reprint button feeds the next receipt.",
   "purposes": [
     "coding"
   ],
@@ -63,7 +64,7 @@
     "still": "media/receipt-still.webp"
   },
   "requirements": [],
-  "revision": "sha256:2d89b29f782dfd77f82a40c829c1abf4fad225150e01014a560131d13f41b845",
+  "revision": "sha256:59da72a399f3599fd5f37412555624c7340da66fad4c8aff8385c92f63fe688a",
   "made": [
     {
       "path": "media/receipt-made-with-atu.mp4",

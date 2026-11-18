@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, it } from 'node:test';
 import { loadCollection } from '../scripts/collection.mjs';
@@ -35,6 +35,31 @@ describe('this repository', () => {
     const readme = read('README.md');
     assert.ok(readme.includes('[Browse on Hey Atu Market](https://heyatu.com/market?utm_source=github&utm_medium=readme&utm_campaign=market-hero)'));
     assert.ok(readme.includes('[Download Hey Atu for Mac](https://heyatu.com/download)'));
+  });
+
+  it('shows a brief for every item and no prompt text in the README', () => {
+    const { entries } = loadCollection(REPO);
+    const readme = read('README.md');
+    for (const entry of entries) {
+      assert.ok(entry.brief, `${entry.id} has a brief`);
+      assert.ok(readme.includes(entry.brief), `${entry.id}: the README shows the brief`);
+      for (const prompt of entry.prompts ?? []) assert.ok(!readme.includes(prompt.text), `${entry.id}: the README hides the prompt text`);
+    }
+  });
+
+  it('has a hero image of at most 3 MB, linked to Market, with alt text that names the remakes', () => {
+    const hero = 'docs/readme/made-with-atu.webp';
+    assert.ok(statSync(join(REPO, hero)).size <= 3 * 1024 * 1024);
+    const link = 'https://heyatu.com/market?utm_source=github&utm_medium=readme&utm_campaign=market-hero';
+    assert.match(read('README.md'), new RegExp(`\\[!\\[[^\\]]*Hey Atu remakes[^\\]]*\\]\\(${hero.replaceAll('.', '\\.')}\\)\\]\\(${link.replaceAll('?', '\\?')}\\)`));
+  });
+
+  it('has a suggestion form with a post URL, an idea and a public-post checkbox', () => {
+    const form = read('.github/ISSUE_TEMPLATE/suggest-a-post.yml');
+    for (const id of ['post-url', 'idea', 'notes', 'public']) assert.match(form, new RegExp(`id: ${id}\\b`));
+    assert.match(form, /type: checkboxes/);
+    assert.match(read('README.md'), /issues\/new\?template=suggest-a-post\.yml/);
+    assert.match(read('CONTRIBUTING.md'), /suggest a public post/i);
   });
 
   it('has no importer and no dependency', () => {

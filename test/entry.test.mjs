@@ -210,6 +210,33 @@ describe('entry validation', () => {
     assert.match(errorsFor(syntheticEntry({ action })), /action needs a prompt/);
   });
 
+  it('accepts an optional brief of plain text and rejects an unsafe or badly sized one', () => {
+    const brief = 'A synthetic brief that asks an agent for a small page, with two named details.';
+    assert.equal(errorsFor(syntheticEntry({ brief })), '');
+    assert.equal(errorsFor(syntheticEntry()), '');
+    const bad = [
+      'x'.repeat(39),
+      'x'.repeat(401),
+      `${brief}\nSecond paragraph.`,
+      `${brief} See https://example.com/a`,
+      `${brief} See www.example.com`,
+      `${brief} See example.com`,
+      `${brief} <b>bold</b>`,
+      `${brief} \`code\``,
+      `${brief} [link](x)`,
+      `${brief} **bold**`,
+      `${brief} snake_case`,
+      `${brief} &amp; more`,
+      `# ${brief}`,
+      `- ${brief}`,
+      ` ${brief}`,
+    ];
+    for (const text of bad) assert.match(errorsFor(syntheticEntry({ brief: text })), /brief must be/, JSON.stringify(text.slice(0, 50)));
+    assert.match(errorsFor(syntheticEntry({ brief: 7 })), /brief must be trimmed text/);
+    assert.equal(errorsFor(syntheticEntry({ brief: 'x'.repeat(40) })), '');
+    assert.equal(errorsFor(syntheticEntry({ brief: 'x'.repeat(400) })), '');
+  });
+
   it('checks a cover: two files of the right kind, each stored, recorded and different', () => {
     const files = { 'media/cover.png': SYNTHETIC, 'media/loop.gif': SYNTHETIC, 'media/clip.mp4': SYNTHETIC };
     const rights = { assets: ['media/cover.png', 'media/loop.gif', 'media/clip.mp4'].map((path) => ({ path, basis: 'original' })) };

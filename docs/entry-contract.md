@@ -36,6 +36,7 @@ Nothing else is allowed in the directory. Symbolic links are rejected. Allowed e
 | `id` | As above |
 | `title` | Text, at most 120 characters |
 | `summary` | Text, at most 280 characters |
+| `brief` | Optional. Plain text of 40 to 400 characters. See below |
 | `purposes` | One or more ids from `tags/purposes.json` |
 | `source` | See below |
 | `rights` | `{ "assets": [...] }`, one record for each stored file |
@@ -79,13 +80,19 @@ A `quoted` record identifies a short excerpt from the item's source post or its 
 - The file is a `gif`, `webp` or `mp4`, at most 8 seconds and at most 2 MB. The validator reads the length from the file: the frame delays of a GIF or an animated WebP, and the movie header of an MP4. A file whose length cannot be read fails. A still image has no length and passes.
 - A cover that uses a quoted file shows "via @handle" (the README block, Market cards and wall tiles). A quoted file stays the author's work: [THIRD-PARTY.md](../THIRD-PARTY.md#quoted-excerpts) says how to ask for its removal.
 
+### Brief
+
+`brief` is a short request that a visitor can paste into any coding agent. The README shows it for each item. It is one paragraph of plain text: no URL, no Markdown, no `<`, no backtick and no line break.
+
+A brief is our original text. It is not one of `prompts`, has no `status` and never claims to be tested. It says the result and the two or three details that make it work, in fewer words than the tested prompt. It does not copy the tested prompt or the words of the source post.
+
 ### Prompts
 
 `choice` is a stable ID such as `paper-garden`. It is unique in the item. `status` is separate: `original` (the source's own text), `proposed` (written by us, not run) or `tested` (run, needs `testedOn`). The prompt that `action.prompt` names is the one that Hey Atu puts in a new chat. A prompt that makes files says where: it names a new folder inside the current project folder, for example "Build it in a new folder inside the current project folder". Without that, Atu may pick a folder such as `~/Documents` (owner decision 2026-11-17).
 
 ### Action
 
-`action` is the main button of the item page: `label` is text of at most 40 characters (for example `Make a sticker in Atu`). `prompt` is the `choice` of one entry of `prompts`. Hey Atu opens a new chat with that prompt as a draft; it never sends it. The item page and the README never show the prompt text.
+`action` is the main button of the item page: `label` is text of at most 40 characters (for example `Make a sticker in Atu`). `prompt` is the `choice` of one entry of `prompts`. Hey Atu opens a new chat with that prompt as a draft; it never sends it. The README shows `brief`. The README and the item page never show `prompts` text.
 
 ### Made
 
@@ -108,7 +115,7 @@ For a new remake, use a 16:9 animated WebP or MP4 with a 6–10 s loop and the H
 
 ### Cover
 
-`cover` is the picture that a card or a wall tile shows: `motion` is `media/<name>` as `gif`, `webp` or `mp4`; `still` is `media/<name>` as `png`, `jpg`, `jpeg` or `webp`. A reader who asks for less motion sees the still. The two files are different. Each file needs a rights record, a stored file and the same checks as other media. The README block shows the GIF cover when `motion` is a GIF, and the still in all other cases.
+`cover` is the picture that a card or a wall tile shows: `motion` is `media/<name>` as `gif`, `webp` or `mp4`; `still` is `media/<name>` as `png`, `jpg`, `jpeg` or `webp`. A reader who asks for less motion sees the still. The two files are different. Each file needs a rights record, a stored file and the same checks as other media. The README block shows `motion` when it is a `gif` or `webp`, with `still` for a reader who asks for less motion. For an `mp4`, it shows `still`.
 
 ## Revision
 
