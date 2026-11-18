@@ -4,7 +4,7 @@ Ideas from public posts that you can build with an agent on your own computer.
 
 [![Six Hey Atu remakes in tiles: a receipt that tears off, a morning newspaper, camera moves explained, a dashboard with fixed spacing, a badge unlock and a synthwave theme.](docs/readme/made-with-atu.webp)](https://heyatu.com/market?utm_source=github&utm_medium=readme&utm_campaign=market-hero)
 
-[Browse on Hey Atu Market](https://heyatu.com/market?utm_source=github&utm_medium=readme&utm_campaign=market-hero) · [Download Hey Atu for Mac](https://heyatu.com/download) · [Suggest a post](https://github.com/heyatu/awesome-agent-showcase/issues/new?template=suggest-a-post.yml)
+[Browse on Hey Atu Market](https://heyatu.com/market?utm_source=github&utm_medium=readme&utm_campaign=market-hero) · [Download Hey Atu for Mac](https://heyatu.com/download) · [Suggest an idea](https://github.com/heyatu/awesome-agent-showcase/issues/new?template=suggest-an-idea.yml)
 
 Each item has a short brief. Copy the brief into your own agent, or open the tested version in Hey Atu with one press.
 
@@ -236,9 +236,9 @@ A Claude Code Desktop theme in a synthwave style: a striped sunset with a glowin
 
 <!-- collection:end -->
 
-## Suggest a post
+## Suggest an idea
 
-Did you see a public post that you would like to build? [Suggest it](https://github.com/heyatu/awesome-agent-showcase/issues/new?template=suggest-a-post.yml): give the link and what you would make with it. A maintainer reviews every suggestion. A suggestion does not publish anything.
+[Suggest one result](https://github.com/heyatu/awesome-agent-showcase/issues/new?template=suggest-an-idea.yml) that Hey Atu can make. Link to any public source, or describe your own work. A maintainer reviews every suggestion. A suggestion does not publish anything.
 
 Star this repository to see new items.
 
@@ -253,3 +253,5 @@ Our code uses the [MIT licence](LICENSE). Our original text and assets, includin
 The [entry contract](docs/entry-contract.md) defines an item and its release record. [Purpose tags](tags/purposes.json) group items in the collection.
 
 Use Node.js 24 or later. Run `node scripts/validate.mjs` to check the collection and `node scripts/readme.mjs` to rebuild the list.
+
+Contribute an item → [CONTRIBUTING.md](CONTRIBUTING.md).

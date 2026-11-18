@@ -53,7 +53,7 @@ No other field is allowed. An approval or sign-off field does not exist. A field
 
 ### Source
 
-Provenance tells a public post from package documentation.
+The format supports `x-post` and `package-docs`. If an item needs another source type, maintainers add it to the format before publication.
 
 - `x-post`: `type`, `url` (`https://x.com/<handle>/status/<id>`), `author`, `credit`, `publishedAt`, `capturedAt`. Optional `video`: the MP4 file of the post video, `https://video.twimg.com/<path>.mp4` with at most a `?tag=<number>` query. The page plays it from X when the reader presses play, so choose a variant of at most 720p. No other host is allowed.
 - `package-docs`: `type`, `url`, `package`, `credit`, `capturedAt`.

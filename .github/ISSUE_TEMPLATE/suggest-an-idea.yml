@@ -1,0 +1,25 @@
+name: Suggest an idea
+description: Suggest one result that Hey Atu can make.
+title: "Suggest an idea: "
+body:
+  - type: textarea
+    id: source
+    attributes:
+      label: Source
+      description: Link to any public source, or describe your own work.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you make?
+      description: Describe the result in one or two sentences.
+    validations:
+      required: true
+  - type: checkboxes
+    id: public
+    attributes:
+      label: Permission to share
+      options:
+        - label: The source is public or is my own work. I have not included private material.
+          required: true

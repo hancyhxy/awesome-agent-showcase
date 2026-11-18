@@ -54,12 +54,13 @@ describe('this repository', () => {
     assert.match(read('README.md'), new RegExp(`\\[!\\[[^\\]]*Hey Atu remakes[^\\]]*\\]\\(${hero.replaceAll('.', '\\.')}\\)\\]\\(${link.replaceAll('?', '\\?')}\\)`));
   });
 
-  it('has a suggestion form with a post URL, an idea and a public-post checkbox', () => {
-    const form = read('.github/ISSUE_TEMPLATE/suggest-a-post.yml');
-    for (const id of ['post-url', 'idea', 'notes', 'public']) assert.match(form, new RegExp(`id: ${id}\\b`));
-    assert.match(form, /type: checkboxes/);
-    assert.match(read('README.md'), /issues\/new\?template=suggest-a-post\.yml/);
-    assert.match(read('CONTRIBUTING.md'), /suggest a public post/i);
+  it('links the two contribution forms and asks for source, run evidence and rights', () => {
+    for (const [name, ids] of Object.entries({ 'suggest-an-idea': ['source', 'idea', 'public'], 'provide-material': ['source', 'remake', 'prompt', 'ran-in-atu', 'model-result', 'rights'] })) {
+      const form = read(`.github/ISSUE_TEMPLATE/${name}.yml`);
+      for (const id of ids) assert.ok(form.includes(`id: ${id}\n`));
+      assert.ok(read('CONTRIBUTING.md').includes(`issues/new?template=${name}.yml`));
+    }
+    assert.match(read('README.md'), /issues\/new\?template=suggest-an-idea\.yml/);
   });
 
   it('has no importer and no dependency', () => {

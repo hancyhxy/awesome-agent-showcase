@@ -1,0 +1,48 @@
+name: Provide material for an item
+description: Send the source, remake and prompt for one result.
+title: "Item material: "
+body:
+  - type: textarea
+    id: source
+    attributes:
+      label: Source and cover
+      description: Give the source link, credit and cover time range or still. For your own unpublished work, attach the source instead.
+    validations:
+      required: true
+  - type: textarea
+    id: remake
+    attributes:
+      label: Remake media
+      description: Attach the recording or page with its still, or give a link. Say what the result shows.
+    validations:
+      required: true
+  - type: textarea
+    id: prompt
+    attributes:
+      label: Prompt
+      description: Give the prompt. Remove private information first.
+    validations:
+      required: true
+  - type: dropdown
+    id: ran-in-atu
+    attributes:
+      label: Did you run this prompt in Hey Atu?
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
+  - type: input
+    id: model-result
+    attributes:
+      label: Model and run result
+      description: Name the model and describe what it made. If you did not run the prompt, enter “proposed”.
+    validations:
+      required: true
+  - type: checkboxes
+    id: rights
+    attributes:
+      label: Rights
+      options:
+        - label: The text and media I submit are my own work. I release them under CC BY 4.0. Third-party material is linked, not submitted as my work.
+          required: true
