@@ -29,7 +29,7 @@ Each item has a short brief. Copy the brief into your own agent, or open the tes
 <summary>Brief</summary>
 
 ```text
-A web page with a badge-unlock moment: a gold trophy on a bright badge pops in, light rays and confetti burst out, then everything settles into a soft glow. A Replay button restarts the whole animation every time, even when pressed twice in a row. Draw all of it in code, with no image files.
+A web page for an achievement unlocked: a trophy badge springs onto the screen, then rays, confetti and a lingering glow follow in that order, each with its own timing. A Replay button runs the sequence from the start every time, and everything is drawn in code.
 ```
 
 </details>
@@ -71,7 +71,7 @@ A ten-second product promo that plays in the browser, built from three named cam
 <summary>Brief</summary>
 
 ```text
-An original pixel garden in the browser where the wind moves the leaves. Draw a few trees and shrubs of your own in chunky pixels and let a breeze bend them. Let me reverse the wind or drag a plant to shake its leaves loose, so they tumble and pile up on the ground, then add a button that grows them back.
+An original pixel garden in the browser where the wind moves the leaves: chunky pixel trees bend in a breeze, leaves tumble off and pile up on the ground, and the wind can be reversed.
 ```
 
 </details>
@@ -121,7 +121,7 @@ A web page where a printed shop receipt feeds out of a slot and you tear it off 
 <summary>Brief</summary>
 
 ```text
-A web page with a friendly cartoon character in the middle of the screen. Its eyes follow the mouse pointer and its head turns a little towards it as the pointer moves. Keep the character simple and flat, draw it in code, and ease the turns so the motion feels alive instead of snapping.
+A web page with a friendly flat cartoon character whose eyes and head turn smoothly to follow the mouse pointer around the screen.
 ```
 
 </details>
@@ -163,7 +163,7 @@ Fix the spacing of an existing app and change nothing else. Set the sidebar widt
 <summary>Brief</summary>
 
 ```text
-A small calm game that you play in the browser, told through a few painted scenes of a kid and a dog on a long walk home. There are no timers and no way to lose: you click through each scene and things respond gently. Paint the scenes and make the sounds in code, with a soft hand-painted look.
+A gentle browser game where a child and a dog walk home across several scenes. Nothing is timed and nothing can go wrong. Each scene has a few things to discover, the look is soft and painterly, and the quiet sound is generated in code.
 ```
 
 </details>
@@ -190,7 +190,7 @@ A small calm game that you play in the browser, told through a few painted scene
 <summary>Brief</summary>
 
 ```text
-My day as a newspaper, on one web page that prints on a single A4 sheet. A dated serif masthead sits over columns for the weather, my meetings, messages that need a reply, my to-dos and one headline, and the text types in like a typewriter. Fill it from my calendar and messages, and ask me for anything you cannot read.
+A printable front page of my day, styled as a vintage newspaper with a dated masthead and a typewriter-style reveal. It gathers what matters today from my calendar and messages, adds a weather line and one lead story, and fits a single A4 sheet.
 ```
 
 </details>

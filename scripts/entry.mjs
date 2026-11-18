@@ -29,7 +29,7 @@ const MADE_MAX_BYTES = 2 * 1024 * 1024;
 const STILL_PATH = /\.(png|jpg|jpeg|webp)$/;
 const BRIEF_MIN = 40;
 const BRIEF_MAX = 400;
-const BRIEF_FORBIDDEN = /[<`*_[\]~\\]|&[#\w]+;|^[#>+-]|(?:https?:\/\/|www\.)|\w\.(?:com|org|net|io|dev|app|ai)\b/i;
+const BRIEF_FORBIDDEN = /[<`*_[\]~\\]|&[#\w]+;|^[#>+-]|^\d+[.)]|:\/\/|www\.|\S\.[a-z]{2,}/i;
 
 const TOP_LEVEL = ['id', 'title', 'summary', 'brief', 'purposes', 'source', 'rights', 'media', 'prompts', 'action', 'cover', 'made', 'requirements', 'tags', 'revision'];
 const REQUIRED = ['id', 'title', 'summary', 'purposes', 'source', 'rights', 'media', 'requirements', 'revision'];
@@ -101,7 +101,7 @@ function checkObject(value, allowed, where, errors) {
 
 function checkText(value, where, errors, { max, multiline = false } = {}) {
   const ok = typeof value === 'string' && value.trim() === value && value.length > 0 && value.length <= max
-    && !CONTROL_CHARACTERS.test(value) && (multiline || !/[\r\n]/.test(value));
+    && !CONTROL_CHARACTERS.test(value) && (multiline || !/[\r\n\u0085\u2028\u2029]/.test(value));
   if (!ok) errors.push(`${where} must be trimmed text of 1 to ${max} characters${multiline ? '' : ' on one line'}`);
   return ok;
 }

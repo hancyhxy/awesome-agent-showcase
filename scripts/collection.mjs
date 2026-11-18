@@ -15,9 +15,9 @@ function readJson(path, errors) {
 
 export function loadPurposes(root, errors) {
   const purposes = readJson(join(root, 'tags/purposes.json'), errors) ?? [];
-  const valid = Array.isArray(purposes) && purposes.every((purpose) => ID_PATTERN.test(purpose?.id ?? '') && typeof purpose.label === 'string' && purpose.label.trim());
+  const valid = Array.isArray(purposes) && purposes.every((purpose) => ID_PATTERN.test(purpose?.id ?? '') && typeof purpose.label === 'string' && purpose.label.trim() && !/[\r\n\u0085\u2028\u2029]/.test(purpose.label));
   if (!valid || new Set(purposes.map((purpose) => purpose.id)).size !== purposes.length) {
-    errors.push('tags/purposes.json must list unique purposes with an id and a label');
+    errors.push('tags/purposes.json must list unique purposes with an id and a one-line label');
     return [];
   }
   return purposes;

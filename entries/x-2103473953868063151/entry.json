@@ -2,7 +2,7 @@
   "id": "x-2103473953868063151",
   "title": "A badge unlock animation",
   "summary": "A trophy badge pops in, bursts with light rays and confetti, and settles with a glow, all on a web page.",
-  "brief": "A web page with a badge-unlock moment: a gold trophy on a bright badge pops in, light rays and confetti burst out, then everything settles into a soft glow. A Replay button restarts the whole animation every time, even when pressed twice in a row. Draw all of it in code, with no image files.",
+  "brief": "A web page for an achievement unlocked: a trophy badge springs onto the screen, then rays, confetti and a lingering glow follow in that order, each with its own timing. A Replay button runs the sequence from the start every time, and everything is drawn in code.",
   "purposes": [
     "animation-video"
   ],
@@ -56,5 +56,5 @@
     "still": "media/badge-still.webp"
   },
   "requirements": [],
-  "revision": "sha256:5439e7245c67a2c509e9ccc3225e1d0d99609e326e9343b1bd06bab950f02a7b"
+  "revision": "sha256:6e0b7a34276e8264907dadfccde15738841a83c38fe42d7d8d2517a933513471"
 }

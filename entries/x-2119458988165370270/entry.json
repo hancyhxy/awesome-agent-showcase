@@ -2,7 +2,7 @@
   "id": "x-2119458988165370270",
   "title": "Pixel Play Wind Garden",
   "summary": "Bend the wind and send pixel leaves tumbling.",
-  "brief": "An original pixel garden in the browser where the wind moves the leaves. Draw a few trees and shrubs of your own in chunky pixels and let a breeze bend them. Let me reverse the wind or drag a plant to shake its leaves loose, so they tumble and pile up on the ground, then add a button that grows them back.",
+  "brief": "An original pixel garden in the browser where the wind moves the leaves: chunky pixel trees bend in a breeze, leaves tumble off and pile up on the ground, and the wind can be reversed.",
   "purposes": [
     "animation-video",
     "coding"
@@ -68,5 +68,5 @@
     }
   ],
   "requirements": [],
-  "revision": "sha256:186cd391e8a8cfd1319436a65ab36f76a9e386041a6c3e62f4ffad15f10ec269"
+  "revision": "sha256:87f83c0a237b6da73f999b29d84c73eae397ea0197699caa1685eb28fcfc8c86"
 }

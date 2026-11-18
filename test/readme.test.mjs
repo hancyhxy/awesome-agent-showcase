@@ -148,11 +148,18 @@ describe('generated README block', () => {
     assert.doesNotMatch(block, /SYNTHETIC SECRET PROMPT|Make it in Atu/);
   });
 
-  it('fences a brief safely even when it holds backticks', () => {
-    const brief = 'A synthetic brief with ```` four ticks and ` one tick inside it, for a test only.';
-    writeEntry(sandbox.root, syntheticPostEntry(1, { brief }), { seal: false });
-    const { entries, purposes, deployments } = loadCollection(sandbox.root);
-    assert.ok(renderBlock({ entries, purposes, deployments }).includes(`\`\`\`\`\`text\n${brief}\n\`\`\`\`\``));
+  it('keeps a purpose label literal in its heading', () => {
+    writeEntry(sandbox.root, syntheticPostEntry(1));
+    const collection = loadCollection(sandbox.root);
+    const purposes = collection.purposes.map((purpose) => (purpose.id === 'slides' ? { ...purpose, label: '# [Slides](x) <b> *' } : purpose));
+    assert.match(renderBlock({ ...collection, purposes }), /^### \\# \\\[Slides\\\]\\\(x\\\) \\<b\\> \\\* \(1\)$/m);
+  });
+
+  it('rejects a purpose label of more than one line', () => {
+    for (const label of ['A\nB', 'A\u2028B', 'A\u0085B']) {
+      writeFileSync(join(sandbox.root, 'tags/purposes.json'), JSON.stringify([{ id: 'slides', label }]));
+      assert.match(loadCollection(sandbox.root).errors.join('\n'), /one-line label/);
+    }
   });
 
   it('shows a motion cover with the still for reduced motion, else the still alone', () => {

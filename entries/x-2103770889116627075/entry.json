@@ -2,7 +2,7 @@
   "id": "x-2103770889116627075",
   "title": "A character that follows your cursor",
   "summary": "Move the mouse and a cute character on a web page turns its eyes and head to follow it.",
-  "brief": "A web page with a friendly cartoon character in the middle of the screen. Its eyes follow the mouse pointer and its head turns a little towards it as the pointer moves. Keep the character simple and flat, draw it in code, and ease the turns so the motion feels alive instead of snapping.",
+  "brief": "A web page with a friendly flat cartoon character whose eyes and head turn smoothly to follow the mouse pointer around the screen.",
   "purposes": [
     "coding"
   ],
@@ -59,5 +59,5 @@
       "evidence": "https://x.com/himanshubuildss/status/2103770889116627075"
     }
   ],
-  "revision": "sha256:3d5ee9ce6dba6e4561f7e7bdf36538e9240e0820479211f6fa48fcc6d5a2d58d"
+  "revision": "sha256:2c3d418cc31f173a9ce8866997201007a38a9ef06711fccccd790a9d875bb326"
 }

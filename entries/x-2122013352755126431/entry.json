@@ -2,7 +2,7 @@
   "id": "x-2122013352755126431",
   "title": "A calm storybook game with a hand-painted feel",
   "summary": "A kid, a dog and a long way home: a gentle game that you play in your browser.",
-  "brief": "A small calm game that you play in the browser, told through a few painted scenes of a kid and a dog on a long walk home. There are no timers and no way to lose: you click through each scene and things respond gently. Paint the scenes and make the sounds in code, with a soft hand-painted look.",
+  "brief": "A gentle browser game where a child and a dog walk home across several scenes. Nothing is timed and nothing can go wrong. Each scene has a few things to discover, the look is soft and painterly, and the quiet sound is generated in code.",
   "purposes": [
     "coding"
   ],
@@ -59,5 +59,5 @@
       "evidence": "https://x.com/Rubzem/status/2122013352755126431"
     }
   ],
-  "revision": "sha256:f72be65e2404ef0ac088c5538f4bf18a1e6ba3ae769acaeb7dccb641667dfb07"
+  "revision": "sha256:25fd7a470cd03fdf73b5dd524d8872ff0059b37d60397aa0544a8f12a58d91dc"
 }
