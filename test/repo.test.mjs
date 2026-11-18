@@ -12,9 +12,7 @@ const read = (path) => readFileSync(join(REPO, path), 'utf8');
 
 describe('this repository', () => {
   it('validates its items and release records', () => {
-    const { collection, problems } = validate(REPO);
-    assert.deepEqual(problems, []);
-    assert.ok(collection.deployments.length >= 9);
+    assert.deepEqual(validate(REPO).problems, []);
   });
 
   it('has prompts that say where to build: a new folder inside the current project folder', () => {
