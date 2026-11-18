@@ -219,6 +219,8 @@ describe('entry validation', () => {
       'x'.repeat(401),
       `${brief}\nSecond line.`,
       `${brief}\rSecond line.`,
+      `${brief}\u0085Second line.`,
+      `${brief}\tSecond part.`,
       `${brief}\u2028Second line.`,
       `${brief}\u2029Second line.`,
       `${brief} See https://example.com/a`,

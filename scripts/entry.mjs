@@ -29,7 +29,7 @@ const MADE_MAX_BYTES = 2 * 1024 * 1024;
 const STILL_PATH = /\.(png|jpg|jpeg|webp)$/;
 const BRIEF_MIN = 40;
 const BRIEF_MAX = 400;
-const BRIEF_FORBIDDEN = /[<`\u2028\u2029]|:\/\/|\/\/|www\./i;
+const BRIEF_FORBIDDEN = /[<`\p{Cc}\u2028\u2029]|:\/\/|\/\/|www\./iu;
 
 const TOP_LEVEL = ['id', 'title', 'summary', 'brief', 'purposes', 'source', 'rights', 'media', 'prompts', 'action', 'cover', 'made', 'requirements', 'tags', 'revision'];
 const REQUIRED = ['id', 'title', 'summary', 'purposes', 'source', 'rights', 'media', 'requirements', 'revision'];
@@ -221,7 +221,7 @@ function checkBrief(entry, errors) {
   if (entry.brief === undefined) return;
   if (!checkText(entry.brief, 'brief', errors, { max: BRIEF_MAX })) return;
   if (entry.brief.length < BRIEF_MIN) errors.push(`brief must be at least ${BRIEF_MIN} characters`);
-  if (BRIEF_FORBIDDEN.test(entry.brief)) errors.push('brief must not contain a line break, <, a backtick, // or www.');
+  if (BRIEF_FORBIDDEN.test(entry.brief)) errors.push('brief must not contain a control character, a line break, <, a backtick, // or www.');
 }
 
 function checkAction(entry, errors) {
