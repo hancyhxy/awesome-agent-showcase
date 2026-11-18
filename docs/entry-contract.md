@@ -6,10 +6,11 @@ One item is one directory. Hey Atu Market and this repository both read the same
 entries/<id>/
 ├── entry.json    fields below
 ├── body.md       item-specific body, Markdown, rules below
+├── page.html     optional interactive remake
 └── media/        stored assets, one level: media/<name>.<ext>
 ```
 
-Nothing else is allowed in the directory. Symbolic links are rejected. Allowed extensions: `png`, `jpg`, `jpeg`, `webp`, `gif`, `mp4`, `webm`. Scripts, HTML and SVG stay rejected until a later contract change and code review.
+Nothing else is allowed in the directory. Symbolic links are rejected. Allowed extensions: `png`, `jpg`, `jpeg`, `webp`, `gif`, `mp4`, `webm`. Do not store other HTML, scripts or SVG files.
 
 ## Body
 
@@ -42,7 +43,7 @@ Nothing else is allowed in the directory. Symbolic links are rejected. Allowed e
 | `prompts` | Optional, `[{ "choice", "status", "text", "label"?, "testedOn"? }]` |
 | `action` | `{ "label", "prompt" }`. Required when `prompts` is not empty; not allowed without prompts. See below |
 | `cover` | Optional, `{ "motion", "still" }`. See below |
-| `made` | Optional, up to 3 of `[{ "path", "kind", "alt", "caption", "creditUrl"? }]`: result media for the item. See below |
+| `made` | Optional, up to 3 of `[{ "path", "kind", "alt", "caption", "creditUrl"?, "still"? }]`: result media for the item. See below |
 | `requirements` | List of text, may be empty |
 | `tags` | Optional, `[{ "kind": "tool" or "model", "name", "version"?, "evidence" }]`. Evidence is a public https URL |
 | `revision` | `sha256:<64 hex characters>` |
@@ -88,7 +89,7 @@ A `quoted` record identifies a short excerpt from the item's source post or its 
 
 ### Made
 
-`made` lists result media for the item. Market shows the first file in the **In Atu** panel. If the list is absent or empty, the panel does not appear. Each file must have a `kind`:
+`made` lists result media for the item. Market opens the interactive page if present, else the first recording, from the **In Atu** panel. If the list is absent or empty, the panel does not appear. Each file must have a `kind`:
 
 | `kind` | What the file shows | Panel label |
 | --- | --- | --- |
@@ -97,7 +98,11 @@ A `quoted` record identifies a short excerpt from the item's source post or its 
 | `mockup` | Our own drawing of a result in a product that Hey Atu does not run | Mockup |
 | `explainer` | A short animation that explains a method. It does not show a run | Explainer |
 
-`path` is `media/<name>` as `png`, `jpg`, `jpeg`, `webp`, `gif` or `mp4`, at most 2 MB. A `recreation` needs a `quoted` record. Its caption credits the artwork and links to the original through `creditUrl` (public HTTPS). The quoted limits apply. All other kinds need an `original` record and do not take `creditUrl`. `alt` is at most 300 characters. `caption` is at most 160 characters and says what the file shows.
+| `page` | An original interactive remake | Interactive preview |
+
+A page has `path: "page.html"` and a `still` (a static `media/<name>` PNG, JPEG or WebP of the remake). Give **both** files an `original` rights record. Together they must be at most 2 MiB. Keep at most one page per entry. Put all CSS, script and drawing data in this one HTML document. No network, external files, navigation, forms, nested frames, storage, third-party art, logos or copy. Review all code and embedded assets before publication; a static check cannot prove these properties. The host must enforce a no-network CSP and a sandbox with scripts only, even for direct visits.
+
+For a recording, `path` is `media/<name>` as `png`, `jpg`, `jpeg`, `webp`, `gif` or `mp4`, at most 2 MB. A `recreation` needs a `quoted` record. Its caption credits the artwork and links to the original through `creditUrl` (public HTTPS). The quoted limits apply. All other kinds need an `original` record and do not take `creditUrl`. `alt` is at most 300 characters. `caption` is at most 160 characters and says what the file shows.
 
 For a new remake, use a 16:9 animated WebP or MP4 with a 6–10 s loop and the Hey Atu logo in the frame. Do not show the prompt or copy the logos, screens or text of another product. Use pixel art only for a post that uses pixel art.
 
@@ -110,7 +115,7 @@ For a new remake, use a 16:9 animated WebP or MP4 with a 6–10 s loop and the H
 The revision binds the public content and the asset bytes. It is the only revision identity: a short display label is not a second approval.
 
 1. Take `entry.json` without its `revision` field. Write it as canonical JSON: object keys sorted by UTF-16 code unit, no white space, `JSON.stringify` for strings and numbers.
-2. For `entry.json` (this canonical text), `body.md` and every file in `media/`, make the line `<sha256 hex of the bytes>  <name>\n`.
+2. For `entry.json` (this canonical text), `body.md`, `page.html` if present, and every file in `media/`, make the line `<sha256 hex of the bytes>  <name>\n`.
 3. Sort the lines by name. Join them. The revision is `sha256:` and the SHA-256 hex of that text.
 
 `node scripts/validate.mjs --revision <id>` prints the computed value. Validation fails when `revision` differs from it.

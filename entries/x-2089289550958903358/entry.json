@@ -33,6 +33,14 @@
       {
         "path": "media/receipt-made-with-atu.mp4",
         "basis": "original"
+      },
+      {
+        "path": "page.html",
+        "basis": "original"
+      },
+      {
+        "path": "media/preview-still.jpg",
+        "basis": "original"
       }
     ]
   },
@@ -55,13 +63,20 @@
     "still": "media/receipt-still.webp"
   },
   "requirements": [],
-  "revision": "sha256:e60ea2cbb8c140643c79da7bf8012497a447a252c3ee3e0b131d5f79180ddd1c",
+  "revision": "sha256:2d89b29f782dfd77f82a40c829c1abf4fad225150e01014a560131d13f41b845",
   "made": [
     {
       "path": "media/receipt-made-with-atu.mp4",
       "kind": "atu",
       "alt": "Printed paper with a small shop logo feeds out. A slow pull tears from the left with fine serrations; after Reprint, a fast pull tears from the right with rough fibres.",
       "caption": "Made with Hey Atu"
+    },
+    {
+      "kind": "page",
+      "path": "page.html",
+      "still": "media/preview-still.jpg",
+      "alt": "Tear and reprint the receipt.",
+      "caption": "Tear and reprint the receipt."
     }
   ]
 }

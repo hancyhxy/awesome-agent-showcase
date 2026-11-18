@@ -22,7 +22,8 @@ const PRIVATE_HOST = /^(localhost|.*\.(local|localhost|internal|lan))$|^[\d.]+$|
 
 const MOTION_PATH = /\.(gif|webp|mp4)$/;
 const MADE_PATH = /\.(png|jpe?g|webp|gif|mp4)$/;
-const MADE_KINDS = ['atu', 'mockup', 'explainer', 'recreation'];
+const PAGE_PATH = 'page.html';
+const MADE_KINDS = ['atu', 'mockup', 'explainer', 'recreation', 'page'];
 const MADE_MAX_ITEMS = 3;
 const MADE_MAX_BYTES = 2 * 1024 * 1024;
 const STILL_PATH = /\.(png|jpg|jpeg|webp)$/;
@@ -177,7 +178,7 @@ function checkRights(entry, files, errors) {
         else checkText(asset[field], `${where}.${field}`, errors, { max: 200 });
       }
     }
-    if (!ASSET_PATH.test(asset?.path ?? '')) errors.push(`${where}.path must be media/<name> with a supported extension`);
+    if (asset?.path !== PAGE_PATH && !ASSET_PATH.test(asset?.path ?? '')) errors.push(`${where}.path must be media/<name> with a supported extension`);
     else if (seen.has(asset.path)) errors.push(`${where}.path ${asset.path} is repeated`);
     else seen.add(asset.path);
   }
@@ -246,12 +247,22 @@ function checkMade(entry, files, errors) {
     const recreation = item?.kind === 'recreation';
     const fields = ['path', 'kind', 'alt', 'caption'];
     if (recreation) fields.push('creditUrl');
+    if (item?.kind === 'page') fields.push('still');
     if (!checkObject(item, fields, where, errors)) continue;
-    if (!MADE_KINDS.includes(item.kind)) errors.push(`${where}.kind must be atu, mockup, explainer or recreation`);
+    if (!MADE_KINDS.includes(item.kind)) errors.push(`${where}.kind must be atu, mockup, explainer, recreation or page`);
     if (recreation) checkUrl(item.creditUrl, `${where}.creditUrl`, errors);
     checkText(item.alt, `${where}.alt`, errors, { max: 300 });
     checkText(item.caption, `${where}.caption`, errors, { max: 160 });
-    if (!ASSET_PATH.test(item.path ?? '') || !MADE_PATH.test(item.path)) errors.push(`${where}.path must be media/<name> as png, jpg, webp, gif or mp4`);
+    if (item.kind === 'page') {
+      if (paths.includes(PAGE_PATH) || item.path !== PAGE_PATH) errors.push(`${where}.path must name one page.html`);
+      if (!ASSET_PATH.test(item.still ?? '') || !STILL_PATH.test(item.still)) errors.push(`${where}.still must name a stored still image`);
+      for (const path of [item.path, item.still]) {
+        paths.push(path);
+        if (entry.rights?.assets?.find(asset => asset?.path === path)?.basis !== 'original') errors.push(`${where}: page and still must have rights basis original`);
+      }
+      if ((files.get(PAGE_PATH)?.length ?? 0) + (files.get(item.still)?.length ?? 0) > MADE_MAX_BYTES) errors.push(`${where}: page and still exceed 2 MB`);
+      if (/.webp$/.test(item.still) && files.has(item.still) && durationMs(item.still, files.get(item.still)) !== 0) errors.push(`${where}.still must be a still image`);
+    } else if (!ASSET_PATH.test(item.path ?? '') || !MADE_PATH.test(item.path)) errors.push(`${where}.path must be media/<name> as png, jpg, webp, gif or mp4`);
     else if (paths.includes(item.path)) errors.push(`${where}.path ${item.path} is repeated`);
     else {
       paths.push(item.path);
@@ -314,7 +325,7 @@ function readEntryFiles(dir, errors) {
     const info = lstatSync(join(dir, name));
     if (info.isSymbolicLink()) errors.push(`${name} is a symbolic link`);
     else if (name === 'media' && info.isDirectory()) continue;
-    else if (name === 'body.md' && info.isFile()) files.set(name, readFileSync(join(dir, name)));
+    else if ((name === 'body.md' || name === PAGE_PATH) && info.isFile()) files.set(name, readFileSync(join(dir, name)));
     else if (name !== 'entry.json' || !info.isFile()) errors.push(`${name} is not allowed in an entry`);
   }
   if (!files.has('body.md') && !names.includes('body.md')) errors.push('body.md is required');
@@ -341,9 +352,17 @@ export function loadEntry(dir, purposeIds) {
   if (!checkFields(entry, purposeIds, errors)) return { entry, errors };
 
   const bodyMedia = checkBody(files.get('body.md')?.toString('utf8') ?? '', errors);
-  const stored = new Set([...files.keys()].filter((name) => name.startsWith('media/')));
+  const stored = new Set([...files.keys()].filter((name) => name !== 'body.md'));
   const licensed = checkRights(entry, files, errors);
   const referenced = new Set([...checkMedia(entry, errors), ...bodyMedia, ...checkCover(entry, errors), ...checkMade(entry, files, errors)]);
+  if (stored.has(PAGE_PATH)) {
+    if (!entry.made?.some?.(item => item?.kind === 'page' && item.path === PAGE_PATH)) errors.push('page.html needs a made page record');
+    const html = files.get(PAGE_PATH).toString('utf8');
+    if (!/^<!doctype html>/i.test(html.trimStart()) || html.includes('\0')) errors.push('page.html must be an HTML document');
+    if (/<(?:base|iframe|frame|object|embed|form|link)\b|http-equiv\s*=|@import\b|\b(?:fetch|WebSocket|XMLHttpRequest|EventSource|sendBeacon)\s*\(/i.test(html)
+      || /\b(?:src|href|srcset|action|poster)\s*=\s*["']?(?!["']|#|data:image\/(?:png|jpeg|webp);base64,)[^\s>]/i.test(html)
+      || /url\(\s*["']?(?!["']|#|data:image\/(?:png|jpeg|webp);base64,)[^\s)]/i.test(html)) errors.push('page.html must be self-contained and use no network');
+  }
   for (const path of stored) if (!licensed.has(path)) errors.push(`${path} is stored without a rights record`);
   for (const path of licensed) if (!stored.has(path)) errors.push(`${path} has a rights record but no file`);
   for (const path of referenced) {

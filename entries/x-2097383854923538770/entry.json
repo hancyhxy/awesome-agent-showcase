@@ -2,7 +2,9 @@
   "id": "x-2097383854923538770",
   "title": "My Morning Paper",
   "summary": "Read the day ahead like a newspaper, not a feed.",
-  "purposes": ["personal-workflows"],
+  "purposes": [
+    "personal-workflows"
+  ],
   "source": {
     "type": "x-post",
     "url": "https://x.com/karenxcheng/status/2097383854923538770",
@@ -31,6 +33,14 @@
       {
         "path": "media/morning-paper.mp4",
         "basis": "original"
+      },
+      {
+        "path": "page.html",
+        "basis": "original"
+      },
+      {
+        "path": "media/preview-still.jpg",
+        "basis": "original"
       }
     ]
   },
@@ -57,8 +67,15 @@
       "kind": "mockup",
       "alt": "An antique typewriter feeds out a creased newspaper with a halftone ferry photo, then the printable sample page appears.",
       "caption": "A typewriter mockup of the morning paper, followed by the sample web page Atu built."
+    },
+    {
+      "kind": "page",
+      "path": "page.html",
+      "still": "media/preview-still.jpg",
+      "alt": "Read the fictional sample edition Atu built.",
+      "caption": "Read the fictional sample edition Atu built."
     }
   ],
   "requirements": [],
-  "revision": "sha256:aac638e9993231f685a71026c2d0801436a23a8951f22821db291420a73553b0"
+  "revision": "sha256:8cec9becb4acfbdf23070e82b406e1dcbccafb304a2fbedff64d4be5f757f826"
 }

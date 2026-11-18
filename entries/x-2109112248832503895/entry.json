@@ -33,6 +33,14 @@
       {
         "path": "media/name-the-move.mp4",
         "basis": "original"
+      },
+      {
+        "path": "page.html",
+        "basis": "original"
+      },
+      {
+        "path": "media/preview-still.jpg",
+        "basis": "original"
       }
     ]
   },
@@ -60,8 +68,15 @@
       "path": "media/name-the-move.mp4",
       "alt": "Two numbered storyboard panels transition from a blue figure to a blue car. The whip pan swings sideways with blur; the cross dissolve blends the views. The AURA promo then uses a whip pan to reach its end card.",
       "caption": "Explainer"
+    },
+    {
+      "kind": "page",
+      "path": "page.html",
+      "still": "media/preview-still.jpg",
+      "alt": "Watch the sample AURA promo Atu built.",
+      "caption": "Watch the sample AURA promo Atu built."
     }
   ],
   "requirements": [],
-  "revision": "sha256:cb77b8536994350ac931a0afaa3fa14dd002d8a8e5075cba384db60bec0be5c4"
+  "revision": "sha256:a50900abb2a63838f05719efda035bf4344d31062a58d86ffa5b847ea1dc48ce"
 }

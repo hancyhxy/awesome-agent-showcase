@@ -33,6 +33,14 @@
       {
         "path": "media/spacing-explainer.mp4",
         "basis": "original"
+      },
+      {
+        "path": "page.html",
+        "basis": "original"
+      },
+      {
+        "path": "media/preview-still.jpg",
+        "basis": "original"
       }
     ]
   },
@@ -59,9 +67,16 @@
       "kind": "explainer",
       "alt": "One dashboard changes in place: its sidebar widens, the page and sections gain space, the gaps between cards shrink, and padding inside each card grows. Coloured overlays and values show each change.",
       "caption": "Watch the real dashboard change in place, using measurements from a Hey Atu run."
+    },
+    {
+      "kind": "page",
+      "path": "page.html",
+      "still": "media/preview-still.jpg",
+      "alt": "Explore five spacing changes on one dashboard.",
+      "caption": "Explore five spacing changes on one dashboard."
     }
   ],
   "requirements": [],
   "tags": [],
-  "revision": "sha256:c122bf02738efef4412dbf6dd99665fd29f30c493f9c33619ade7da48990cc98"
+  "revision": "sha256:1aa62854dec097d73ce5dabc19829110206482b534b632f11f526dbc76c86e43"
 }

@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="The Morning Paper for Wednesday, 18 November 2026. A fictional sample edition.">
+  <title>The Morning Paper — 18 November 2026</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f8f1e2;
+      --desk: #e5ded0;
+      --ink: #26362e;
+      --muted: #55584c;
+      --rule: #a8a494;
+      --red: #923e2e;
+      --serif: Georgia, 'Times New Roman', serif;
+      --mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: var(--desk); color: var(--ink); font: 1rem/1.45 var(--serif); }
+    .shell { width: min(66rem, calc(100% - 3rem)); margin: 1.6rem auto 2.75rem; }
+    .toolbar { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-bottom: .75rem; }
+    .eyebrow, .toolbar, .folio, .caption, .footer, .strip-label, .weather-details, .time, .priority {
+      font: 600 .675rem/1.35 var(--mono); letter-spacing: .12em; text-transform: uppercase;
+    }
+    .sample-badge { display: inline-flex; align-items: center; gap: .55rem; color: var(--ink); }
+    .sample-badge::before { content: ''; width: .46rem; height: .46rem; background: var(--red); transform: rotate(45deg); flex: none; }
+    .print {
+      display: inline-flex; justify-content: center; align-items: center; gap: .55rem;
+      min-height: 44px; padding: .5rem .9rem; border: 1px solid var(--ink); border-radius: 2px;
+      color: var(--paper); background: var(--ink); font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer;
+    }
+    .print:hover { color: var(--ink); background: var(--paper); }
+    [hidden] { display: none !important; }
+    .print-hint { color: var(--muted); text-align: right; }
+    button:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+    .sheet {
+      position: relative; isolation: isolate; padding: 2rem clamp(1.5rem, 4.5vw, 3.65rem) 1.6rem;
+      border: 1px solid #cec5b3; box-shadow: 0 8px 28px #32261717, 0 1px 2px #32261720;
+      background: radial-gradient(ellipse at 40% 15%, #fffaee 0%, transparent 68%), var(--paper);
+    }
+    .texture { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .25; pointer-events: none; z-index: -1; mix-blend-mode: multiply; }
+    h1, h2, p, figure, dl, dd { margin: 0; }
+    .folio { display: flex; justify-content: space-between; align-items: center; gap: .5rem; padding-bottom: .52rem; border-bottom: 1px solid var(--rule); }
+    .folio span:last-child { color: var(--red); text-align: right; }
+    .nameplate { display: flex; justify-content: center; align-items: center; gap: clamp(.65rem, 2vw, 1.5rem); padding: .85rem 0 1.05rem; }
+    .crest { width: clamp(3rem, 8vw, 5.5rem); height: auto; flex: none; color: var(--red); }
+    h1 { font: 700 clamp(2.5rem, 7.85vw, 5.5rem)/.99 var(--serif); letter-spacing: -.078em; padding-right: .075em; text-align: center; }
+    .dateline {
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: .8rem;
+      border-top: 3px double var(--ink); border-bottom: 1px solid var(--ink); padding: .58rem 0;
+    }
+    .dateline > :last-child { text-align: right; }
+    .dateline time { font-size: clamp(.91rem, 2vw, 1.06rem); font-style: italic; font-weight: 700; text-align: center; }
+    .desk-note { display: flex; align-items: baseline; gap: .8rem; padding: .88rem 0; border-bottom: 1px solid var(--rule); }
+    .strip-label { color: var(--red); flex: none; }
+    .type-line { min-width: 0; font: .77rem/1.5 var(--mono); }
+    .type-visual.typing::after { content: ''; display: inline-block; width: 1px; height: .96em; margin-left: 2px; vertical-align: -.11em; background: var(--red); }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+    .front { display: grid; grid-template-columns: minmax(0, 2.6fr) minmax(0, 1fr); gap: 1.65rem; margin-top: 1.55rem; }
+    .weather { border-left: 1px solid var(--rule); padding-left: 1.65rem; min-width: 0; }
+    .eyebrow { color: var(--red); }
+    .lead h2 { font-size: clamp(2rem, 4.35vw, 3.72rem); line-height: .99; letter-spacing: -.057em; margin: .56rem 0 .65rem; max-width: 13ch; }
+    .deck { color: var(--muted); font-size: 1.06rem; max-width: 53ch; line-height: 1.45; }
+    .lead figure { margin-top: .95rem; }
+    .harbour { display: block; width: 100%; height: auto; border: 1px solid #7a8679; background: #ecdfc3; }
+    .caption { display: flex; justify-content: space-between; gap: .35rem .75rem; flex-wrap: wrap; margin-top: .45rem; color: var(--muted); font-size: .575rem; }
+    .caption span:last-child { color: var(--red); }
+    .section-title { font-size: 1.48rem; letter-spacing: -.04em; line-height: 1.1; margin-top: .43rem; }
+    .weather .place { color: var(--muted); margin-top: .27rem; font-size: .94rem; font-style: italic; }
+    .weather-hero { display: flex; align-items: center; justify-content: space-between; gap: .25rem; margin: .85rem 0 .15rem; }
+    .temperature { font-size: clamp(2.55rem, 5.8vw, 4.65rem); line-height: 1; letter-spacing: -.083em; white-space: nowrap; }
+    .temperature small { font: .39em var(--serif); letter-spacing: 0; vertical-align: .22em; }
+    .weather-icon { width: min(42%, 5.1rem); height: auto; flex: none; }
+    .conditions { font-size: 1.02rem; }
+    .weather-details { margin-top: .9rem; font-size: .64rem; }
+    .weather-details > div { display: flex; justify-content: space-between; gap: .4rem; flex-wrap: wrap; padding: .57rem 0; border-top: 1px solid var(--rule); }
+    .weather-details dt { color: var(--muted); }
+    .weather-details dd { text-align: right; }
+    .weather-note { color: var(--muted); font-style: italic; font-size: .87rem; line-height: 1.42; padding-top: .65rem; border-top: 1px solid var(--rule); }
+    .briefs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 1.45rem; padding-top: 1.05rem; border-top: 3px double var(--ink); }
+    .brief { min-width: 0; padding: 0 1.25rem; }
+    .brief:first-child { padding-left: 0; }
+    .brief:last-child { padding-right: 0; }
+    .brief + .brief { border-left: 1px solid var(--rule); }
+    .brief ul { margin: .68rem 0 0; padding: 0; list-style: none; }
+    .brief li { padding: .57rem 0; border-top: 1px solid var(--rule); }
+    .brief li:last-child { padding-bottom: 0; }
+    .meeting, .task { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: .38rem; align-items: baseline; }
+    .mail { display: grid; gap: .13rem; }
+    .task { grid-template-columns: .74rem minmax(0, 1fr); gap: .55rem; }
+    .brief strong { display: block; font-size: .95rem; line-height: 1.25; }
+    .brief .detail { display: block; margin-top: .2rem; color: var(--muted); font-size: .85rem; line-height: 1.32; }
+    .time, .priority { color: var(--red); letter-spacing: .07em; font-size: .61rem; }
+    .box { width: .61rem; height: .61rem; border: 1px solid var(--red); transform: translateY(-.02em); }
+    .footer {
+      display: grid; grid-template-columns: 1fr auto; gap: .75rem; margin-top: 1.5rem; padding-top: .7rem;
+      border-top: 3px double var(--ink); color: var(--muted); font-size: .6rem; letter-spacing: .09em;
+    }
+    .footer strong { color: var(--red); }
+    .footer span { white-space: nowrap; }
+    .deck, .brief, .footer { overflow-wrap: break-word; }
+    @media screen and (max-width: 760px) {
+      .shell { width: calc(100% - 2rem); margin-top: .85rem; }
+      .sheet { padding: 1.2rem 1.35rem; }
+      .front { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 1rem; }
+      .weather { padding-left: 1rem; }
+      .brief { padding-inline: .85rem; }
+      .meeting { grid-template-columns: minmax(0, 1fr); gap: .12rem; }
+    }
+    @media screen and (max-width: 560px) {
+      .shell { width: calc(100% - 1.2rem); margin-top: .6rem; }
+      .sheet { padding: .9rem .9rem 1.25rem; }
+      .folio { font-size: .56rem; letter-spacing: .075em; }
+      .nameplate { flex-direction: column; gap: .25rem; padding: .6rem 0 .75rem; }
+      .crest { width: 2.25rem; }
+      h1 { font-size: clamp(2.1rem, 10.1vw, 3.45rem); }
+      .dateline { grid-template-columns: minmax(0, 1fr); padding-block: .42rem; }
+      .dateline > span { display: none; }
+      .desk-note { flex-wrap: wrap; gap: .3rem .7rem; padding-block: .65rem; min-height: 4.25rem; align-content: center; }
+      .type-line { width: 100%; }
+      .front, .briefs { display: block; margin-top: 1.1rem; }
+      .lead h2 { font-size: clamp(2.1rem, 8.4vw, 3.2rem); }
+      .deck { font-size: .97rem; }
+      .weather { border-left: 0; padding: .95rem 0 0; margin-top: 1rem; border-top: 1px solid var(--rule); }
+      .weather-hero { justify-content: flex-start; gap: 1rem; }
+      .temperature { font-size: 4.05rem; }
+      .weather-icon { width: 4.2rem; }
+      .brief, .brief:first-child, .brief:last-child { padding: 0; }
+      .brief + .brief { border-left: 0; border-top: 1px solid var(--rule); margin-top: 1.05rem; padding-top: .85rem; }
+      .meeting { grid-template-columns: 3.2rem minmax(0, 1fr); gap: .38rem; }
+    }
+    @page { size: A4 portrait; margin: 12mm; }
+    @media print {
+      :root { --paper: #fff; }
+      html, body { background: #fff; }
+      .shell { width: 100%; margin: 0; }
+      .toolbar, .texture, .type-visual { display: none !important; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .sheet { border: 0; box-shadow: none; padding: 0; background: #fff; min-height: 269mm; display: flex; flex-direction: column; }
+      .nameplate { padding: 5mm 0 6mm; gap: 4mm; }
+      .crest { width: 18mm; }
+      h1 { font-size: 51pt; }
+      .dateline time { font-size: 12pt; }
+      .desk-note { padding: 3.3mm 0; }
+      .type-print { position: static; width: auto; height: auto; margin: 0; overflow: visible; clip-path: none; white-space: normal; }
+      .front { margin-top: 6mm; gap: 5mm; grid-template-columns: minmax(0, 2.45fr) minmax(0, 1fr); }
+      .weather { padding-left: 5mm; }
+      .lead h2 { font-size: 38pt; }
+      .deck { font-size: 11.5pt; }
+      .lead figure { margin-top: 4mm; }
+      .temperature { font-size: 43pt; }
+      .weather-icon { width: 16mm; }
+      .briefs { margin-top: 6mm; padding-top: 4mm; }
+      .brief { padding-inline: 4mm; }
+      .brief .section-title { font-size: 1.25rem; }
+      .brief li { padding-block: 3mm; }
+      .footer { margin-top: auto; }
+      header, .front, .briefs, .footer { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="toolbar">
+      <span class="sample-badge">Sample edition</span>
+      
+      <button class="print" type="button" hidden>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V8h18v9h-3M6 14h12v7H6zM6 11h.1"/></svg>
+        Print A4
+      </button>
+    </div>
+    <main class="sheet">
+      <svg class="texture" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <filter id="paper-grain" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency=".73" numOctaves="3" stitchTiles="stitch"/>
+          <feColorMatrix type="matrix" values="0 0 0 0 .24  0 0 0 0 .20  0 0 0 0 .13  0 0 0 .39 0"/>
+        </filter>
+        <rect width="100%" height="100%" filter="url(#paper-grain)"/>
+      </svg>
+      <header>
+        <div class="folio"><span>The personal daily</span><span>Sample copy · Not live</span></div>
+        <div class="nameplate">
+          <svg class="crest" viewBox="0 0 88 76" fill="none" aria-hidden="true" focusable="false">
+            <path d="M5 62h78M14 69h60M27 75h34M22 58a22 22 0 0 1 44 0" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M28 58a16 16 0 0 1 32 0H28Z" fill="currentColor"/>
+            <path d="M44 1v27m-12-7 3 9m-18-19 11 22M12 28l10 10M2 32l14 12M4 49l10 3m42-31-3 9m18-19L60 33m16-5L66 38m20-6L72 44m12 5-10 3" stroke="currentColor" stroke-width="1.35"/>
+          </svg>
+          <h1>The Morning Paper</h1>
+        </div>
+        <div class="dateline">
+          <span class="eyebrow">Vol. 01 &nbsp; / &nbsp; No. 01</span>
+          <time datetime="2026-11-18">Wednesday, 18 November 2026</time>
+          <span class="eyebrow">Morning edition</span>
+        </div>
+        <div class="desk-note">
+          <span class="strip-label">From the desk</span>
+          <p class="type-line"><span class="type-visual" aria-hidden="true">Good morning. Here’s your day in print.</span><span class="sr-only type-print">Good morning. Here’s your day in print.</span></p>
+        </div>
+      </header>
+
+      <div class="front">
+        <article class="lead" aria-labelledby="lead-title">
+          <p class="eyebrow">01 / The lead</p>
+          <h2 id="lead-title">A little more room along the harbour</h2>
+          <p class="deck">A new stretch of waterfront path gives early walkers a place to pause and watch the first ferries come in.</p>
+          <figure>
+            <svg class="harbour" viewBox="0 0 840 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="harbour-title" focusable="false">
+              <title id="harbour-title">A two-colour engraving of a ferry and a small lighthouse at sunrise</title>
+              <defs>
+                <pattern id="sky-lines" width="8" height="5" patternUnits="userSpaceOnUse"><path d="M0 .5h8" stroke="#8f5742" stroke-opacity=".26" stroke-width=".6"/></pattern>
+                <pattern id="sun-lines" width="12" height="5.6" patternUnits="userSpaceOnUse"><path d="M0 1h12" stroke="#f7e7c9" stroke-opacity=".55" stroke-width=".7"/></pattern>
+                <pattern id="land-hatch" width="7" height="7" patternUnits="userSpaceOnUse"><path d="M-2 9 9-2m-11 4 4-4m3 11 4-4" stroke="#324d43" stroke-opacity=".55" fill="none" stroke-width=".7"/></pattern>
+                <pattern id="water-lines" width="56" height="12" patternUnits="userSpaceOnUse"><path d="M0 1.5h56M14 6h29M1 10h11m31 0h7" stroke="#324d43" stroke-opacity=".47" stroke-width=".7"/></pattern>
+                <pattern id="rock-hatch" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M-1 5 5-1M1 7l6-6" fill="none" stroke="#ece0c5" stroke-opacity=".42" stroke-width=".65"/></pattern>
+                <filter id="ink-grain" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 .19  0 0 0 0 .17  0 0 0 0 .11  0 0 0 .25 0"/></filter>
+                <clipPath id="sun-clip"><circle cx="551" cy="115" r="72"/></clipPath>
+                <path id="far-hills" d="M0 126 22 120l22-9 18 2 29-12 13 4 21-6 18 5 12-2 22 9 15 2 26 10 21 2 19 8 29 5 31 9 49 5 24 7 27-2 21 8h34l19 4 38-2 24-8 36-1 24-6 23 2 15-10 32-9 28 4 24-5 28 8 33-4 12 6v42H0Z"/>
+                <path id="near-hills" d="M0 145l20 3 27-6 27 4 28-5 19-13 23 3 19-5 25 9 13-1 23 12 27 1 26 11 37 3 36 11 66 4 7 4-59 3-66-2-57 7H0Zm600 39 37-10 21 1 19-6 17-2 16-8 17 2 18-9 33 3 18-9 44 2v40Z"/>
+              </defs>
+              <path fill="#ebdfc2" d="M0 0h840v300H0z"/>
+              <path fill="url(#sky-lines)" d="M0 0h840v176H0z"/>
+              <circle cx="551" cy="115" r="72" fill="#bc7251"/>
+              <path fill="url(#sun-lines)" clip-path="url(#sun-clip)" d="M477 41h149v148H477z"/>
+              <g fill="none" stroke="#a76750" stroke-width="1" opacity=".62">
+                <path d="M26 52h165m-147 4h95m-48 4h130M240 85h162m-173 4h112m-82 4h62M683 73h125m-104 4h88M22 88h43m-5 4h114M360 47h91m-117 4h68M631 111h124m-58 4h111"/>
+              </g>
+              <g stroke="#314d43" fill="none" stroke-width="1.5" stroke-linecap="round"><path d="M370 71q6-3 12 4 4-7 11-6m21-8q4-2 8 2 3-5 7-4m225 45q5-2 10 3 3-5 8-4"/></g>
+              <use href="#far-hills" fill="#b0b29a" stroke="#768578" stroke-width="1.3"/>
+              <use href="#far-hills" fill="url(#land-hatch)" opacity=".68"/>
+              <use href="#near-hills" fill="#7c9180" stroke="#405f51" stroke-width="1.3"/>
+              <use href="#near-hills" fill="url(#land-hatch)"/>
+              <path d="M0 185q86-3 171-1 83 1 130-3 146 5 258 1 164-1 281-2v120H0Z" fill="#b2bcab"/>
+              <path d="M0 187h840v113H0z" fill="url(#water-lines)"/>
+              <g fill="none" stroke="#f4e7c9" stroke-width="1.1" opacity=".94">
+                <path d="M514 186h64m-87 5h116m-83 4h54m-78 5h100m-102 5h52m-36 5h97m-122 7h90m-53 6h98m-106 7h72m-111 7h89m-64 6h123m-141 7h97m-66 8h118m-170 8h121m-36 10h127m-204 7h120m-52 8h112"/>
+                <path d="M15 202h54m33 14h48m75 17h84m-168 21h113m17 13h59m-175 14h64m472-65h65m-102 20h115m-46 19h69"/>
+              </g>
+              <g fill="none" stroke="#436457" stroke-width="1.1" opacity=".78"><path d="M280 192h141m-227 4h83m-243 8h110m303 3h47m-335 9h122m-168 13h79m227 4h68m-196 8h103m-345 19h120m155 19h108m205-65h84m-74 21h91m-171 21h114m-34 13h96"/></g>
+              <g transform="translate(254 168)" stroke="#29463c" stroke-linejoin="round">
+                <path d="M-99 48q46-3 108-9M-42 46l79-2m55 1h34m-114 5h96" fill="none" stroke="#f6ebd1" stroke-width="1.4"/>
+                <path d="M19 28V17h12v-6h43l11 6h10l7 11" fill="#eadbbb" stroke-width="1.5"/>
+                <path d="M44 10l2-7h7l1 7M66 11V-1m0 0 14 3-14 3" fill="#a9583d" stroke-width="1.3"/>
+                <path d="M34 19h51m-63 6h71M38 16v7m9-7v7m9-7v7m9-7v7m9-7v7" fill="none" stroke-width="1.3"/>
+                <path d="M0 29h112l-14 10H16Z" fill="#29463c" stroke-width="1.5"/>
+                <path d="M9 33h95" stroke="#d1b390" stroke-width="1.1"/>
+              </g>
+              <path d="M0 234l24 3 27 16 26 3 33 21 33 6 32 17H0Zm617 66 39-14 24-15 19-2 28-22 27-5 18-15 27 4 19-8 22 2v75Z" fill="#3b584a" stroke="#29463c" stroke-width="1.7"/>
+              <path d="M0 240l25 2 22 17 24 3 31 20 42 7 14 11H0Zm628 60 36-12 23-14 18-2 24-19 28-5 19-14 23 3 22-9 19 4v68Z" fill="url(#rock-hatch)"/>
+              <g stroke="#eee0c2" fill="none" stroke-width="1" opacity=".64"><path d="M0 252l25 3 8 5m-23-1 18 3 14 8 29 5m-48-5 30 9 22 3 16 8m-54-4 30 6m595 1 37-9 23-14 31-6 21-12 37-8m-85 35 31-7 16-9 27-5 26-12m-91 43 40-12 38-9 20-14"/></g>
+              <path d="M720 260q38-27 120-23v6q-71-4-113 23Z" fill="#e8d8b7" stroke="#2f4c40" stroke-width="1.2"/>
+              <g fill="none" stroke="#29463c" stroke-width="1.45"><path d="M724 260v-8q44-24 116-21m-107 24v-8m13 2v-8m15 3v-8m18 4v-8m18 5v-8m19 7v-8m18 9v-8"/></g>
+              <g transform="translate(770 155)" stroke="#29463c" stroke-width="1.5" stroke-linejoin="round">
+                <path d="m-6 79 5-58h15l6 58Z" fill="#e9d9b7"/>
+                <path d="M-3 27h19l1 9H-4Zm-2 24h23l1 8H-6Z" fill="#ac684e" stroke="none"/>
+                <path d="M-5 20h23v5H-5zM-1 9h15v11H-1z" fill="#e9d9b7"/>
+                <path d="M-5 9 6-1 18 9Zm9 70V66h6v13Z" fill="#29463c"/>
+                <path d="M6 9v11m0-21v-4M-7 79h28" fill="none"/>
+              </g>
+              <path d="M0 0h840v300H0z" filter="url(#ink-grain)" opacity=".58"/>
+            </svg>
+            <figcaption class="caption"><span>Fig. 01 &nbsp;·&nbsp; First light on the waterfront</span><span>Fictional headline</span></figcaption>
+          </figure>
+        </article>
+
+        <section class="weather" aria-labelledby="weather-title">
+          <p class="eyebrow">02 / Outside</p>
+          <h2 class="section-title" id="weather-title">Weather</h2>
+          <p class="place">Sydney · Sample forecast</p>
+          <div class="weather-hero">
+            <p class="temperature">22<small>°C</small></p>
+            <svg class="weather-icon" viewBox="0 0 88 74" fill="none" aria-hidden="true" focusable="false">
+              <g stroke="#923e2e" stroke-width="1.6" stroke-linecap="round"><circle cx="37" cy="31" r="15" fill="#d39a64"/><path d="M37 1v9m0 43v9M7 31h8m44 0h8M16 10l6 6m30 30 6 6m0-42-6 6M22 46l-6 6"/></g>
+              <path d="M38 62a8 8 0 0 1 0-16h4a14 14 0 0 1 26 4h4a6 6 0 0 1 0 12Z" fill="#f8f1e2" stroke="#26362e" stroke-width="1.6"/>
+              <path d="M42 66h26m-17 4h11" stroke="#26362e" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="conditions">Partly cloudy</p>
+          <dl class="weather-details">
+            <div><dt>High / Low</dt><dd>24° / 16°</dd></div>
+            <div><dt>Rain chance</dt><dd>20%</dd></div>
+            <div><dt>Wind</dt><dd>NE 14 km/h</dd></div>
+          </dl>
+          <p class="weather-note">Cool at first, with warmer breaks by lunchtime.</p>
+        </section>
+      </div>
+
+      <div class="briefs">
+        <section class="brief" aria-labelledby="meetings-title">
+          <p class="eyebrow">03 / Diary</p>
+          <h2 class="section-title" id="meetings-title">Today’s meetings</h2>
+          <ul>
+            <li class="meeting"><time class="time" datetime="09:15">09:15</time><div><strong>Team catch-up</strong><span class="detail">15 min · Video call</span></div></li>
+            <li class="meeting"><time class="time" datetime="11:00">11:00</time><div><strong>Project review</strong><span class="detail">45 min · Studio</span></div></li>
+            <li class="meeting"><time class="time" datetime="14:30">14:30</time><div><strong>Planning session</strong><span class="detail">30 min · Video call</span></div></li>
+          </ul>
+        </section>
+        <section class="brief" aria-labelledby="inbox-title">
+          <p class="eyebrow">04 / Correspondence</p>
+          <h2 class="section-title" id="inbox-title">Important messages</h2>
+          <ul>
+            <li class="mail"><span class="priority">Reply by noon · Email</span><strong>Confirm the print proof</strong><span class="detail">The printer is waiting on a final yes before starting the run.</span></li>
+            <li class="mail"><span class="priority">For the review · Message</span><strong>Revised agenda is ready</strong><span class="detail">Read the new items before the review.</span></li>
+          </ul>
+        </section>
+        <section class="brief" aria-labelledby="tasks-title">
+          <p class="eyebrow">05 / The list</p>
+          <h2 class="section-title" id="tasks-title">To-dos</h2>
+          <ul>
+            <li class="task"><span class="box" aria-hidden="true"></span><div><strong>Mark up the proof</strong><span class="detail">Check the captions and dates.</span></div></li>
+            <li class="task"><span class="box" aria-hidden="true"></span><div><strong>Bring notes to the review</strong><span class="detail">Flag what still needs a decision.</span></div></li>
+            <li class="task"><span class="box" aria-hidden="true"></span><div><strong>Post the parcel</strong><span class="detail">Drop it off before 5 pm.</span></div></li>
+          </ul>
+        </section>
+      </div>
+
+      <footer class="footer">
+        <p><strong>Sample edition.</strong> All entries are fictional. No private data or live feeds used.</p>
+        <span>End of edition &nbsp;/&nbsp; 01</span>
+      </footer>
+    </main>
+  </div>
+  <script>
+    const line = document.querySelector('.type-visual');
+    const text = line.textContent;
+    window.marketScene = { duration: text.length * .022, render(seconds) {
+      line.textContent = text.slice(0, 1 + Math.floor(seconds / .022));
+    } };
+  </script>
+</body>
+</html>

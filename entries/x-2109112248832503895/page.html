@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>AURA promo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:#05070d;overflow:hidden;font-family:system-ui,sans-serif;color:#fff}
+#stage{position:fixed;inset:0;overflow:hidden;cursor:pointer}
+#pan{position:absolute;inset:0;width:200vw;display:flex;will-change:transform}
+.panel{position:relative;width:100vw;height:100vh;perspective:900px;overflow:hidden;background:radial-gradient(circle at 50% 40%,#16314f,#05070d 70%)}
+#world{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
+.grid{position:absolute;left:-50%;top:50%;width:200%;height:100%;transform:translateZ(-400px) rotateX(70deg);
+ background:linear-gradient(#3b7bbd55 1px,transparent 1px) 0 0/80px 80px,linear-gradient(90deg,#3b7bbd55 1px,transparent 1px) 0 0/80px 80px}
+.ring{position:absolute;left:50%;top:45%;border:2px solid #5aa9ff66;border-radius:50%;translate:-50% -50%}
+.r1{width:60vmin;height:60vmin;transform:translateZ(-300px)}
+.r2{width:90vmin;height:90vmin;transform:translateZ(-700px)}
+#product{position:absolute;left:50%;top:45%;width:16vmin;height:50vmin;translate:-50% -50%;display:flex;flex-direction:column;align-items:center}
+.cap{width:42%;height:11%;background:linear-gradient(90deg,#222,#666,#222);border-radius:6px 6px 2px 2px}
+.neck{width:34%;height:7%;background:#9fd2ff}
+.body{flex:1;width:100%;border-radius:30% 30% 22% 22%/12% 12% 8% 8%;display:grid;place-items:center;
+ background:linear-gradient(100deg,#2e7bd0,#8fd0ff 35%,#2a6fc0 60%,#123a70);box-shadow:0 0 8vmin #3b9bff77,inset 0 0 4vmin #fff6}
+.body span{letter-spacing:.4em;font-weight:700;font-size:2.2vmin;writing-mode:vertical-rl}
+#bokeh{position:absolute;inset:0;transform-style:preserve-3d}
+#bokeh i{position:absolute;border-radius:50%;background:radial-gradient(#cfe8ffcc,#6db6ff44);}
+#tag{position:absolute;left:50%;top:50%;translate:-50% -50%;transform:translateZ(150px);font-size:9vmin;font-weight:300;white-space:nowrap;opacity:0;text-shadow:0 0 30px #000}
+#b{display:grid;place-content:center;text-align:center;gap:2vmin}
+.glow{position:absolute;left:50%;top:50%;width:80vmin;height:80vmin;translate:-50% -50%;border-radius:50%;background:radial-gradient(#3b9bff55,transparent 65%)}
+#b>*{position:relative}
+h1{font-size:16vmin;letter-spacing:.3em;margin-right:-.3em;opacity:0}
+#b p{font-size:4vmin;opacity:0;color:#bcd9f5}
+#cta{justify-self:center;padding:2vmin 5vmin;border-radius:99px;background:#fff;color:#05070d;font-weight:700;font-size:3.4vmin;opacity:0}
+#bar{position:absolute;left:0;bottom:0;height:4px;width:100%;background:#fff2}
+#bar i{display:block;height:100%;width:0;background:#6db6ff}
+#hud{position:absolute;right:16px;top:12px;font-size:12px;opacity:0;transition:opacity .4s}
+#hud.on{opacity:.5}
+
+</style></head>
+<body>
+<div id="stage"><div id="pan">
+  <section class="panel" id="a"><div id="world">
+    <div class="grid"></div>
+    <div class="ring r1"></div><div class="ring r2"></div>
+    <div id="product"><div class="cap"></div><div class="neck"></div><div class="body"><span>AURA</span></div></div>
+    <div id="bokeh"></div>
+    <h2 id="tag">Feel the calm.</h2>
+  </div></section>
+  <section class="panel" id="b">
+    <div class="glow"></div>
+    <h1>AURA</h1><p>Pure water. Pure design.</p><a id="cta">Order now &middot; $39</a>
+  </section>
+</div>
+<div id="bar"><i></i></div>
+<div id="hud">Click to replay</div></div>
+<script>
+(() => {
+  const DURATION = 10;
+  const $ = id => document.getElementById(id);
+  const world = $('world'), pan = $('pan'), product = $('product'), bokeh = $('bokeh'),
+        tag = $('tag'), bar = $('bar').firstElementChild, hud = $('hud'),
+        h1 = document.querySelector('h1'), sub = document.querySelector('#b p'), cta = $('cta');
+  const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+  const seg = (t, a, b) => clamp((t - a) / (b - a));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const easeInOut = x => x < .5 ? 4 * x ** 3 : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  const whipEase = x => x < .5 ? 8 * x ** 4 : 1 - Math.pow(-2 * x + 2, 4) / 2;
+
+  for (let i = 0; i < 18; i++) {
+    const d = document.createElement('i'), s = 30 + Math.random() * 90;
+    d.style.cssText = `width:${s}px;height:${s}px;left:${Math.random() * 100}%;top:${Math.random() * 100}%;transform:translateZ(${100 + Math.random() * 200}px)`;
+    bokeh.appendChild(d);
+  }
+
+  const SCENES = { dolly: [0, 3.5], rack: [3.5, 4.5], whipStart: 6, whipEnd: 6.7 };
+  let prevPan = 0, prevT = 0;
+
+  function render(t) {
+    const w = innerWidth;
+    const dz = easeOut(seg(t, SCENES.dolly[0], SCENES.dolly[1] + 2.5));
+    world.style.transform = `translateZ(${-500 + 650 * dz}px)`;
+    product.style.transform = `rotateY(${-25 + 25 * dz}deg)`;
+
+    const r = easeInOut(seg(t, SCENES.rack[0], SCENES.rack[1]));
+    product.style.filter = `blur(${r * 12}px)`;
+    bokeh.style.filter = `blur(${10 * (1 - r) + 2 * r}px)`;
+    bokeh.style.opacity = 1 - .6 * r;
+    tag.style.opacity = r;
+    tag.style.filter = `blur(${14 * (1 - r)}px)`;
+
+    const p = whipEase(seg(t, SCENES.whipStart, SCENES.whipEnd));
+    pan.style.transform = `translateX(${-p * w}px)`;
+    const dt = Math.max(t - prevT, 1e-3);
+    const speed = Math.abs(p - prevPan) / dt;
+    const blur = Math.min(speed * 8, 40);
+    $('a').style.filter = `blur(${blur}px)`;
+    $('b').style.filter = `blur(${blur}px)`;
+    pan.style.scale = `${1 + blur / 400} 1`;
+    prevPan = p; prevT = t;
+
+    const fade = (el, a, b, y = 20) => {
+      const k = easeOut(seg(t, a, b));
+      el.style.opacity = k; el.style.translate = `0 ${(1 - k) * y}px`;
+    };
+    fade(h1, 6.6, 7.4); fade(sub, 7.3, 8); fade(cta, 8, 8.7);
+    cta.style.transform = `scale(${1 + .04 * Math.sin(Math.max(0, t - 8.7) * 4)})`;
+    bar.style.width = `${t / DURATION * 100}%`;
+  }
+
+  window.marketScene = { duration: DURATION, render };
+  if (parent === window) {
+    const start = performance.now();
+    function frame(now) {
+      const time = Math.min(DURATION, (now - start) / 1000);
+      render(time);
+      if (time < DURATION) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+})();
+
+</script></body></html>
