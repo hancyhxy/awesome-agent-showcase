@@ -51,9 +51,9 @@ Each item has a short brief. Copy the brief into your own agent, or open the ide
 <tr>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2096571444058894446/media/cover-still.webp"><img src="entries/x-2096571444058894446/media/cover.webp" alt="Turn a photo into a halftone collage" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2096571444058894446?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2096571444058894446/media/cover-still.webp"><img src="entries/x-2096571444058894446/media/cover.webp" alt="Turn a photo into a halftone collage" width="100%"></picture></a>
 
-<p><strong>Turn a photo into a halftone collage</strong><br>Keep the photograph above. Rebuild the same moment below with torn paper, tiny type and dots of ink.</p>
+<p><strong><a href="https://heyatu.com/market/x-2096571444058894446?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">Turn a photo into a halftone collage</a></strong><br>Keep the photograph above. Rebuild the same moment below with torn paper, tiny type and dots of ink.</p>
 
 <p>via <a href="https://x.com/Hamburgerai/status/2096571444058894446">@Hamburgerai</a> · Tested in Hey Atu</p>
 
@@ -65,6 +65,8 @@ Turn my portrait into a travel print with the colour photograph above a close-up
 ```
 
 </details>
+
+<p><a href="https://heyatu.com/market/x-2096571444058894446?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
 <td width="50%" valign="top">
