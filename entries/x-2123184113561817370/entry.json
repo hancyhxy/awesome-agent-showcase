@@ -1,0 +1,72 @@
+{
+  "id": "x-2123184113561817370",
+  "title": "Kinetic motion reel in code",
+  "summary": "Turn a product or mascot into a fast-cut Swiss-poster motion reel that plays right in your browser.",
+  "brief": "Build a 14-second, 13-cut Swiss-editorial kinetic motion reel in a single web page for my product or mascot, with bold condensed typography, a three-panel trick triptych, chromatic motion trails, a perspective grid lock-on and rapid gag cards.",
+  "purposes": [
+    "animation-video",
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/chetaslua/status/2123184113561817370",
+    "author": "chetaslua",
+    "credit": "Chetaslua (@chetaslua), public post",
+    "publishedAt": "2026-11-18",
+    "capturedAt": "2026-11-19",
+    "video": "https://video.twimg.com/amplify_video/2123183949128339456/vid/avc1/1336x720/QEpZW4IaTAJJQqYT.mp4?tag=29"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/cover.webp",
+        "basis": "quoted",
+        "holder": "chetaslua",
+        "sourceUrl": "https://x.com/chetaslua/status/2123184113561817370",
+        "excerpt": "0:07.2–0:13.6 of the post video, cropped to 16:9"
+      },
+      {
+        "path": "media/cover-still.webp",
+        "basis": "quoted",
+        "holder": "chetaslua",
+        "sourceUrl": "https://x.com/chetaslua/status/2123184113561817370",
+        "excerpt": "Frame at 0:07.55 of the post video, cropped to 16:9"
+      },
+      {
+        "path": "page.html",
+        "basis": "original"
+      },
+      {
+        "path": "media/preview-still.jpg",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "kinetic-motion-reel",
+      "status": "proposed",
+      "text": "Build a 14-second, 13-cut Swiss-editorial kinetic motion design reel as a single self-contained web page using plain HTML, CSS and Canvas 2D JavaScript, for the product or mascot I name (or a cute chibi vinyl-toy dog riding a red bicycle if I do not name one). Use a warm paper cream (#EFECE3), ink black (#151515), vermilion red (#D93829) and deep teal (#2A7A70) poster palette with subtle print grain, bold condensed grotesque headlines, ruler ticks and spring-eased transitions. Choreograph 13 fast cuts across 14 seconds: (1) red circle letter-by-letter title slam with progress bar, (2) circular porthole eye close-up exploding into geometric confetti, (3) charcoal title skid with flying debris, (4) three-panel vertical silhouette triptych, (5) rotating circular typography burst into a deadpan red close-up, (6) diagonal red stripe with squash-and-stretch word hop, (7) teal diagonal ramp with a 4-layer chromatic motion trail and 0 to 360 degree counter, (8) four rapid full-bleed typographic beat cuts, (9) dark 3D perspective wireframe grid with red targeting reticle and PASS 100/100 stamp, (10) rapid version smash cards with exploding triangles and a giant rolling wheel wipe, (11) four humorous REJECTED candidate cards followed by the hero landing, (12) concentric perspective orbital rings cutting to a giant deadpan staredown, and (13) a certified poster lockup with a rolling parade. Support click or spacebar to pause and R to replay. Build it in a new folder inside the current project folder, open it in the browser when done, check that it plays smoothly, and ask me before installing or loading anything."
+    }
+  ],
+  "action": {
+    "label": "Make a kinetic motion reel in Atu",
+    "prompt": "kinetic-motion-reel"
+  },
+  "cover": {
+    "motion": "media/cover.webp",
+    "still": "media/cover-still.webp"
+  },
+  "made": [
+    {
+      "kind": "page",
+      "path": "page.html",
+      "still": "media/preview-still.jpg",
+      "alt": "A 14-second, 13-cut Swiss-poster kinetic motion reel starring a chibi Atu dog riding a red bicycle across bold typography, a three-panel triptych, chromatic trails and a perspective grid.",
+      "caption": "Play the 13-cut Atu kinetic motion reel in your browser."
+    }
+  ],
+  "requirements": [],
+  "revision": "sha256:0038d6d47a0baccef0ffb029064d84c9b6159599b194b654e9c3b4c91b3cf044"
+}

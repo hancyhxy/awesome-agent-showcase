@@ -1,0 +1,2130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Atu Kinetic Motion Reel</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:#141414;overflow:hidden;display:grid;place-items:center}
+canvas{display:block;width:100vw;height:100vh;object-fit:contain;background:#141414;user-select:none}
+</style>
+</head>
+<body>
+<canvas id="c" width="1280" height="720" aria-label="Swiss editorial kinetic motion design reel starring Atu the dog riding a bicycle"></canvas>
+<script>
+(() => {
+  const DURATION = 14.0;
+  const W = 1280, H = 720;
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+
+  // Swiss editorial + Atu brand palette
+  const PAL = {
+    paper: '#EFECE3',
+    paperWarm: '#E6E1D4',
+    ink: '#151515',
+    charcoal: '#191919',
+    red: '#D93829',
+    redDeep: '#B9291C',
+    teal: '#2A7A70',
+    tealLight: '#9AC0B6',
+    amber: '#E48A25',
+    atuOrange: '#D9803A',
+    atuOrangeDark: '#B96422',
+    white: '#FCFBF7',
+    blush: '#ECCFC6'
+  };
+
+  const FONT_COND = '900 %spx "Arial Narrow","Helvetica Neue",Impact,Arial,sans-serif';
+  const FONT_SANS = '800 %spx "Helvetica Neue",Arial,sans-serif';
+  const FONT_MONO = '700 %spx "SF Mono","Menlo","Monaco",ui-monospace,monospace';
+  const font = (tpl, sz) => tpl.replace('%s', sz);
+
+  // Deterministic math & easing helpers
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const seg = (t, a, b) => clamp((t - a) / (b - a));
+  const easeOutCubic = x => 1 - Math.pow(1 - clamp(x), 3);
+  const easeInCubic = x => Math.pow(clamp(x), 3);
+  const easeOutBack = (x, s = 1.7) => {
+    const t = clamp(x) - 1;
+    return 1 + (s + 1) * t * t * t + s * t * t;
+  };
+  const easeOutElastic = x => {
+    const t = clamp(x);
+    if (t === 0 || t === 1) return t;
+    return Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * (2 * Math.PI / 3)) + 1;
+  };
+  const hash = n => {
+    const x = Math.sin(n * 127.1 + 311.7) * 43758.5453;
+    return x - Math.floor(x);
+  };
+
+  // Pre-rendered subtle paper grain overlay (zero network)
+  const grainCanvas = document.createElement('canvas');
+  grainCanvas.width = 320;
+  grainCanvas.height = 180;
+  const gctx = grainCanvas.getContext('2d');
+  for (let i = 0; i < 4200; i++) {
+    const x = hash(i * 3.1) * 320;
+    const y = hash(i * 7.7) * 180;
+    gctx.fillStyle = hash(i * 11.3) > 0.5 ? 'rgba(20,18,14,0.032)' : 'rgba(255,252,244,0.038)';
+    gctx.fillRect(x, y, 1.5, 1.5);
+  }
+
+  function applyGrain(alpha = 1) {
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.drawImage(grainCanvas, 0, 0, W, H);
+    // Subtle print vignette
+    const vg = ctx.createRadialGradient(W / 2, H / 2, W * 0.32, W / 2, H / 2, W * 0.68);
+    vg.addColorStop(0, 'rgba(0,0,0,0)');
+    vg.addColorStop(1, 'rgba(0,0,0,0.12)');
+    ctx.fillStyle = vg;
+    ctx.fillRect(0, 0, W, H);
+    ctx.restore();
+  }
+
+  function drawCrosshair(x, y, col = PAL.ink, r = 7) {
+    ctx.save();
+    ctx.strokeStyle = col;
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(x - r, y); ctx.lineTo(x + r, y);
+    ctx.moveTo(x, y - r); ctx.lineTo(x, y + r);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawRuler(x, y, w, ticks, col = 'rgba(20,20,20,0.35)', dir = 1) {
+    ctx.save();
+    ctx.strokeStyle = col;
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(x, y); ctx.lineTo(x + w, y);
+    for (let i = 0; i <= ticks; i++) {
+      const tx = x + (w * i) / ticks;
+      const th = i % 5 === 0 ? 10 : 5;
+      ctx.moveTo(tx, y);
+      ctx.lineTo(tx, y + th * dir);
+    }
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawMeter(x, y, w, h, fillRatio, fg = PAL.white, accent = PAL.red, border = PAL.white, count = 16) {
+    ctx.save();
+    ctx.strokeStyle = border;
+    ctx.lineWidth = 1.4;
+    ctx.strokeRect(x, y, w, h);
+    const pad = 3;
+    const cw = (w - pad * 2 - (count - 1) * 2) / count;
+    const filled = Math.round(clamp(fillRatio) * count);
+    for (let i = 0; i < count; i++) {
+      if (i < filled) {
+        ctx.fillStyle = i >= count - 3 ? accent : fg;
+      } else {
+        ctx.fillStyle = 'rgba(255,255,255,0.16)';
+      }
+      ctx.fillRect(x + pad + i * (cw + 2), y + pad, cw, h - pad * 2);
+    }
+    ctx.restore();
+  }
+
+  // Brand mark matching site/assets/brand/atu-color.svg (drawn in vector canvas)
+  function drawAtuLogoMark(x, y, size) {
+    ctx.save();
+    ctx.translate(x, y);
+    const s = size / 100;
+    ctx.scale(s, s);
+    // Warm tile optional? No, clean mark like brand guidelines
+    // Left perked caramel ear
+    ctx.fillStyle = PAL.atuOrange;
+    ctx.beginPath();
+    ctx.ellipse(-34, -18, 22, 13, -0.78, 0, Math.PI * 2);
+    ctx.fill();
+    // White round head
+    ctx.fillStyle = PAL.white;
+    ctx.beginPath();
+    ctx.ellipse(0, 6, 36, 34, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // Right caramel eye-patch clipped to head
+    ctx.save();
+    ctx.beginPath();
+    ctx.ellipse(0, 6, 36, 34, 0, 0, Math.PI * 2);
+    ctx.clip();
+    ctx.fillStyle = PAL.atuOrange;
+    ctx.beginPath();
+    ctx.ellipse(22, -4, 24, 26, -0.15, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+    // Right drooping caramel ear
+    ctx.fillStyle = PAL.atuOrange;
+    ctx.beginPath();
+    ctx.ellipse(39, 10, 11, 22, -0.18, 0, Math.PI * 2);
+    ctx.fill();
+    // Tall oval eyes
+    ctx.fillStyle = PAL.ink;
+    ctx.beginPath();
+    ctx.ellipse(-9, 2, 4.4, 7.6, 0, 0, Math.PI * 2);
+    ctx.ellipse(13, 2, 4.4, 7.6, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // Draw a wheel (circular or square for Cut 11 / 13)
+  function drawWheel(cx, cy, r, angle, opts = {}) {
+    const { square = false, rimColor = PAL.paper, frameColor = PAL.red, stroke = PAL.ink, silhouette = null, spokeCount = 8 } = opts;
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(angle);
+    if (square) {
+      const s = r * 1.62;
+      ctx.lineWidth = 7;
+      ctx.strokeStyle = silhouette || stroke;
+      ctx.strokeRect(-s / 2, -s / 2, s, s);
+      if (!silhouette) {
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = rimColor;
+        ctx.strokeRect(-s / 2, -s / 2, s, s);
+        ctx.lineWidth = 1.6;
+        ctx.strokeStyle = stroke;
+        ctx.beginPath();
+        ctx.moveTo(-s / 2, 0); ctx.lineTo(s / 2, 0);
+        ctx.moveTo(0, -s / 2); ctx.lineTo(0, s / 2);
+        ctx.moveTo(-s / 2, -s / 2); ctx.lineTo(s / 2, s / 2);
+        ctx.moveTo(s / 2, -s / 2); ctx.lineTo(-s / 2, s / 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+      return;
+    }
+
+    if (silhouette) {
+      ctx.strokeStyle = silhouette;
+      ctx.lineWidth = 6.5;
+      ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
+      ctx.lineWidth = 1.8;
+      for (let i = 0; i < spokeCount; i++) {
+        const a = (i * Math.PI) / (spokeCount / 2);
+        ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r); ctx.stroke();
+      }
+      ctx.fillStyle = silhouette;
+      ctx.beginPath(); ctx.arc(0, 0, 4.5, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+      return;
+    }
+
+    // Outer black tire
+    ctx.lineWidth = 8.5;
+    ctx.strokeStyle = stroke;
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
+    // Cream sidewall
+    ctx.lineWidth = 4.2;
+    ctx.strokeStyle = rimColor;
+    ctx.beginPath(); ctx.arc(0, 0, r - 0.5, 0, Math.PI * 2); ctx.stroke();
+    // Inner rim
+    ctx.lineWidth = 1.6;
+    ctx.strokeStyle = stroke;
+    ctx.beginPath(); ctx.arc(0, 0, r - 4, 0, Math.PI * 2); ctx.stroke();
+    // Spokes
+    ctx.lineWidth = 1.25;
+    ctx.strokeStyle = 'rgba(20,20,20,0.65)';
+    for (let i = 0; i < spokeCount; i++) {
+      const a = (i * Math.PI * 2) / spokeCount;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(Math.cos(a) * (r - 4), Math.sin(a) * (r - 4));
+      ctx.stroke();
+    }
+    // Hub
+    ctx.fillStyle = frameColor;
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = 1.8;
+    ctx.beginPath(); ctx.arc(0, 0, 5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.restore();
+  }
+
+  // Draw Atu the dog (Q-version vinyl-toy / figurine proportions!) riding a bicycle!
+  // Origin (0, 0) is bottom-center of contact patch between wheels.
+  function drawAtuBike(x, y, opts = {}) {
+    const {
+      scale = 1,
+      tilt = 0,
+      pedal = 0,
+      t = 0,
+      frameColor = PAL.red,
+      scarf = true,
+      scarfColor = PAL.red,
+      basket = true,
+      saddlebag = true,
+      silhouette = null, // e.g. PAL.ink or PAL.white
+      tint = null,       // chromatic trail flat tint
+      variant = 'normal', // normal | three-ears | square-wheel | frame-legs | long-snout
+      expression = 'cool', // cool | happy | deadpan
+      earBounce = 0
+    } = opts;
+
+    const stroke = silhouette || PAL.ink;
+    const isSq = variant === 'square-wheel';
+    const sqBump = isSq ? Math.abs(Math.sin(pedal * 2)) * -7 : 0;
+
+    ctx.save();
+    ctx.translate(x, y + sqBump * scale);
+    ctx.scale(scale, scale);
+
+    // Compact chibi-friendly cruiser bike geometry (low seat, high crank -> super stubby legs!)
+    const rwX = -46, rwY = -34;
+    const fwX = 50, fwY = -34;
+    const bbX = -2, bbY = -46;
+    const seatX = -20, seatY = -64;
+    const headTopX = 32, headTopY = -76;
+    const headBotX = 40, headBotY = -56;
+    const gripX = 16, gripY = -88;
+
+    ctx.translate(rwX, rwY);
+    ctx.rotate(tilt);
+    ctx.translate(-rwX, -rwY);
+
+    const fillMain = silhouette || tint || PAL.white;
+    const fillOrange = silhouette || tint || PAL.atuOrange;
+    const fillFrame = silhouette || tint || frameColor;
+    const fillScarf = silhouette || tint || scarfColor;
+    const isFullColor = !silhouette && !tint;
+
+    // 1. Rear & Front Wheels
+    drawWheel(rwX, rwY, 32, pedal, { square: isSq, frameColor: fillFrame, stroke, silhouette });
+    drawWheel(fwX, fwY, 32, pedal, { square: isSq, frameColor: fillFrame, stroke, silhouette });
+
+    // 2. Saddlebag ("atu") behind seat
+    if (saddlebag && !silhouette) {
+      ctx.save();
+      ctx.translate(seatX - 20, seatY + 11);
+      ctx.rotate(-0.28);
+      ctx.fillStyle = tint || '#D4C8B4';
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      ctx.roundRect(-13, -8, 26, 17, 3);
+      ctx.fill(); ctx.stroke();
+      if (isFullColor) {
+        ctx.fillStyle = PAL.white;
+        ctx.fillRect(-9, -2, 18, 8);
+        ctx.fillStyle = PAL.ink;
+        ctx.font = font(FONT_MONO, 7.5);
+        ctx.textAlign = 'center';
+        ctx.fillText('atu', 0, 5);
+      }
+      ctx.restore();
+    }
+
+    // 3. Flowing Red Scarf (back tail)
+    if (scarf) {
+      ctx.save();
+      const wave1 = Math.sin(t * 14) * 7;
+      const wave2 = Math.cos(t * 12 + 1) * 9;
+      ctx.fillStyle = fillScarf;
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = 2.4;
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.moveTo(-14, -104);
+      ctx.bezierCurveTo(-48, -105 + wave1, -80, -94 + wave2, -108, -102 - wave1 * 0.8);
+      ctx.lineTo(-104, -91 - wave1 * 0.6);
+      ctx.bezierCurveTo(-72, -84 + wave2, -44, -93 + wave1, -14, -95);
+      ctx.closePath();
+      ctx.fill();
+      if (!silhouette) ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(-16, -99);
+      ctx.bezierCurveTo(-42, -88 - wave1, -68, -77 + wave2, -90, -84 + wave1);
+      ctx.lineTo(-84, -76 + wave1);
+      ctx.bezierCurveTo(-62, -69 + wave2, -38, -80 - wave1, -14, -92);
+      ctx.closePath();
+      ctx.fill();
+      if (!silhouette) ctx.stroke();
+      ctx.restore();
+    }
+
+    // 4. Compact Cruiser Bicycle Frame
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    const tube = (x1, y1, x2, y2, w = 4.8) => {
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = w + 3.2;
+      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+      if (!silhouette) {
+        ctx.strokeStyle = fillFrame;
+        ctx.lineWidth = w;
+        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+      }
+    };
+    tube(rwX, rwY, bbX, bbY, 4);
+    tube(rwX, rwY, seatX, seatY, 4);
+    tube(bbX, bbY, seatX, seatY, 4.6);
+    tube(bbX, bbY, headBotX, headBotY, 4.8);
+    tube(seatX, seatY + 4, headTopX, headTopY + 4, 4.4);
+    tube(headTopX, headTopY - 8, fwX, fwY, 4.4);
+
+    // Swept-back cruiser handlebars + tiny brass bell
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = 4.5;
+    ctx.beginPath();
+    ctx.moveTo(headTopX - 1, headTopY - 8);
+    ctx.lineTo(headTopX - 6, gripY - 2);
+    ctx.lineTo(gripX, gripY);
+    ctx.stroke();
+    if (!silhouette) {
+      ctx.fillStyle = PAL.amber;
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.arc(headTopX - 6, gripY - 5, 4.2, Math.PI, 0);
+      ctx.closePath();
+      ctx.fill(); ctx.stroke();
+    }
+
+    // Seat
+    ctx.fillStyle = silhouette || PAL.ink;
+    ctx.beginPath();
+    ctx.ellipse(seatX - 2, seatY - 4, 14, 4.5, -0.05, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Front Wire Basket
+    if (basket) {
+      ctx.save();
+      ctx.translate(headTopX + 10, headTopY - 4);
+      ctx.rotate(0.12);
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = 2.4;
+      ctx.fillStyle = silhouette ? 'transparent' : 'rgba(255,255,255,0.2)';
+      ctx.beginPath();
+      ctx.moveTo(-9, -13); ctx.lineTo(13, -13);
+      ctx.lineTo(9, 9); ctx.lineTo(-7, 9);
+      ctx.closePath();
+      ctx.fill(); ctx.stroke();
+      ctx.lineWidth = 1.25;
+      for (let i = -3; i <= 7; i += 5) {
+        ctx.beginPath(); ctx.moveTo(i, -13); ctx.lineTo(i - 1, 9); ctx.stroke();
+      }
+      ctx.beginPath();
+      ctx.moveTo(-8, -5); ctx.lineTo(12, -5);
+      ctx.moveTo(-7, 2); ctx.lineTo(10, 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // Chainring & compact chibi pedals
+    const crankR = 7.5;
+    const px = bbX + Math.cos(pedal) * crankR;
+    const py = bbY + Math.sin(pedal) * crankR;
+    const px2 = bbX - Math.cos(pedal) * crankR;
+    const py2 = bbY - Math.sin(pedal) * crankR;
+    ctx.fillStyle = silhouette || PAL.paper;
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(bbX, bbY, 8.5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+    // 5. Q-Version Vinyl-Toy Atu Body & Stubby Chubby Paws!
+    // Helper: chubby vinyl-toy limb capsule
+    const drawStubbyPaw = (x1, y1, x2, y2, w = 14, fill = fillMain) => {
+      const ang = Math.atan2(y2 - y1, x2 - x1);
+      const len = Math.hypot(x2 - x1, y2 - y1);
+      ctx.save();
+      ctx.translate(x1, y1);
+      ctx.rotate(ang);
+      ctx.fillStyle = fill;
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = 2.8;
+      ctx.beginPath();
+      ctx.roundRect(-w * 0.45, -w * 0.5, len + w * 0.9, w, w * 0.5);
+      ctx.fill();
+      if (!silhouette) ctx.stroke();
+      // Subtle vinyl shine on limb
+      if (isFullColor) {
+        ctx.fillStyle = 'rgba(255,255,255,0.65)';
+        ctx.beginPath();
+        ctx.ellipse(len * 0.45, -w * 0.22, Math.max(2, len * 0.28), w * 0.14, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    };
+
+    // Back stubby leg (short chubby vinyl paw!)
+    if (variant === 'frame-legs') {
+      ctx.strokeStyle = stroke; ctx.lineWidth = 8.5;
+      ctx.beginPath(); ctx.moveTo(seatX + 4, seatY - 6); ctx.lineTo(seatX - 20, seatY + 24); ctx.lineTo(seatX - 20, seatY + 48); ctx.stroke();
+      if (!silhouette) { ctx.strokeStyle = tint || '#E5DDD0'; ctx.lineWidth = 4.5; ctx.stroke(); }
+    } else {
+      drawStubbyPaw(seatX + 10, seatY - 4, px2, py2, 13.5, silhouette || tint || '#EAE3D7');
+    }
+
+    // Plump stubby cotton-ball puppy tail wagging!
+    const tailWag = Math.sin(t * 20) * 0.3;
+    ctx.save();
+    ctx.translate(seatX - 15, seatY - 12);
+    ctx.rotate(-0.55 + tailWag);
+    ctx.fillStyle = fillMain;
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = 2.8;
+    ctx.beginPath();
+    ctx.ellipse(-6, -3, 10.5, 7.5, -0.2, 0, Math.PI * 2);
+    ctx.fill();
+    if (!silhouette) ctx.stroke();
+    ctx.restore();
+
+    // Compact plump chibi vinyl-toy torso (squishy pear/bean figurine shape!)
+    ctx.save();
+    ctx.translate(seatX + 8, seatY - 19);
+    ctx.rotate(0.18);
+    ctx.fillStyle = fillMain;
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 21.5, 20.5, 0, 0, Math.PI * 2);
+    ctx.fill();
+    if (isFullColor) {
+      // Soft figurine underside shading + glossy top highlight
+      ctx.save();
+      ctx.clip();
+      ctx.fillStyle = 'rgba(120,90,65,0.13)';
+      ctx.beginPath(); ctx.ellipse(-5, 11, 22, 13, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,0.72)';
+      ctx.beginPath(); ctx.ellipse(5, -10, 9.5, 5, -0.3, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
+    if (!silhouette) {
+      ctx.strokeStyle = stroke; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.ellipse(0, 0, 21.5, 20.5, 0, 0, Math.PI * 2); ctx.stroke();
+    }
+    ctx.restore();
+
+    // Front stubby leg pedaling (super cute short vinyl-toy leg!)
+    if (variant === 'frame-legs') {
+      ctx.strokeStyle = stroke; ctx.lineWidth = 9;
+      ctx.beginPath(); ctx.moveTo(seatX + 8, seatY - 6); ctx.lineTo(seatX + 28, seatY + 24); ctx.lineTo(seatX + 28, seatY + 50); ctx.stroke();
+      if (!silhouette) { ctx.strokeStyle = fillMain; ctx.lineWidth = 4.8; ctx.stroke(); }
+    } else {
+      drawStubbyPaw(seatX + 12, seatY - 3, px, py, 14.5, fillMain);
+    }
+
+    // Crank & pedal bar
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = 2.8;
+    ctx.beginPath(); ctx.moveTo(bbX, bbY); ctx.lineTo(px, py); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(px - 6, py); ctx.lineTo(px + 6, py); ctx.stroke();
+
+    // Short chubby front arm gripping the swept handlebar!
+    drawStubbyPaw(seatX + 18, seatY - 23, gripX - 2, gripY + 2, 13.5, fillMain);
+
+    // Chunky cozy scarf collar around short chibi neck
+    if (scarf) {
+      ctx.fillStyle = fillScarf;
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = 2.6;
+      ctx.beginPath();
+      ctx.roundRect(seatX - 4, seatY - 43, 33, 13, 6.5);
+      ctx.fill();
+      if (!silhouette) ctx.stroke();
+    }
+
+    // 6. BIG ADORABLE Q-VERSION VINYL-TOY ATU HEAD (1.5x larger, plush & glossy!)
+    const bob = Math.sin(pedal * 2) * 2.0;
+    const earFlop = Math.sin(t * 11) * 0.12 + earBounce;
+    ctx.save();
+    ctx.translate(seatX + 14, seatY - 68 + bob);
+    ctx.rotate(0.04);
+
+    // Back plush perked caramel ear (signature Atu logo left ear!)
+    ctx.save();
+    ctx.translate(-24, -18);
+    ctx.rotate(-0.62 - earFlop);
+    ctx.fillStyle = fillOrange;
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.ellipse(-6, -2, 21, 13.5, 0, 0, Math.PI * 2);
+    ctx.fill();
+    if (isFullColor) {
+      ctx.save(); ctx.clip();
+      ctx.fillStyle = 'rgba(255,255,255,0.28)';
+      ctx.beginPath(); ctx.ellipse(-7, -7, 13, 4.5, -0.1, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(110,45,10,0.16)';
+      ctx.beginPath(); ctx.ellipse(-4, 9, 17, 6, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
+    if (!silhouette) {
+      ctx.strokeStyle = stroke; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.ellipse(-6, -2, 21, 13.5, 0, 0, Math.PI * 2); ctx.stroke();
+    }
+    ctx.restore();
+
+    // Extra 3rd ear for Cut 11 "THREE EARS"
+    if (variant === 'three-ears') {
+      ctx.save();
+      ctx.translate(-2, -31);
+      ctx.rotate(-1.35 + earFlop);
+      ctx.fillStyle = fillOrange;
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = 2.8;
+      ctx.beginPath();
+      ctx.ellipse(0, -11, 11.5, 19, 0, 0, Math.PI * 2);
+      ctx.fill();
+      if (!silhouette) ctx.stroke();
+      ctx.restore();
+    }
+
+    // Big plush round chibi head (wider soft cheeks like a vinyl figurine!)
+    const drawHeadPath = () => {
+      ctx.beginPath();
+      ctx.moveTo(0, -29);
+      ctx.bezierCurveTo(22, -29, 34, -14, 34, 4);
+      ctx.bezierCurveTo(34, 21, 20, 30, 0, 30);
+      ctx.bezierCurveTo(-20, 30, -34, 21, -34, 4);
+      ctx.bezierCurveTo(-34, -14, -22, -29, 0, -29);
+      ctx.closePath();
+    };
+
+    ctx.fillStyle = fillMain;
+    drawHeadPath();
+    ctx.fill();
+
+    // Long snout variant for Cut 11 "LONG SNOUT"
+    if (variant === 'long-snout') {
+      ctx.fillStyle = fillMain;
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = 2.8;
+      ctx.beginPath();
+      ctx.roundRect(16, -6, 42, 17, 8.5);
+      ctx.fill();
+      if (!silhouette) ctx.stroke();
+      ctx.fillStyle = stroke;
+      ctx.beginPath();
+      ctx.ellipse(57, 1, 6, 4.8, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Signature caramel eye-patch + vinyl figurine volume shading (clipped to head)
+    if (!silhouette) {
+      ctx.save();
+      drawHeadPath();
+      ctx.clip();
+
+      // Caramel right eye-patch matching atu-color.svg
+      ctx.fillStyle = fillOrange;
+      ctx.beginPath();
+      ctx.ellipse(16, -9, 22, 23, -0.14, 0, Math.PI * 2);
+      ctx.fill();
+
+      if (isFullColor) {
+        // Warm figurine bottom ambient shadow
+        ctx.fillStyle = 'rgba(130,96,70,0.12)';
+        ctx.beginPath();
+        ctx.ellipse(-2, 27, 36, 13, 0, 0, Math.PI * 2);
+        ctx.fill();
+        // Smooth vinyl-toy specular highlight on top-left crown!
+        ctx.fillStyle = 'rgba(255,255,255,0.68)';
+        ctx.beginPath();
+        ctx.ellipse(-11, -18, 12, 5.5, -0.35, 0, Math.PI * 2);
+        ctx.fill();
+        // Cute soft rosy blush cheeks (from atu-avatar-light.webp!)
+        ctx.fillStyle = 'rgba(238,128,124,0.44)';
+        ctx.beginPath();
+        ctx.ellipse(-5, 11, 6.5, 4.2, 0, 0, Math.PI * 2);
+        ctx.ellipse(25, 11, 5.5, 3.8, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // Crisp vinyl-toy outer head contour
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = 3;
+      drawHeadPath();
+      ctx.stroke();
+    }
+
+    // Front plush drooping caramel ear (signature Atu logo right ear!)
+    ctx.save();
+    ctx.translate(-12, 1);
+    ctx.rotate(0.24 + earFlop * 0.9);
+    ctx.fillStyle = fillOrange;
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.ellipse(-6, 14, 11, 20, 0.14, 0, Math.PI * 2);
+    ctx.fill();
+    if (isFullColor) {
+      ctx.save(); ctx.clip();
+      ctx.fillStyle = 'rgba(255,255,255,0.28)';
+      ctx.beginPath(); ctx.ellipse(-9, 8, 4.2, 10, 0.15, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(110,45,10,0.16)';
+      ctx.beginPath(); ctx.ellipse(-1, 22, 9, 10, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
+    if (!silhouette) {
+      ctx.strokeStyle = stroke; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.ellipse(-6, 14, 11, 20, 0.14, 0, Math.PI * 2); ctx.stroke();
+    }
+    ctx.restore();
+
+    // Cute glossy vinyl-toy button eyes, shiny button nose & tiny puppy smile!
+    if (!silhouette) {
+      const eyeY = -1;
+      const lx = 3, rx = 18;
+      if (expression === 'happy') {
+        ctx.strokeStyle = PAL.ink;
+        ctx.lineWidth = 2.8;
+        ctx.lineCap = 'round';
+        ctx.beginPath(); ctx.arc(lx, eyeY + 1, 4.4, Math.PI * 1.05, Math.PI * 1.95); ctx.stroke();
+        ctx.beginPath(); ctx.arc(rx, eyeY + 1, 4.4, Math.PI * 1.05, Math.PI * 1.95); ctx.stroke();
+      } else {
+        // Glossy tall oval eyes matching atu-logo-512.png
+        ctx.fillStyle = PAL.ink;
+        ctx.beginPath();
+        ctx.ellipse(lx, eyeY, 3.8, 6.2, 0, 0, Math.PI * 2);
+        ctx.ellipse(rx, eyeY, 3.8, 6.2, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Bright vinyl-toy glass-eye catchlights!
+        if (isFullColor) {
+          ctx.fillStyle = '#FFFFFF';
+          ctx.beginPath();
+          ctx.arc(lx - 1.1, eyeY - 1.2, 1.5, 0, Math.PI * 2);
+          ctx.arc(rx - 1.1, eyeY - 1.2, 1.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Cool-cute subtle half-lid (only covers top ~30% so eyes stay big & adorable!)
+        if (expression === 'cool' || expression === 'deadpan') {
+          ctx.save();
+          ctx.beginPath(); ctx.ellipse(lx, eyeY, 4.2, 6.6, 0, 0, Math.PI * 2); ctx.clip();
+          ctx.fillStyle = fillMain; ctx.fillRect(lx - 5, eyeY - 7, 10, 4.0);
+          ctx.restore();
+
+          ctx.save();
+          ctx.beginPath(); ctx.ellipse(rx, eyeY, 4.2, 6.6, 0, 0, Math.PI * 2); ctx.clip();
+          ctx.fillStyle = fillOrange; ctx.fillRect(rx - 5, eyeY - 7, 10, 4.0);
+          ctx.restore();
+
+          ctx.strokeStyle = PAL.ink;
+          ctx.lineWidth = 2.2;
+          ctx.beginPath();
+          ctx.moveTo(lx - 4.2, eyeY - 2.9); ctx.lineTo(lx + 4.2, eyeY - 2.9);
+          ctx.moveTo(rx - 4.2, eyeY - 2.9); ctx.lineTo(rx + 4.2, eyeY - 2.9);
+          ctx.stroke();
+        }
+      }
+
+      // Glossy dark-chocolate button nose + cute chibi "w" mouth
+      if (variant !== 'long-snout') {
+        ctx.fillStyle = isFullColor ? '#321D14' : PAL.ink;
+        ctx.beginPath();
+        ctx.ellipse(12, 8.5, 6.0, 4.3, 0, 0, Math.PI * 2);
+        ctx.fill();
+        if (isFullColor) {
+          ctx.fillStyle = 'rgba(255,255,255,0.65)';
+          ctx.beginPath();
+          ctx.ellipse(10.2, 7.2, 2.0, 1.1, -0.25, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        // Cute tiny puppy mouth
+        ctx.strokeStyle = PAL.ink;
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(12, 12.6);
+        ctx.quadraticCurveTo(12, 16, 8.5, 16);
+        ctx.moveTo(12, 12.6);
+        ctx.quadraticCurveTo(12, 16, 15.5, 16);
+        ctx.stroke();
+      }
+    }
+
+    ctx.restore(); // end head
+    ctx.restore(); // end frame/bike
+    ctx.restore(); // end whole rider
+  }
+
+  // Draw geometric confetti/debris burst (deterministic)
+  function drawShards(cx, cy, progress, count, colors, maxR = 460, seed = 1) {
+    const p = easeOutCubic(progress);
+    for (let i = 0; i < count; i++) {
+      const ang = (i / count) * Math.PI * 2 + (hash(i + seed * 31) - 0.5) * 0.45;
+      const dist = lerp(30, maxR * (0.45 + hash(i * 3 + seed) * 0.75), p);
+      const sz = lerp(18, 6, p) * (0.6 + hash(i * 5 + seed) * 0.9);
+      const sx = cx + Math.cos(ang) * dist;
+      const sy = cy + Math.sin(ang) * dist;
+      const rot = ang + progress * (hash(i * 9 + seed) > 0.5 ? 5 : -5);
+      ctx.save();
+      ctx.translate(sx, sy);
+      ctx.rotate(rot);
+      ctx.fillStyle = colors[i % colors.length];
+      ctx.beginPath();
+      ctx.moveTo(0, -sz);
+      ctx.lineTo(sz * 0.85, sz * 0.7);
+      ctx.lineTo(-sz * 0.7, sz * 0.45);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  // Floating feathers / fur flecks trailing the scarf
+  function drawFlecks(x, y, t, count = 8, col = PAL.paper) {
+    for (let i = 0; i < count; i++) {
+      const ph = (t * 2.5 + hash(i * 19)) % 1;
+      const fx = x - 40 - ph * 110 - hash(i * 7) * 30;
+      const fy = y - 105 + Math.sin(t * 7 + i * 2.1) * 24 + (hash(i * 13) - 0.5) * 40;
+      ctx.save();
+      ctx.translate(fx, fy);
+      ctx.rotate(t * 4 + i);
+      ctx.fillStyle = col;
+      ctx.strokeStyle = PAL.ink;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 7, 2.5, 0, 0, Math.PI * 2);
+      ctx.fill(); ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  // =========================================================================
+  // 13 CUTS — 1:1 CHOREOGRAPHY MATCHING THE 14.0s SOURCE VIDEO
+  // =========================================================================
+
+  // CUT 01 (0.00 - 1.00s): Pure Graphics — Cream paper + Red Sun + "A -> AT -> ATU"
+  function cut01(lt) {
+    ctx.fillStyle = PAL.paper;
+    ctx.fillRect(0, 0, W, H);
+    drawCrosshair(38, 38, PAL.red, 7);
+    drawCrosshair(W - 38, 38, PAL.red, 7);
+    drawCrosshair(38, H - 38, PAL.ink, 7);
+
+    // Top ruler + BENCHMARK // 100.0% bar
+    drawRuler(40, 26, 260, 20, 'rgba(20,20,20,0.45)', 1);
+    const barW = lerp(120, 620, easeOutCubic(seg(lt, 0, 0.35)));
+    ctx.fillStyle = PAL.ink;
+    ctx.fillRect(0, 42, barW, 40);
+    drawMeter(16, 52, 166, 20, seg(lt, 0.05, 0.65), PAL.white, PAL.red, PAL.white, 16);
+    ctx.fillStyle = PAL.paper;
+    ctx.font = font(FONT_MONO, 15);
+    ctx.textAlign = 'left';
+    ctx.fillText('BENCHMARK // 100.0%', 200, 67);
+
+    // Center red circle + thin ring
+    const cScale = easeOutBack(seg(lt, 0.0, 0.32), 1.3);
+    ctx.save();
+    ctx.translate(W / 2, H / 2 - 12);
+    ctx.scale(cScale, cScale);
+    ctx.strokeStyle = 'rgba(20,20,20,0.45)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(0, 0, 212, 0, Math.PI * 2); ctx.stroke();
+    ctx.fillStyle = PAL.red;
+    ctx.beginPath(); ctx.arc(0, 0, 174, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+
+    // Slam letters: A -> AT -> ATU
+    let word = '';
+    if (lt >= 0.08) word = 'A';
+    if (lt >= 0.28) word = 'AT';
+    if (lt >= 0.50) word = 'ATU';
+    if (word) {
+      const beatT = lt >= 0.50 ? seg(lt, 0.50, 0.68) : lt >= 0.28 ? seg(lt, 0.28, 0.45) : seg(lt, 0.08, 0.24);
+      const sc = lerp(1.18, 1.0, easeOutBack(beatT, 1.4));
+      ctx.save();
+      ctx.translate(W / 2, H / 2 + 54);
+      ctx.scale(sc, sc);
+      ctx.font = font(FONT_COND, 215);
+      ctx.textAlign = 'center';
+      ctx.lineWidth = 12;
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = PAL.ink;
+      ctx.fillStyle = PAL.paper;
+      ctx.strokeText(word, 0, 0);
+      ctx.fillText(word, 0, 0);
+      ctx.restore();
+    }
+
+    // Bottom right ATU ENGINE bar
+    const b2W = lerp(100, 640, easeOutCubic(seg(lt, 0.1, 0.45)));
+    ctx.fillStyle = PAL.ink;
+    ctx.fillRect(W - b2W, H - 104, b2W, 38);
+    ctx.fillStyle = PAL.paper;
+    ctx.font = font(FONT_MONO, 15);
+    ctx.textAlign = 'right';
+    ctx.fillText('ATU ENGINE', W - 180, H - 80);
+    drawMeter(W - 166, H - 94, 146, 18, seg(lt, 0.15, 0.8), PAL.tealLight, PAL.teal, PAL.tealLight, 14);
+  }
+
+  // CUT 02 (1.00 - 2.00s): Porthole Eye Lock (Atu's eye + caramel patch) -> Confetti Explosion
+  function cut02(lt) {
+    ctx.fillStyle = PAL.ink;
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(239,236,227,0.55)';
+    ctx.font = font(FONT_MONO, 14);
+    ctx.textAlign = 'left';
+    ctx.fillText('EYE LOCK // 02', 28, 34);
+    ctx.fillStyle = PAL.red;
+    ctx.textAlign = 'right';
+    ctx.fillText('ATU', W - 28, H - 28);
+
+    if (lt < 0.58) {
+      const zoom = lerp(0.86, 1.08, easeOutCubic(seg(lt, 0, 0.56)));
+      const twitch = lt > 0.34 ? Math.sin((lt - 0.34) * 42) * 3 : 0;
+      const r = 175 * zoom;
+      ctx.save();
+      ctx.translate(W / 2, H / 2 - 14);
+      // Clip porthole
+      ctx.beginPath();
+      ctx.arc(0, 0, r, 0, Math.PI * 2);
+      ctx.save();
+      ctx.clip();
+
+      // White dog face interior
+      ctx.fillStyle = PAL.paper;
+      ctx.fillRect(-r, -r, r * 2, r * 2);
+
+      // Iconic Atu caramel right eye-patch curving over right half!
+      ctx.fillStyle = PAL.atuOrange;
+      ctx.strokeStyle = PAL.ink;
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.ellipse(r * 0.58, 12, r * 0.72, r * 0.96, -0.1, 0, Math.PI * 2);
+      ctx.fill(); ctx.stroke();
+
+      // Soft paper crease/brow lines like source comic
+      ctx.strokeStyle = 'rgba(20,20,20,0.22)';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(-r * 0.85, -r * 0.45); ctx.lineTo(r * 0.25, -r * 0.65);
+      ctx.stroke();
+
+      // Big expressive Atu eye (sclera + clipped deadpan lid + darting pupil)
+      const lookX = lt < 0.25 ? -6 : lt < 0.42 ? 18 : 6;
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(-18, 6, 76, 0, Math.PI * 2);
+      ctx.fillStyle = PAL.white;
+      ctx.fill();
+      ctx.clip();
+
+      // Pupil
+      ctx.fillStyle = PAL.ink;
+      ctx.beginPath();
+      ctx.ellipse(-18 + lookX, 18, 30, 34, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = PAL.white;
+      ctx.beginPath();
+      ctx.arc(-28 + lookX, 6, 10, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Heavy deadpan upper eyelid clipped cleanly inside eye socket
+      ctx.fillStyle = PAL.paperWarm;
+      ctx.fillRect(-100, -82, 170, 74 + twitch);
+      ctx.strokeStyle = PAL.ink;
+      ctx.lineWidth = 7;
+      ctx.beginPath();
+      ctx.moveTo(-98, -8 + twitch);
+      ctx.lineTo(66, -8 + twitch);
+      ctx.stroke();
+      ctx.restore();
+
+      // Crisp eye socket outline on top
+      ctx.strokeStyle = PAL.ink;
+      ctx.lineWidth = 7;
+      ctx.beginPath();
+      ctx.arc(-18, 6, 76, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.restore(); // unclip
+      // Outer vermilion porthole ring
+      ctx.strokeStyle = PAL.red;
+      ctx.lineWidth = 14;
+      ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
+      ctx.strokeStyle = PAL.ink;
+      ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.arc(0, 0, r + 8, 0, Math.PI * 2); ctx.stroke();
+      ctx.restore();
+    } else {
+      // Radial explosion!
+      const p = seg(lt, 0.58, 1.0);
+      // Speed rays
+      ctx.save();
+      ctx.translate(W / 2, H / 2);
+      ctx.strokeStyle = `rgba(239,236,227,${0.25 * (1 - p)})`;
+      ctx.lineWidth = 2;
+      for (let i = 0; i < 24; i++) {
+        const a = (i / 24) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a) * lerp(40, 260, p), Math.sin(a) * lerp(40, 260, p));
+        ctx.lineTo(Math.cos(a) * lerp(180, 680, p), Math.sin(a) * lerp(180, 680, p));
+        ctx.stroke();
+      }
+      ctx.restore();
+      drawShards(W / 2, H / 2, p, 34, [PAL.red, PAL.atuOrange, PAL.teal, PAL.paper, PAL.amber], 680, 2);
+    }
+  }
+
+  // CUT 03 (2.00 - 3.00s): Skid HEY ATU — Dark charcoal + giant "HEY ATU" + Atu skidding across letters
+  function cut03(lt) {
+    ctx.fillStyle = PAL.charcoal;
+    ctx.fillRect(0, 0, W, H);
+
+    // Subtle speed streaks
+    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+    ctx.lineWidth = 1.5;
+    for (let i = 0; i < 16; i++) {
+      const sy = 90 + i * 36;
+      const sx = ((hash(i * 13) * 1400 - lt * 1200) % 1500 + 1500) % 1500 - 150;
+      ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(sx + 120 + hash(i) * 160, sy); ctx.stroke();
+    }
+
+    const bikeX = lerp(-120, W * 0.72, easeOutCubic(seg(lt, 0.08, 0.96)));
+    const baselineY = 472;
+    drawRuler(140, baselineY + 26, W - 280, 48, 'rgba(239,236,227,0.18)', 1);
+
+    // Giant "HEY ATU" (7 characters matching "PELICAN" width!)
+    const letters = ['H', 'E', 'Y', ' ', 'A', 'T', 'U'];
+    const xs = [215, 360, 505, 590, 710, 855, 1005];
+    ctx.font = font(FONT_COND, 240);
+    ctx.textAlign = 'center';
+    for (let i = 0; i < letters.length; i++) {
+      if (letters[i] === ' ') continue;
+      const lx = xs[i];
+      const dist = bikeX - lx;
+      const hit = dist > -40 && dist < 120 ? Math.sin(clamp((dist + 40) / 160) * Math.PI) : 0;
+      ctx.save();
+      ctx.translate(lx, baselineY - hit * 14);
+      ctx.rotate(hit * -0.05);
+      ctx.fillStyle = PAL.paper;
+      ctx.fillText(letters[i], 0, 0);
+      ctx.restore();
+    }
+
+    // Skid line + shattered paper/red debris left behind wheels
+    if (bikeX > 160) {
+      ctx.strokeStyle = PAL.red;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(150, baselineY + 4);
+      ctx.lineTo(bikeX - 24, baselineY + 4);
+      ctx.stroke();
+
+      for (let i = 0; i < 24; i++) {
+        const cx = 165 + i * 38;
+        if (cx > bikeX + 10) break;
+        const age = clamp((bikeX - cx) / 280);
+        const dy = -Math.sin(age * Math.PI) * (18 + hash(i * 5) * 34) + age * 26;
+        const dx = -age * (15 + hash(i * 9) * 35);
+        ctx.save();
+        ctx.translate(cx + dx, baselineY + dy);
+        ctx.rotate(age * 6 + i);
+        ctx.fillStyle = i % 3 === 0 ? PAL.red : PAL.paper;
+        ctx.fillRect(-7, -7, 14, 12);
+        ctx.restore();
+      }
+    }
+
+    // Hero Atu skidding across!
+    const skidTilt = lt < 0.72 ? -0.14 : lerp(-0.14, 0, seg(lt, 0.72, 0.96));
+    drawAtuBike(bikeX, baselineY + 4, {
+      scale: 1.52,
+      tilt: skidTilt,
+      pedal: lt * 16,
+      t: 2 + lt,
+      expression: 'cool',
+      earBounce: -0.18
+    });
+  }
+
+  // CUT 04 (3.00 - 4.00s): Benchmark Triptych (01 WHEELIE / 02 BUNNY HOP / 03 LANDING)
+  function cut04(lt) {
+    ctx.fillStyle = PAL.ink;
+    ctx.fillRect(0, 0, W, H);
+    const pad = 26, gap = 22;
+    const cw = (W - pad * 2 - gap * 2) / 3;
+    const ch = H - pad * 2;
+    const flash = lt > 0.78 && lt < 0.90;
+
+    const cards = [
+      { idx: '01 // WHEELIE', bg: PAL.red, wm: 'AGAIN', sil: flash ? PAL.white : PAL.ink, start: 0.00, tilt: -0.34, yOff: 0, echo: false },
+      { idx: '02 // BUNNY HOP', bg: PAL.paper, wm: 'BENCHMARK', sil: flash ? PAL.white : PAL.ink, start: 0.20, tilt: -0.16, yOff: -90, echo: true },
+      { idx: '03 // LANDING', bg: PAL.teal, wm: 'AGAIN', sil: PAL.white, start: 0.40, tilt: 0.08, yOff: 22, echo: false }
+    ];
+
+    cards.forEach((c, i) => {
+      const p = seg(lt, c.start, c.start + 0.22);
+      if (p <= 0) return;
+      const cx = pad + i * (cw + gap);
+      const slideY = lerp(i === 1 ? H : -H, pad, easeOutBack(p, 0.9));
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(cx, slideY, cw, ch);
+      ctx.clip();
+
+      ctx.fillStyle = c.bg;
+      ctx.fillRect(cx, slideY, cw, ch);
+
+      // Vertical watermark typography
+      ctx.save();
+      ctx.translate(cx + cw * 0.56, slideY + ch * 0.5);
+      ctx.rotate(-Math.PI / 2);
+      ctx.font = font(FONT_COND, 128);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = i === 1 ? 'rgba(20,20,20,0.11)' : 'rgba(255,255,255,0.16)';
+      ctx.fillText(c.wm, 0, 44);
+      ctx.restore();
+
+      // Header tag
+      ctx.fillStyle = i === 2 ? PAL.white : PAL.ink;
+      ctx.font = font(FONT_MONO, 15);
+      ctx.textAlign = 'left';
+      ctx.fillText(c.idx, cx + 18, slideY + 30);
+
+      // Baseline rule
+      const groundY = slideY + ch * 0.80;
+      ctx.strokeStyle = i === 2 ? 'rgba(255,255,255,0.5)' : 'rgba(20,20,20,0.45)';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(cx + 22, groundY + 12); ctx.lineTo(cx + cw - 22, groundY + 12); ctx.stroke();
+
+      // Silhouette motion
+      const hopPhase = Math.sin(clamp((lt - c.start) * 4.2, 0, Math.PI));
+      const ry = groundY + c.yOff - (i === 1 ? hopPhase * 42 : 0);
+
+      if (c.echo) {
+        for (let e = 3; e >= 1; e--) {
+          ctx.save();
+          ctx.globalAlpha = 0.16 * (4 - e) * 0.45;
+          drawAtuBike(cx + cw * 0.52 - e * 22, ry + e * 18, {
+            scale: 1.48, tilt: c.tilt - e * 0.04, pedal: lt * 12 - e, t: 3 + lt,
+            silhouette: PAL.red
+          });
+          ctx.restore();
+        }
+      }
+
+      drawAtuBike(cx + cw * 0.52, ry, {
+        scale: 1.48,
+        tilt: c.tilt + (i === 0 ? -Math.sin(lt * 10) * 0.06 : 0),
+        pedal: lt * 14,
+        t: 3 + lt,
+        silhouette: c.sil
+      });
+
+      ctx.restore();
+    });
+  }
+
+  // CUT 05 (4.00 - 5.00s): Ring Jump ("DRAW A DOG RIDING A BICYCLE") -> Red Close-Up "NO HANDER // UNIMPRESSED"
+  function cut05(lt) {
+    if (lt < 0.72) {
+      // Diagonal teal / cream split
+      ctx.fillStyle = PAL.paper;
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = PAL.teal;
+      ctx.beginPath();
+      ctx.moveTo(0, 0); ctx.lineTo(285, 0); ctx.lineTo(155, H); ctx.lineTo(0, H);
+      ctx.closePath();
+      ctx.fill();
+
+      // Circular spinning typography -> radial burst at lt=0.35
+      const ringText = 'DRAW A DOG RIDING A BICYCLE • ';
+      const burst = seg(lt, 0.34, 0.72);
+      const baseR = lerp(192, 540, easeInCubic(burst));
+      const spin = lt * 2.8;
+      ctx.save();
+      ctx.translate(W * 0.52, H * 0.52);
+      // Faint dotted ring before burst
+      if (burst < 0.3) {
+        ctx.strokeStyle = `rgba(217,56,41,${0.32 * (1 - burst / 0.3)})`;
+        ctx.setLineDash([4, 8]);
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(0, 0, 152, 0, Math.PI * 2); ctx.stroke();
+        ctx.setLineDash([]);
+      }
+      ctx.font = font(FONT_MONO, 24);
+      ctx.fillStyle = PAL.ink;
+      ctx.textAlign = 'center';
+      for (let i = 0; i < ringText.length; i++) {
+        const a = (i / ringText.length) * Math.PI * 2 + spin - Math.PI / 2;
+        const r = baseR + burst * hash(i * 11) * 180;
+        ctx.save();
+        ctx.rotate(a);
+        ctx.translate(0, -r);
+        ctx.rotate(burst * (hash(i * 3) - 0.5) * 4);
+        ctx.globalAlpha = 1 - burst * 0.85;
+        ctx.fillText(ringText[i], 0, 0);
+        ctx.restore();
+      }
+      ctx.restore();
+
+      // Atu jumping into the ring & speeding right!
+      const bx = lerp(W * 0.24, W * 0.64, easeOutCubic(seg(lt, 0.0, 0.72)));
+      const by = H * 0.56 - Math.sin(seg(lt, 0.0, 0.55) * Math.PI) * 58;
+      drawFlecks(bx, by, 4 + lt, 10, PAL.paperWarm);
+      drawAtuBike(bx, by, {
+        scale: 1.55,
+        tilt: lerp(-0.14, 0.02, seg(lt, 0.0, 0.6)),
+        pedal: lt * 18,
+        t: 4 + lt,
+        expression: 'cool'
+      });
+    } else {
+      // Snap cut: NO HANDER // UNIMPRESSED — Big deadpan Atu close-up on vermilion radial burst!
+      const p = seg(lt, 0.72, 1.0);
+      ctx.fillStyle = PAL.red;
+      ctx.fillRect(0, 0, W, H);
+      // Subtle radial speed burst
+      ctx.save();
+      ctx.translate(W / 2, H * 0.58);
+      ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+      ctx.lineWidth = 3;
+      for (let i = 0; i < 20; i++) {
+        const a = (i / 20) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a) * 160, Math.sin(a) * 160);
+        ctx.lineTo(Math.cos(a) * 760, Math.sin(a) * 760);
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // Top dark bar
+      ctx.fillStyle = PAL.ink;
+      ctx.fillRect(0, 0, W, 42);
+      ctx.fillStyle = PAL.paper;
+      ctx.font = font(FONT_MONO, 15);
+      ctx.textAlign = 'left';
+      ctx.fillText('NO HANDER // UNIMPRESSED', 24, 26);
+      ctx.fillStyle = PAL.red;
+      ctx.textAlign = 'right';
+      ctx.fillText('ATU', W - 24, 26);
+
+      // Giant adorable Q-version vinyl-toy Atu head & flowing scarf
+      const zoom = lerp(0.94, 1.06, easeOutCubic(p));
+      ctx.save();
+      ctx.translate(W * 0.49, H * 0.65);
+      ctx.scale(zoom, zoom);
+
+      // Flowing red scarf behind neck
+      const wv = Math.sin((4 + lt) * 18) * 16;
+      ctx.fillStyle = PAL.redDeep;
+      ctx.strokeStyle = PAL.ink;
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.moveTo(-40, 118);
+      ctx.bezierCurveTo(-180, 98 + wv, -290, 142 - wv, -420, 115 + wv);
+      ctx.lineTo(-400, 160 + wv);
+      ctx.bezierCurveTo(-270, 182 - wv, -160, 142 + wv, -40, 162);
+      ctx.closePath();
+      ctx.fill(); ctx.stroke();
+
+      // Compact plump chibi figurine shoulders
+      ctx.fillStyle = PAL.white;
+      ctx.beginPath();
+      ctx.ellipse(-4, 212, 116, 108, 0, 0, Math.PI * 2);
+      ctx.fill(); ctx.stroke();
+
+      // Chunky cozy scarf collar
+      ctx.fillStyle = PAL.redDeep;
+      ctx.beginPath();
+      ctx.roundRect(-94, 96, 180, 44, 22);
+      ctx.fill(); ctx.stroke();
+
+      // Left plush perked caramel ear (with vinyl highlight + soft shade)
+      ctx.save();
+      ctx.translate(-142, -88);
+      ctx.rotate(-0.62);
+      ctx.fillStyle = PAL.atuOrange;
+      ctx.beginPath(); ctx.ellipse(-18, 0, 94, 58, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.save(); ctx.clip();
+      ctx.fillStyle = 'rgba(255,255,255,0.28)';
+      ctx.beginPath(); ctx.ellipse(-24, -26, 56, 18, -0.1, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(110,45,10,0.16)';
+      ctx.beginPath(); ctx.ellipse(-10, 38, 74, 26, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+      ctx.strokeStyle = PAL.ink; ctx.lineWidth = 6;
+      ctx.beginPath(); ctx.ellipse(-18, 0, 94, 58, 0, 0, Math.PI * 2); ctx.stroke();
+      ctx.restore();
+
+      // Big plush Q-version vinyl-toy head contour (wider squishy cheeks!)
+      const drawCloseHead = () => {
+        ctx.beginPath();
+        ctx.moveTo(0, -148);
+        ctx.bezierCurveTo(106, -148, 166, -74, 166, 14);
+        ctx.bezierCurveTo(166, 98, 98, 142, 0, 142);
+        ctx.bezierCurveTo(-98, 142, -166, 98, -166, 14);
+        ctx.bezierCurveTo(-166, -74, -106, -148, 0, -148);
+        ctx.closePath();
+      };
+      ctx.fillStyle = PAL.white;
+      drawCloseHead();
+      ctx.fill();
+
+      // Signature caramel eye-patch + vinyl gloss + rosy cheeks
+      ctx.save();
+      drawCloseHead();
+      ctx.clip();
+      ctx.fillStyle = PAL.atuOrange;
+      ctx.beginPath(); ctx.ellipse(84, -46, 102, 110, -0.12, 0, Math.PI * 2); ctx.fill();
+      // Underside figurine shadow
+      ctx.fillStyle = 'rgba(130,96,70,0.12)';
+      ctx.beginPath(); ctx.ellipse(0, 132, 174, 56, 0, 0, Math.PI * 2); ctx.fill();
+      // Glossy vinyl top-left specular highlight
+      ctx.fillStyle = 'rgba(255,255,255,0.72)';
+      ctx.beginPath(); ctx.ellipse(-56, -92, 54, 22, -0.35, 0, Math.PI * 2); ctx.fill();
+      // Cute rosy pink blush cheeks!
+      ctx.fillStyle = 'rgba(238,128,124,0.46)';
+      ctx.beginPath();
+      ctx.ellipse(-96, 46, 32, 20, 0, 0, Math.PI * 2);
+      ctx.ellipse(98, 46, 30, 19, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+      ctx.strokeStyle = PAL.ink; ctx.lineWidth = 6;
+      drawCloseHead();
+      ctx.stroke();
+
+      // Right plush drooping caramel ear
+      ctx.save();
+      ctx.translate(152, 8);
+      ctx.rotate(-0.14);
+      ctx.fillStyle = PAL.atuOrange;
+      ctx.beginPath(); ctx.ellipse(14, 38, 48, 94, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.save(); ctx.clip();
+      ctx.fillStyle = 'rgba(255,255,255,0.26)';
+      ctx.beginPath(); ctx.ellipse(2, 10, 18, 46, 0.08, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(110,45,10,0.16)';
+      ctx.beginPath(); ctx.ellipse(32, 74, 38, 46, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+      ctx.strokeStyle = PAL.ink; ctx.lineWidth = 6;
+      ctx.beginPath(); ctx.ellipse(14, 38, 48, 94, 0, 0, Math.PI * 2); ctx.stroke();
+      ctx.restore();
+
+      // Glossy vinyl-toy button eyes + cool-cute half lid + catchlights
+      ctx.fillStyle = PAL.ink;
+      ctx.beginPath();
+      ctx.ellipse(-42, -6, 19, 30, 0, 0, Math.PI * 2);
+      ctx.ellipse(54, -6, 19, 30, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#FFFFFF';
+      ctx.beginPath();
+      ctx.arc(-48, -4, 6.5, 0, Math.PI * 2);
+      ctx.arc(48, -4, 6.5, 0, Math.PI * 2);
+      ctx.fill();
+      // Subtle cool half-lid clipped cleanly
+      ctx.save(); ctx.beginPath(); ctx.ellipse(-42, -6, 21, 32, 0, 0, Math.PI * 2); ctx.clip();
+      ctx.fillStyle = PAL.white; ctx.fillRect(-66, -42, 48, 24); ctx.restore();
+      ctx.save(); ctx.beginPath(); ctx.ellipse(54, -6, 21, 32, 0, 0, Math.PI * 2); ctx.clip();
+      ctx.fillStyle = PAL.atuOrange; ctx.fillRect(30, -42, 48, 24); ctx.restore();
+      ctx.strokeStyle = PAL.ink; ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.moveTo(-64, -18); ctx.lineTo(-18, -18);
+      ctx.moveTo(32, -18); ctx.lineTo(78, -18);
+      ctx.stroke();
+
+      // Glossy dark-chocolate button nose + cute chibi "w" mouth
+      ctx.fillStyle = '#321D14';
+      ctx.beginPath(); ctx.ellipse(8, 36, 29, 20, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,0.65)';
+      ctx.beginPath(); ctx.ellipse(-1, 29, 10, 5, -0.25, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = PAL.ink; ctx.lineWidth = 5.5; ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(8, 56); ctx.quadraticCurveTo(8, 76, -12, 76);
+      ctx.moveTo(8, 56); ctx.quadraticCurveTo(8, 76, 28, 76);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+  }
+
+  // CUT 06 (5.00 - 6.00s): ISSUE 06 // SUSPENSION TEST — "RIDE" + diagonal vermilion stripe + squash hop
+  function cut06(lt) {
+    ctx.fillStyle = PAL.paper;
+    ctx.fillRect(0, 0, W, H);
+
+    // Header labels
+    ctx.fillStyle = PAL.ink;
+    ctx.font = font(FONT_MONO, 15);
+    ctx.textAlign = 'left';
+    ctx.fillText('ISSUE 06 // SUSPENSION TEST', 28, 38);
+    ctx.fillStyle = PAL.red;
+    ctx.textAlign = 'right';
+    ctx.fillText('ATU', W - 28, 38);
+
+    // Diagonal vermilion stripe
+    ctx.fillStyle = PAL.red;
+    ctx.beginPath();
+    ctx.moveTo(310, H); ctx.lineTo(420, H); ctx.lineTo(940, 0); ctx.lineTo(830, 0);
+    ctx.closePath();
+    ctx.fill();
+
+    // Giant "RIDE" that squashes when Atu lands on it at lt ~ 0.46!
+    const impact = lt > 0.38 && lt < 0.72 ? Math.sin(seg(lt, 0.38, 0.72) * Math.PI) : 0;
+    const sqY = 1 - impact * 0.28;
+    const sqX = 1.15 + impact * 0.14;
+    ctx.save();
+    ctx.translate(W / 2, 588);
+    ctx.scale(sqX, sqY);
+    ctx.fillStyle = PAL.ink;
+    ctx.font = font(FONT_COND, 305);
+    ctx.textAlign = 'center';
+    ctx.fillText('RIDE', 0, 0);
+    ctx.restore();
+
+    // Bottom ruler & small meter
+    drawRuler(28, H - 34, 340, 24, 'rgba(20,20,20,0.35)', -1);
+    drawMeter(W - 210, H - 48, 178, 18, seg(lt, 0, 1), PAL.ink, PAL.red, PAL.ink, 14);
+
+    // Atu jumping in from left -> squashing RIDE -> hopping off right!
+    let bx, by, tilt;
+    if (lt < 0.45) {
+      const p = seg(lt, 0, 0.45);
+      bx = lerp(40, W * 0.49, p);
+      by = 340 - Math.sin(p * Math.PI) * 125;
+      tilt = lerp(-0.18, 0.12, p);
+    } else if (lt < 0.62) {
+      const p = seg(lt, 0.45, 0.62);
+      bx = lerp(W * 0.49, W * 0.56, p);
+      by = 340 + impact * 52;
+      tilt = lerp(0.12, -0.22, p);
+    } else {
+      const p = seg(lt, 0.62, 1.0);
+      bx = lerp(W * 0.56, W + 90, p);
+      by = 340 - Math.sin(p * Math.PI) * 165;
+      tilt = lerp(-0.22, 0.08, p);
+    }
+
+    drawAtuBike(bx, by, {
+      scale: 1.48,
+      tilt,
+      pedal: lt * 16,
+      t: 5 + lt,
+      expression: 'cool'
+    });
+  }
+
+  // CUT 07 (6.00 - 7.00s): BARSPIN // 360 — Teal bg + giant outlined SPIN + diagonal black ramp + 4-copy chromatic trail
+  function cut07(lt) {
+    ctx.fillStyle = PAL.teal;
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = PAL.paper;
+    ctx.font = font(FONT_MONO, 15);
+    ctx.textAlign = 'left';
+    ctx.fillText('BARSPIN // 360', 28, 38);
+
+    // Giant outlined SPIN in background
+    ctx.save();
+    ctx.translate(W * 0.52, H * 0.54);
+    ctx.rotate(lerp(-0.32, 0.0, easeOutCubic(seg(lt, 0, 0.72))));
+    ctx.font = font(FONT_COND, 310);
+    ctx.textAlign = 'center';
+    ctx.strokeStyle = 'rgba(239,236,227,0.72)';
+    ctx.lineWidth = 4;
+    ctx.strokeText('SPIN', 0, 105);
+    ctx.restore();
+
+    // Diagonal ink-black highway ramp
+    const rampAng = -0.37;
+    ctx.save();
+    ctx.translate(W / 2, H * 0.54);
+    ctx.rotate(rampAng);
+    ctx.fillStyle = PAL.ink;
+    ctx.fillRect(-W, -76, W * 2, 148);
+    drawRuler(-W * 0.6, 82, W * 1.2, 48, 'rgba(239,236,227,0.4)', 1);
+
+    // 4-copy chromatic motion trail racing uphill!
+    const travel = lerp(-240, 290, easeOutCubic(seg(lt, 0, 0.96)));
+    const echoes = [
+      { off: -138, tint: PAL.red, alpha: 0.95 },
+      { off: -92, tint: PAL.amber, alpha: 0.96 },
+      { off: -46, tint: PAL.paper, alpha: 0.98 },
+      { off: 0, tint: null, alpha: 1.0 }
+    ];
+    for (const e of echoes) {
+      ctx.save();
+      ctx.globalAlpha = e.alpha;
+      drawAtuBike(travel + e.off, -28, {
+        scale: 1.52,
+        tilt: -0.06,
+        pedal: lt * 22 + e.off * 0.05,
+        t: 6 + lt,
+        tint: e.tint,
+        expression: 'cool'
+      });
+      ctx.restore();
+    }
+    ctx.restore();
+
+    // Live angle counter 0 DEG -> 360 DEG
+    const deg = Math.round(lerp(0, 360, easeOutCubic(seg(lt, 0, 0.88))));
+    ctx.fillStyle = PAL.paper;
+    ctx.font = font(FONT_MONO, 16);
+    ctx.textAlign = 'right';
+    ctx.fillText(`${deg} DEG`, W - 28, H - 26);
+  }
+
+  // CUT 08 (7.00 - 8.00s): 4-Beat Typographic Slam (TWO WHEELS / TWO EARS / ZERO ERRORS / NO NOTES)
+  function cut08(lt) {
+    const idx = Math.min(3, Math.floor(lt * 4));
+    const bt = (lt * 4) % 1;
+    const beats = [
+      { bg: PAL.paper, band: PAL.blush, l1: 'TWO', l2: 'WHEELS', c1: PAL.ink, c2: PAL.red, tag: '01 / 04', bx: [0.16, 0.34] },
+      { bg: PAL.charcoal, band: '#262626', l1: 'TWO', l2: 'EARS', c1: PAL.amber, c2: PAL.paper, tag: '02 / 04', bx: [0.32, 0.50] },
+      { bg: PAL.red, band: PAL.redDeep, l1: 'ZERO', l2: 'ERRORS', c1: PAL.paper, c2: PAL.ink, tag: '03 / 04', bx: [0.50, 0.66] },
+      { bg: PAL.teal, band: '#22645B', l1: 'NO', l2: 'NOTES', c1: PAL.paper, c2: PAL.amber, tag: '04 / 04', bx: [0.68, 0.86] }
+    ];
+    const b = beats[idx];
+
+    ctx.fillStyle = b.bg;
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = b.band;
+    ctx.fillRect(0, 120, W, 190);
+
+    // Subtle speed streaks
+    ctx.strokeStyle = idx === 0 ? 'rgba(20,20,20,0.08)' : 'rgba(255,255,255,0.14)';
+    ctx.lineWidth = 2;
+    for (let i = 0; i < 12; i++) {
+      const sy = 140 + i * 44;
+      const sx = ((hash(i * 17 + idx) * 1200 - bt * 700) % 1300 + 1300) % 1300 - 100;
+      ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(sx + 140, sy); ctx.stroke();
+    }
+
+    // Top meter & beat counter
+    drawMeter(28, 24, 210, 18, (idx + 1) / 4, idx === 0 ? PAL.ink : PAL.paper, PAL.red, idx === 0 ? PAL.ink : PAL.paper, 14);
+    ctx.fillStyle = idx === 0 ? PAL.ink : PAL.paper;
+    ctx.font = font(FONT_MONO, 15);
+    ctx.textAlign = 'right';
+    ctx.fillText(b.tag, W - 28, 38);
+
+    // Giant stacked typography slamming in
+    const slam = lerp(1.16, 1.0, easeOutBack(seg(bt, 0, 0.5), 1.3));
+    ctx.save();
+    ctx.translate(W / 2, 232);
+    ctx.scale(slam, slam);
+    ctx.textAlign = 'center';
+    ctx.font = font(FONT_COND, 178);
+    ctx.fillStyle = b.c1;
+    ctx.fillText(b.l1, 0, 0);
+    ctx.font = font(FONT_COND, 196);
+    ctx.fillStyle = b.c2;
+    ctx.fillText(b.l2, 0, 162);
+    ctx.restore();
+
+    // Ground baseline + wheelie Atu!
+    const gy = 640;
+    ctx.strokeStyle = idx === 0 ? PAL.ink : PAL.paper;
+    ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke();
+
+    const bx = lerp(W * b.bx[0], W * b.bx[1], easeOutCubic(bt));
+    drawFlecks(bx, gy, 7 + lt, 7, PAL.paperWarm);
+    drawAtuBike(bx, gy, {
+      scale: 1.65,
+      tilt: -0.32,
+      pedal: lt * 20,
+      t: 7 + lt,
+      expression: 'cool'
+    });
+  }
+
+  // CUT 09 (8.00 - 9.00s): WALL CLIMB // PERSPECTIVE GRID + Red Reticle + PASS 100/100
+  function cut09(lt) {
+    ctx.fillStyle = PAL.ink;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.fillStyle = 'rgba(239,236,227,0.68)';
+    ctx.font = font(FONT_MONO, 15);
+    ctx.textAlign = 'left';
+    ctx.fillText('WALL CLIMB // PERSPECTIVE GRID', 28, 36);
+
+    // 3D perspective wireframe grid
+    const topY = 92, botY = 670;
+    const topL = 250, topR = W - 250;
+    const botL = 40, botR = W - 40;
+    const cols = 12, rows = 10;
+
+    ctx.strokeStyle = 'rgba(239,236,227,0.28)';
+    ctx.lineWidth = 1.4;
+    for (let c = 0; c <= cols; c++) {
+      const f = c / cols;
+      ctx.beginPath();
+      ctx.moveTo(lerp(topL, topR, f), topY);
+      ctx.lineTo(lerp(botL, botR, f), botY);
+      ctx.stroke();
+    }
+    for (let r = 0; r <= rows; r++) {
+      const f = Math.pow(r / rows, 1.32);
+      const y = lerp(topY, botY, f);
+      const xl = lerp(topL, botL, f);
+      const xr = lerp(topR, botR, f);
+      ctx.beginPath(); ctx.moveTo(xl, y); ctx.lineTo(xr, y); ctx.stroke();
+    }
+    // Red vertical center rail
+    ctx.strokeStyle = PAL.red;
+    ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.moveTo(W / 2, topY); ctx.lineTo(W / 2 - 42, botY); ctx.stroke();
+    drawCrosshair(topL, topY, PAL.paper, 9);
+    drawCrosshair(topR, topY, PAL.paper, 9);
+
+    // Atu wheelieing up the grid
+    const climb = easeOutCubic(seg(lt, 0, 0.56));
+    const bx = lerp(W * 0.44, W * 0.48, climb);
+    const by = lerp(420, 326, climb);
+    const sc = lerp(1.18, 1.38, climb);
+    drawAtuBike(bx, by, {
+      scale: sc,
+      tilt: -0.34,
+      pedal: lt * 20,
+      t: 8 + lt,
+      expression: 'cool'
+    });
+
+    // Red targeting reticle locking on at lt = 0.28
+    if (lt >= 0.28) {
+      const lp = easeOutBack(seg(lt, 0.28, 0.56), 1.3);
+      const rr = lerp(240, 152, lp);
+      const cx = bx + 8, cy = by - 64;
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(lerp(-0.5, 0, lp));
+      ctx.strokeStyle = PAL.red;
+      ctx.lineWidth = 5;
+      ctx.beginPath(); ctx.arc(0, 0, rr, 0, Math.PI * 2); ctx.stroke();
+      // Compass ticks around ring
+      ctx.lineWidth = 2;
+      for (let i = 0; i < 24; i++) {
+        const a = (i / 24) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a) * (rr + 4), Math.sin(a) * (rr + 4));
+        ctx.lineTo(Math.cos(a) * (rr + (i % 6 === 0 ? 18 : 10)), Math.sin(a) * (rr + (i % 6 === 0 ? 18 : 10)));
+        ctx.stroke();
+      }
+      // Corner brackets
+      const br = rr + 34;
+      ctx.lineWidth = 3;
+      for (const [sx, sy] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) {
+        ctx.beginPath();
+        ctx.moveTo(sx * br, sy * (br - 26));
+        ctx.lineTo(sx * br, sy * br);
+        ctx.lineTo(sx * (br - 26), sy * br);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // PASS stamp + SCORE // 100 / 100 bar at lt = 0.52
+    if (lt >= 0.52) {
+      const sp = easeOutBack(seg(lt, 0.52, 0.74), 1.8);
+      const px = W * 0.76, py = 278;
+      ctx.save();
+      ctx.translate(px, py);
+      ctx.scale(sp, sp);
+      ctx.fillStyle = PAL.red;
+      ctx.strokeStyle = PAL.paper;
+      ctx.lineWidth = 4;
+      ctx.fillRect(-108, -42, 216, 84);
+      ctx.strokeRect(-108, -42, 216, 84);
+      ctx.fillStyle = PAL.paper;
+      ctx.font = font(FONT_COND, 74);
+      ctx.textAlign = 'center';
+      ctx.fillText('PASS', 0, 26);
+      ctx.restore();
+
+      const scoreRatio = easeOutCubic(seg(lt, 0.56, 0.88));
+      drawMeter(px - 108, py + 60, 216, 20, scoreRatio, PAL.paper, PAL.red, PAL.paper, 14);
+      ctx.fillStyle = PAL.paper;
+      ctx.font = font(FONT_MONO, 15);
+      ctx.textAlign = 'center';
+      ctx.fillText(`SCORE // ${Math.round(scoreRatio * 100)} / 100`, px, py + 104);
+    }
+  }
+
+  // CUT 10 (9.00 - 10.00s): Shatter Version Smash (v2.0 -> v3.0 -> v3.5 -> ATU -> Giant Wheel Wipe)
+  function cut10(lt) {
+    ctx.fillStyle = PAL.paper;
+    ctx.fillRect(0, 0, W, H);
+
+    if (lt < 0.66) {
+      const step = Math.floor(lt / 0.22);
+      const st = (lt % 0.22) / 0.22;
+      const cfgs = [
+        { box: PAL.charcoal, txt: PAL.amber, label: 'v2.0', shardCols: [PAL.teal, PAL.ink], bw: 320, bh: 170 },
+        { box: PAL.amber, txt: PAL.ink, label: 'v3.0', shardCols: [PAL.ink, PAL.charcoal], bw: 380, bh: 195 },
+        { box: PAL.red, txt: PAL.paper, label: 'v3.5', shardCols: [PAL.amber, PAL.atuOrange], bw: 440, bh: 215 }
+      ];
+      const c = cfgs[Math.min(2, step)];
+      drawShards(W / 2, H / 2, st, 22, c.shardCols, 540, 10 + step);
+      const sc = easeOutBack(seg(st, 0, 0.5), 1.4);
+      ctx.save();
+      ctx.translate(W / 2, H / 2);
+      ctx.scale(sc, sc);
+      ctx.fillStyle = c.box;
+      ctx.strokeStyle = PAL.ink;
+      ctx.lineWidth = 4;
+      ctx.fillRect(-c.bw / 2, -c.bh / 2, c.bw, c.bh);
+      ctx.strokeRect(-c.bw / 2, -c.bh / 2, c.bw, c.bh);
+      ctx.fillStyle = c.txt;
+      ctx.font = font(FONT_COND, 138);
+      ctx.textAlign = 'center';
+      ctx.fillText(c.label, 0, 48);
+      ctx.restore();
+
+      drawAtuBike(W * 0.45 + step * 35, H * 0.56, {
+        scale: 1.48 + step * 0.08,
+        tilt: -0.06,
+        pedal: lt * 20,
+        t: 9 + lt,
+        expression: 'cool'
+      });
+    } else if (lt < 0.86) {
+      const st = seg(lt, 0.66, 0.86);
+      drawShards(W / 2, H / 2, st, 26, [PAL.red, PAL.redDeep, PAL.atuOrange], 580, 19);
+      const sc = easeOutBack(seg(st, 0, 0.5), 1.2);
+      ctx.save();
+      ctx.translate(W / 2, H / 2 + 78);
+      ctx.scale(sc, sc);
+      ctx.fillStyle = PAL.ink;
+      ctx.font = font(FONT_COND, 290);
+      ctx.textAlign = 'center';
+      ctx.fillText('ATU', 0, 0);
+      ctx.restore();
+      drawAtuBike(W * 0.58, H * 0.64, {
+        scale: 1.78,
+        tilt: -0.1,
+        pedal: lt * 22,
+        t: 9 + lt,
+        expression: 'cool'
+      });
+    } else {
+      // Giant teal wheel wipe sweeping across!
+      const wp = easeInCubic(seg(lt, 0.86, 1.0));
+      ctx.fillStyle = PAL.ink;
+      ctx.font = font(FONT_COND, 290);
+      ctx.textAlign = 'center';
+      ctx.fillText('ATU', W / 2, H / 2 + 78);
+      drawAtuBike(W * 0.58, H * 0.64, { scale: 1.78, tilt: -0.1, pedal: lt * 22, t: 9 + lt });
+
+      const wx = lerp(-260, W * 0.78, wp);
+      ctx.fillStyle = PAL.teal;
+      ctx.fillRect(0, 0, Math.max(0, wx), H);
+      drawWheel(wx, H * 0.5, 340, wp * 4.5, { rimColor: PAL.paper, frameColor: PAL.red, spokeCount: 16 });
+    }
+  }
+
+  // Helper: Red "REJECTED" rubber stamp
+  function drawRejectedStamp(x, y, ang, progress) {
+    const p = easeOutBack(clamp(progress), 1.9);
+    if (p <= 0) return;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(ang);
+    ctx.scale(lerp(1.9, 1.0, p), lerp(1.9, 1.0, p));
+    ctx.fillStyle = PAL.red;
+    ctx.strokeStyle = PAL.white;
+    ctx.lineWidth = 4;
+    ctx.fillRect(-152, -34, 304, 68);
+    ctx.strokeRect(-152, -34, 304, 68);
+    ctx.fillStyle = PAL.white;
+    ctx.font = font(FONT_COND, 52);
+    ctx.textAlign = 'center';
+    ctx.fillText('REJECTED', 0, 19);
+    ctx.restore();
+  }
+
+  // CUT 11 (10.00 - 11.20s): 4 Humorous REJECTED Candidates + Hero Atu Drop
+  function cut11(lt) {
+    if (lt < 0.25) {
+      // 01 // THREE EARS (Teal sidebar + cream card)
+      const st = seg(lt, 0, 0.25);
+      ctx.fillStyle = PAL.paper; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = PAL.teal; ctx.fillRect(0, 0, 290, H);
+      ctx.fillStyle = PAL.paper;
+      ctx.font = font(FONT_COND, 168); ctx.textAlign = 'left'; ctx.fillText('01', 30, 230);
+      ctx.font = font(FONT_MONO, 22); ctx.fillText('42%', 36, H - 94);
+      drawMeter(36, H - 76, 175, 18, 0.42, PAL.paper, PAL.paper, PAL.paper, 12);
+      ctx.fillStyle = PAL.ink;
+      ctx.font = font(FONT_MONO, 16); ctx.fillText('CANDIDATE // 01', 330, 56);
+      ctx.font = font(FONT_COND, 58); ctx.fillText('THREE EARS', 330, 114);
+      drawAtuBike(780, 545, { scale: 2.0, pedal: lt * 12, t: 10 + lt, frameColor: PAL.teal, scarf: false, basket: false, saddlebag: false, variant: 'three-ears', expression: 'deadpan' });
+      drawRejectedStamp(810, 540, -0.14, seg(st, 0.35, 0.8));
+    } else if (lt < 0.50) {
+      // 02 // SQUARE WHEEL (Black top + warm amber card)
+      const st = seg(lt, 0.25, 0.50);
+      ctx.fillStyle = PAL.amber; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = PAL.ink; ctx.fillRect(0, 0, W, 165);
+      ctx.fillStyle = PAL.amber;
+      ctx.font = font(FONT_COND, 138); ctx.textAlign = 'left'; ctx.fillText('02', 42, 130);
+      ctx.fillStyle = PAL.paper;
+      ctx.font = font(FONT_COND, 58); ctx.fillText('SQUARE WHEEL', 210, 84);
+      drawMeter(210, 102, 240, 20, 0.58, PAL.amber, PAL.red, PAL.paper, 14);
+      ctx.font = font(FONT_MONO, 22); ctx.fillText('58%', 468, 120);
+      // Cream spotlight circle
+      ctx.fillStyle = PAL.paper;
+      ctx.beginPath(); ctx.arc(W / 2, 460, 215, 0, Math.PI * 2); ctx.fill();
+      drawAtuBike(W / 2, 575, { scale: 2.05, pedal: lt * 14, t: 10 + lt, frameColor: PAL.atuOrangeDark, scarf: false, basket: false, saddlebag: false, variant: 'square-wheel', expression: 'deadpan' });
+      drawRejectedStamp(960, 570, -0.14, seg(st, 0.35, 0.8));
+    } else if (lt < 0.75) {
+      // 03 // FRAME LEGS (Dark-framed left + cream right sidebar)
+      const st = seg(lt, 0.50, 0.75);
+      ctx.fillStyle = PAL.ink; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = PAL.paper;
+      ctx.fillRect(48, 86, 760, 540);
+      ctx.fillRect(844, 0, W - 844, H);
+      ctx.fillStyle = PAL.ink;
+      ctx.font = font(FONT_COND, 195); ctx.textAlign = 'left'; ctx.fillText('03', 876, 232);
+      ctx.font = font(FONT_COND, 54); ctx.fillText('FRAME LEGS', 880, 315);
+      drawMeter(880, 336, 260, 22, 0.64, PAL.ink, PAL.red, PAL.ink, 14);
+      ctx.fillStyle = PAL.red;
+      ctx.font = font(FONT_MONO, 22); ctx.fillText('SCORE 64%', 880, 392);
+      drawAtuBike(428, 520, { scale: 2.0, pedal: lt * 12, t: 10 + lt, frameColor: PAL.red, scarf: false, basket: false, saddlebag: false, variant: 'frame-legs', expression: 'deadpan' });
+      drawRejectedStamp(985, 530, -0.14, seg(st, 0.35, 0.8));
+    } else if (lt < 0.96) {
+      // 04 // LONG SNOUT (Cream card with thick teal border)
+      const st = seg(lt, 0.75, 0.96);
+      ctx.fillStyle = PAL.teal; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = PAL.paper; ctx.fillRect(24, 24, W - 48, H - 48);
+      ctx.fillStyle = PAL.ink;
+      ctx.font = font(FONT_COND, 54); ctx.textAlign = 'left'; ctx.fillText('LONG SNOUT', 54, 102);
+      ctx.fillStyle = PAL.teal;
+      ctx.font = font(FONT_COND, 195); ctx.textAlign = 'right'; ctx.fillText('04', W - 78, 250);
+      drawMeter(54, H - 82, 230, 18, 0.71, PAL.teal, PAL.teal, PAL.teal, 14);
+      ctx.fillStyle = PAL.ink; ctx.font = font(FONT_MONO, 20); ctx.textAlign = 'left'; ctx.fillText('71%', 300, H - 66);
+      drawAtuBike(450, 520, { scale: 2.0, pedal: lt * 12, t: 10 + lt, frameColor: PAL.teal, scarf: false, basket: false, saddlebag: false, variant: 'long-snout', expression: 'deadpan' });
+      drawRejectedStamp(880, 480, -0.16, seg(st, 0.35, 0.8));
+    } else {
+      // 10.96 - 11.20: Clean Hero Atu dropping from sky into center!
+      const dp = easeOutCubic(seg(lt, 0.96, 1.20));
+      ctx.fillStyle = PAL.paper; ctx.fillRect(0, 0, W, H);
+      const gy = 540;
+      const by = lerp(220, gy, dp);
+      ctx.fillStyle = 'rgba(20,20,20,0.16)';
+      ctx.beginPath(); ctx.ellipse(W / 2, gy + 8, lerp(30, 90, dp), 8, 0, 0, Math.PI * 2); ctx.fill();
+      drawAtuBike(W / 2, by, { scale: 1.55, tilt: lerp(-0.18, 0, dp), pedal: lt * 16, t: 10 + lt, expression: 'cool' });
+    }
+  }
+
+  // CUT 12 (11.20 - 12.60s): Concentric Orbital Rings & Squad Spawn -> Giant Deadpan Atu Staredown
+  function cut12(lt) {
+    ctx.fillStyle = PAL.paper;
+    ctx.fillRect(0, 0, W, H);
+
+    if (lt < 0.80) {
+      // Concentric perspective orbital rings + 5-dog formation!
+      const p = seg(lt, 0, 0.80);
+      const cy = 510;
+      ctx.save();
+      ctx.translate(W / 2, cy);
+      for (let i = 1; i <= 5; i++) {
+        const rx = i * 115 * lerp(0.55, 1.15, easeOutCubic(p));
+        const ry = rx * 0.30;
+        ctx.strokeStyle = i % 2 === 0 ? 'rgba(217,56,41,0.72)' : 'rgba(20,20,20,0.52)';
+        ctx.lineWidth = i === 3 ? 4 : 2;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      // Orbiting A / T / U markers
+      const letters = ['A', 'T', 'U', 'H', 'E', 'Y'];
+      ctx.font = font(FONT_MONO, 20);
+      ctx.textAlign = 'center';
+      for (let i = 0; i < letters.length; i++) {
+        const a = (i / letters.length) * Math.PI * 2 + lt * 1.4;
+        ctx.fillStyle = i % 2 === 0 ? PAL.ink : PAL.red;
+        ctx.fillText(letters[i], Math.cos(a) * 440, Math.sin(a) * 145);
+      }
+      ctx.restore();
+
+      // Side mini pups materialize from p=0.35
+      const squadP = easeOutCubic(seg(p, 0.32, 0.78));
+      if (squadP > 0) {
+        ctx.save();
+        ctx.globalAlpha = squadP;
+        drawAtuBike(lerp(W * 0.40, 210, squadP), 535, { scale: 0.92, pedal: lt * 16, t: 11.2 + lt, frameColor: PAL.teal, scarf: false, basket: false, saddlebag: false, variant: 'three-ears', expression: 'happy' });
+        drawAtuBike(lerp(W * 0.44, 375, squadP), 535, { scale: 0.95, pedal: lt * 16, t: 11.2 + lt, frameColor: PAL.amber, scarf: false, basket: false, saddlebag: false, variant: 'square-wheel', expression: 'happy' });
+        drawAtuBike(lerp(W * 0.58, 910, squadP), 535, { scale: 0.90, pedal: lt * 16, t: 11.2 + lt, frameColor: PAL.teal, scarf: true, basket: false, saddlebag: false, expression: 'happy' });
+        drawAtuBike(lerp(W * 0.62, 1085, squadP), 535, { scale: 0.95, pedal: lt * 16, t: 11.2 + lt, frameColor: PAL.red, scarf: false, basket: false, saddlebag: false, variant: 'long-snout', expression: 'happy' });
+        ctx.restore();
+      }
+
+      // Hero Atu in center
+      drawAtuBike(W / 2, 540, { scale: 1.55, pedal: lt * 18, t: 11.2 + lt, expression: 'cool' });
+    } else {
+      // 12.00 - 12.60: Hilarious Giant Deadpan Atu Head staring at tiny riding Atu!
+      const sp = seg(lt, 0.80, 1.40);
+      // Faint editorial border
+      ctx.strokeStyle = 'rgba(20,20,20,0.22)';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(20, 20, W - 40, H - 40);
+
+      // Giant adorable Q-version vinyl-toy Atu bust on left!
+      ctx.save();
+      ctx.translate(390, 446 + Math.sin(sp * Math.PI) * 6);
+
+      // Compact plump chibi torso
+      ctx.fillStyle = PAL.white;
+      ctx.strokeStyle = PAL.ink;
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.ellipse(-10, 265, 165, 165, 0, 0, Math.PI * 2);
+      ctx.fill(); ctx.stroke();
+
+      // Left plush perked caramel ear
+      ctx.save();
+      ctx.translate(-172, -108);
+      ctx.rotate(-0.65);
+      ctx.fillStyle = PAL.atuOrange;
+      ctx.beginPath(); ctx.ellipse(-20, 0, 110, 68, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.save(); ctx.clip();
+      ctx.fillStyle = 'rgba(255,255,255,0.28)';
+      ctx.beginPath(); ctx.ellipse(-28, -28, 64, 20, -0.1, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(110,45,10,0.16)';
+      ctx.beginPath(); ctx.ellipse(-12, 42, 84, 30, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+      ctx.strokeStyle = PAL.ink; ctx.lineWidth = 6;
+      ctx.beginPath(); ctx.ellipse(-20, 0, 110, 68, 0, 0, Math.PI * 2); ctx.stroke();
+      ctx.restore();
+
+      // Giant round vinyl-toy head contour
+      const drawGiantHead = () => {
+        ctx.beginPath();
+        ctx.moveTo(0, -178);
+        ctx.bezierCurveTo(126, -178, 196, -88, 196, 16);
+        ctx.bezierCurveTo(196, 118, 118, 168, 0, 168);
+        ctx.bezierCurveTo(-118, 168, -196, 118, -196, 16);
+        ctx.bezierCurveTo(-196, -88, -126, -178, 0, -178);
+        ctx.closePath();
+      };
+      ctx.fillStyle = PAL.white;
+      drawGiantHead();
+      ctx.fill();
+
+      // Caramel eye-patch + vinyl gloss + rosy blush cheeks
+      ctx.save();
+      drawGiantHead();
+      ctx.clip();
+      ctx.fillStyle = PAL.atuOrange;
+      ctx.beginPath(); ctx.ellipse(106, -54, 122, 134, -0.1, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(130,96,70,0.12)';
+      ctx.beginPath(); ctx.ellipse(0, 158, 208, 66, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,0.72)';
+      ctx.beginPath(); ctx.ellipse(-68, -110, 64, 26, -0.35, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(238,128,124,0.46)';
+      ctx.beginPath();
+      ctx.ellipse(-96, 56, 36, 22, 0, 0, Math.PI * 2);
+      ctx.ellipse(122, 56, 32, 20, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+      ctx.strokeStyle = PAL.ink; ctx.lineWidth = 6;
+      drawGiantHead();
+      ctx.stroke();
+
+      // Plush drooping right caramel ear
+      ctx.save();
+      ctx.translate(178, 14);
+      ctx.rotate(-0.12);
+      ctx.fillStyle = PAL.atuOrange;
+      ctx.beginPath(); ctx.ellipse(16, 46, 56, 110, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.save(); ctx.clip();
+      ctx.fillStyle = 'rgba(255,255,255,0.26)';
+      ctx.beginPath(); ctx.ellipse(2, 14, 22, 54, 0.08, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(110,45,10,0.16)';
+      ctx.beginPath(); ctx.ellipse(38, 86, 42, 54, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+      ctx.strokeStyle = PAL.ink; ctx.lineWidth = 6;
+      ctx.beginPath(); ctx.ellipse(16, 46, 56, 110, 0, 0, Math.PI * 2); ctx.stroke();
+      ctx.restore();
+
+      // Glossy button eyes looking DOWN-RIGHT at tiny Atu + cute half-lids
+      ctx.fillStyle = PAL.ink;
+      ctx.beginPath();
+      ctx.ellipse(-18, -2, 22, 34, 0, 0, Math.PI * 2);
+      ctx.ellipse(86, -2, 22, 34, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#FFFFFF';
+      ctx.beginPath();
+      ctx.arc(-24, 2, 7.5, 0, Math.PI * 2);
+      ctx.arc(80, 2, 7.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.save(); ctx.beginPath(); ctx.ellipse(-18, -2, 24, 36, 0, 0, Math.PI * 2); ctx.clip();
+      ctx.fillStyle = PAL.white; ctx.fillRect(-46, -42, 56, 26); ctx.restore();
+      ctx.save(); ctx.beginPath(); ctx.ellipse(86, -2, 24, 36, 0, 0, Math.PI * 2); ctx.clip();
+      ctx.fillStyle = PAL.atuOrange; ctx.fillRect(58, -42, 56, 26); ctx.restore();
+      ctx.strokeStyle = PAL.ink; ctx.lineWidth = 6.5;
+      ctx.beginPath();
+      ctx.moveTo(-44, -16); ctx.lineTo(8, -16);
+      ctx.moveTo(60, -16); ctx.lineTo(112, -16);
+      ctx.stroke();
+
+      // Glossy dark button nose + cute chibi "w" mouth
+      ctx.fillStyle = '#321D14';
+      ctx.beginPath(); ctx.ellipse(38, 52, 34, 23, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,0.65)';
+      ctx.beginPath(); ctx.ellipse(27, 44, 12, 6, -0.25, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = PAL.ink; ctx.lineWidth = 6; ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(38, 75); ctx.quadraticCurveTo(38, 98, 15, 98);
+      ctx.moveTo(38, 75); ctx.quadraticCurveTo(38, 98, 61, 98);
+      ctx.stroke();
+      ctx.restore();
+
+      // Tiny happy Atu pedaling on right!
+      const tinyX = lerp(940, 880, easeOutCubic(sp));
+      drawAtuBike(tinyX, 625, {
+        scale: 1.32,
+        pedal: lt * 22,
+        t: 11.2 + lt,
+        frameColor: PAL.teal,
+        scarf: true,
+        basket: false,
+        saddlebag: false,
+        expression: 'happy'
+      });
+    }
+  }
+
+  // CUT 13 (12.60 - 14.00s): Final Certified Lockup ("HEY ATU" + 5-Dog Parade + Spinning Tire Badge)
+  function cut13(lt) {
+    ctx.fillStyle = PAL.paper;
+    ctx.fillRect(0, 0, W, H);
+
+    // Subtle concentric teal rings behind title
+    ctx.save();
+    ctx.translate(W * 0.48, H * 0.46);
+    ctx.strokeStyle = 'rgba(154,192,182,0.55)';
+    ctx.lineWidth = 14;
+    ctx.beginPath(); ctx.arc(0, 0, 238, 0, Math.PI * 2); ctx.stroke();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = 'rgba(42,122,112,0.35)';
+    ctx.setLineDash([6, 10]);
+    ctx.beginPath(); ctx.arc(0, 0, 295, 0, Math.PI * 2); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+
+    // Top-left ruler + Hey Atu mark + ATU // BENCHMARK CERTIFIED
+    drawRuler(46, 36, 310, 26, 'rgba(20,20,20,0.4)', 1);
+    drawAtuLogoMark(64, 72, 34);
+    ctx.fillStyle = PAL.teal;
+    ctx.font = font(FONT_MONO, 16);
+    ctx.textAlign = 'left';
+    ctx.fillText('ATU // BENCHMARK CERTIFIED', 94, 77);
+
+    // Bottom ruler
+    drawRuler(46, H - 36, W - 92, 56, 'rgba(20,20,20,0.28)', -1);
+
+    // Spinning black bicycle tire badge at top-right (stamped "atu")
+    const tireP = easeOutBack(seg(lt, 0, 0.42), 1.3);
+    ctx.save();
+    ctx.translate(W - 196, 148);
+    ctx.scale(tireP, tireP);
+    ctx.save();
+    ctx.rotate(lt * 1.8);
+    ctx.fillStyle = '#1E1E1E';
+    ctx.beginPath(); ctx.arc(0, 0, 88, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.arc(0, 0, 62, 0, Math.PI * 2); ctx.stroke();
+    for (let i = 0; i < 8; i++) {
+      const a = (i * Math.PI) / 4;
+      ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(Math.cos(a) * 60, Math.sin(a) * 60); ctx.stroke();
+    }
+    ctx.restore();
+    // Stationary "atu" cream pill over tire
+    ctx.fillStyle = PAL.paper;
+    ctx.strokeStyle = PAL.ink;
+    ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.roundRect(-48, 38, 96, 32, 4); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = PAL.ink;
+    ctx.font = font(FONT_MONO, 22);
+    ctx.textAlign = 'center';
+    ctx.fillText('atu', 0, 61);
+    ctx.restore();
+
+    // Giant bold condensed "HEY ATU"
+    const titleP = easeOutBack(seg(lt, 0, 0.35), 1.0);
+    ctx.save();
+    ctx.translate(W / 2, 470);
+    ctx.scale(lerp(1.06, 1, titleP), lerp(1.06, 1, titleP));
+    ctx.fillStyle = PAL.ink;
+    ctx.font = font(FONT_COND, 290);
+    ctx.textAlign = 'center';
+    ctx.fillText('HEY ATU', 0, 0);
+    ctx.restore();
+
+    // Ground line + 5-Atu Dog Parade rolling smoothly!
+    const gy = 626;
+    ctx.strokeStyle = 'rgba(20,20,20,0.25)';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(60, gy); ctx.lineTo(W - 60, gy); ctx.stroke();
+
+    const roll = lerp(-60, 26, easeOutCubic(seg(lt, 0, 1.35)));
+    drawAtuBike(192 + roll, gy, { scale: 1.02, pedal: lt * 14, t: 12.6 + lt, frameColor: PAL.teal, scarf: false, basket: false, saddlebag: false, variant: 'three-ears', expression: 'happy' });
+    drawAtuBike(356 + roll, gy, { scale: 1.06, pedal: lt * 14, t: 12.6 + lt, frameColor: PAL.amber, scarf: false, basket: false, saddlebag: false, variant: 'square-wheel', expression: 'happy' });
+    drawAtuBike(W * 0.50 + roll * 0.7, gy, { scale: 1.72, pedal: lt * 16, t: 12.6 + lt, expression: 'cool' });
+    drawAtuBike(908 + roll, gy, { scale: 0.96, pedal: lt * 14, t: 12.6 + lt, frameColor: PAL.teal, scarf: true, basket: false, saddlebag: false, expression: 'happy' });
+    drawAtuBike(1084 + roll, gy, { scale: 1.06, pedal: lt * 14, t: 12.6 + lt, frameColor: PAL.red, scarf: false, basket: false, saddlebag: false, variant: 'long-snout', expression: 'happy' });
+  }
+
+  // Master deterministic render(seconds)
+  function render(seconds) {
+    const t = clamp(Number.isFinite(seconds) ? seconds : 0, 0, DURATION);
+    ctx.clearRect(0, 0, W, H);
+    if (t < 1.0) cut01(t);
+    else if (t < 2.0) cut02(t - 1.0);
+    else if (t < 3.0) cut03(t - 2.0);
+    else if (t < 4.0) cut04(t - 3.0);
+    else if (t < 5.0) cut05(t - 4.0);
+    else if (t < 6.0) cut06(t - 5.0);
+    else if (t < 7.0) cut07(t - 6.0);
+    else if (t < 8.0) cut08(t - 7.0);
+    else if (t < 9.0) cut09(t - 8.0);
+    else if (t < 10.0) cut10(t - 9.0);
+    else if (t < 11.2) cut11(t - 10.0);
+    else if (t < 12.6) cut12(t - 11.2);
+    else cut13(t - 12.6);
+    applyGrain(0.95);
+  }
+
+  // Expose Market full-screen player bridge contract
+  let standalonePaused = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let standaloneTime = 0;
+  let standaloneLast = performance.now();
+  window.marketScene = {
+    duration: DURATION,
+    render,
+    pause(stop) {
+      standalonePaused = !!stop;
+      standaloneLast = performance.now();
+    }
+  };
+
+  // Standalone auto-play loop (when opened directly, not inside Market player iframe)
+  if (parent === window) {
+    render(standalonePaused ? 13.45 : 0);
+    function loop(now) {
+      if (!standalonePaused) {
+        standaloneTime = (standaloneTime + (now - standaloneLast) / 1000) % DURATION;
+        render(standaloneTime);
+      }
+      standaloneLast = now;
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+    canvas.addEventListener('click', () => {
+      standalonePaused = !standalonePaused;
+      standaloneLast = performance.now();
+    });
+    window.addEventListener('keydown', e => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        standalonePaused = !standalonePaused;
+        standaloneLast = performance.now();
+      } else if (e.key === 'r' || e.key === 'R') {
+        standaloneTime = 0; standalonePaused = false; standaloneLast = performance.now();
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
