@@ -1,0 +1,69 @@
+{
+  "id": "x-2122988750250901956",
+  "title": "Prismatic objects you can click",
+  "summary": "Traditional objects drift in rainbow light on white. Click one to bring it up close and watch it turn.",
+  "brief": "Make a browser gallery with rainbow-glazed vessels floating under a wind bell. Let visitors pick a piece to see it turn against a blurred backdrop, then return to the gallery.",
+  "purposes": [
+    "animation-video",
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/nono_ai_archive/status/2122988750250901956",
+    "author": "nono_ai_archive",
+    "credit": "노노아카이브 (@nono_ai_archive)",
+    "publishedAt": "2026-11-18",
+    "capturedAt": "2026-11-19",
+    "video": "https://video.twimg.com/amplify_video/2122988661038055424/vid/avc1/960x720/FNpq_WbkoP_tQykL.mp4?tag=29"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/prism-cover.webp",
+        "basis": "quoted",
+        "holder": "nono_ai_archive",
+        "sourceUrl": "https://x.com/nono_ai_archive/status/2122988750250901956",
+        "excerpt": "0:13.75–0:19.75 of the post video, cropped to 16:9"
+      },
+      {
+        "path": "media/prism-cover-still.webp",
+        "basis": "quoted",
+        "holder": "nono_ai_archive",
+        "sourceUrl": "https://x.com/nono_ai_archive/status/2122988750250901956",
+        "excerpt": "Frame at 0:16.5 of the post video, cropped to 16:9"
+      },
+      {
+        "path": "media/prismatic-made-with-atu.mp4",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "prismatic-gallery",
+      "status": "tested",
+      "text": "Build a full-screen interactive 3D web page with Three.js, in a minimal gallery style on a pure white background: five large traditional objects (a bowl, a vase with a small cup, a goblet, a round tray stand on curved legs) drift slowly sideways in one row across the lower middle, while a wind bell hangs on a thin string from the top centre, with only tiny grey uppercase words in the corners and no title or labels. Give every object a smooth holographic thin-film finish, soft bands of pink, cyan, orange and violet with bright white rim highlights, plus a fine engraved pattern on the tray top and the goblet; clicking an object zooms it until it fills most of the screen and slowly turns it while the others fade and blur, and clicking again returns to the row. Build it in a new folder inside the current project folder, open it in the browser when done, check that it works, and ask before installing or loading anything.",
+      "label": "Make a prismatic object gallery",
+      "testedOn": "2026-11-19"
+    }
+  ],
+  "action": {
+    "label": "Make prismatic objects in Atu",
+    "prompt": "prismatic-gallery"
+  },
+  "cover": {
+    "motion": "media/prism-cover.webp",
+    "still": "media/prism-cover-still.webp"
+  },
+  "made": [
+    {
+      "kind": "atu",
+      "path": "media/prismatic-made-with-atu.mp4",
+      "alt": "Five rainbow-colored objects drift beneath a wind bell. The tray stand and goblet each turn in close-up while the other objects blur. The row returns between close-ups and at the end.",
+      "caption": "The tray stand and goblet turn in close-up in the gallery built with Hey Atu."
+    }
+  ],
+  "requirements": [],
+  "revision": "sha256:8c2dea68e2a3e723593e3e72637da2a8fb6fc5a5c118f16725775f84f96122cb"
+}

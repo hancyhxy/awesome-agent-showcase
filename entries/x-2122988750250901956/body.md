@@ -1,0 +1,3 @@
+노노아카이브 ([@nono_ai_archive](https://x.com/nono_ai_archive/status/2122988750250901956)) made a quiet 3D gallery of traditional objects, a bowl, a vase and cup, a goblet, a tray stand and a wind bell, cast in refracted rainbow light. The button opens a draft in Hey Atu. In our run, the objects drifted under the wind bell; clicking the tray stand or goblet brought it closer and blurred the rest.
+
+Our run used GPT-6.2 Astra in Hey Atu. Its finish has bolder rainbow bands and a wavy engraving, where the post has soft pastel light and mandala patterns. Ask Atu to soften the colours if you want it closer.
