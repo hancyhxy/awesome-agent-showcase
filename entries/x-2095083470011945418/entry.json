@@ -1,0 +1,69 @@
+{
+  "id": "x-2095083470011945418",
+  "title": "A photo hidden in a cloud of dots",
+  "summary": "Turn a cube of coloured dots until a face looks back at you.",
+  "brief": "Build a puzzle that hides my photos in a cube and a sphere of coloured dots. Let me turn each cloud until the face appears, with gaps between the dots even when it lines up.",
+  "purposes": [
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/x282665/status/2095083470011945418",
+    "author": "x282665",
+    "credit": "via @x282665",
+    "publishedAt": "2026-09-02",
+    "capturedAt": "2026-11-19",
+    "video": "https://video.twimg.com/amplify_video/2095083206622269440/vid/avc1/600x750/E5HEC0ca5ZCweiTm.mp4?tag=14"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/cover.webp",
+        "basis": "quoted",
+        "holder": "x282665",
+        "sourceUrl": "https://x.com/x282665/status/2095083470011945418",
+        "excerpt": "0:20.5–0:28 of the post video"
+      },
+      {
+        "path": "media/cover-still.webp",
+        "basis": "quoted",
+        "holder": "x282665",
+        "sourceUrl": "https://x.com/x282665/status/2095083470011945418",
+        "excerpt": "Frame at 0:26.5 of the post video"
+      },
+      {
+        "path": "media/grain-puzzle.mp4",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "grain-puzzle",
+      "status": "tested",
+      "testedOn": "2026-11-19",
+      "text": "Build a browser puzzle in a new folder inside the current project folder, inspired by https://x.com/x282665/status/2095083470011945418: use my photos from this folder in filename order (ask me for photos if there are none; use samples only if I supplied them), and hide each picture in tens of thousands of fine coloured specks spread through the depth of a slowly turning cube, then a sphere, against a bare powder-blue background that fades lighter towards the bottom. Let me drag with a mouse or finger to turn the whole volume: colour patches slide into register until one angle reveals the portrait in the points themselves; ease into place, show “Level complete” just above it, hold for a moment, then send the specks flying out and gather them into the next shape, cycling back after the last photo. At the winning angle I still want a point cloud, never a flat print: the kitten’s eyes and muzzle should read through a veil of tiny separate grains, with blue pinholes visible even inside its face. Let the far layers peek out to the sides and below the face as a ragged fringe that thins to loose specks. Keep each speck’s size, spacing and depth fixed right through the snap and hold. Sample colours from the photo, but never display it, even faintly, behind or instead of the dots. At normal viewing size, check that the outline breaks up rather than forming a square with four cut edges. The cube must still read as a cube when solved, not a ball: keep a nearly square core with its four corners, small depth shear to the right and below, and a ragged fringe a few grains deep on every edge, wider on those two sides. Concentrate enough colour around the eyes for contrast, but leave pinholes and peppery texture everywhere. In the standalone game show only the cloud, a drag hint that disappears on the first movement, and the completion message. No other graphics, brand, menus or controls. For embedding, make the same renderer a reusable local web component with a seek(seconds) method, no controls: 0–4.5 s turn the cube towards the viewer, 4.5–5 s snap, 5–7 s hold the kitten, 7–9 s scatter and form the puffin sphere, then loop to the opening cube by 10 s. The standalone game starts in manual drag mode. Keep the shape large and centred without panels, counters or a start screen, make it smooth in Safari, open it in the browser and check that the drag, snap and next level work; ask before installing or loading anything external."
+    }
+  ],
+  "action": {
+    "label": "Make a dot puzzle in Atu",
+    "prompt": "grain-puzzle"
+  },
+  "cover": {
+    "motion": "media/cover.webp",
+    "still": "media/cover-still.webp"
+  },
+  "made": [
+    {
+      "path": "media/grain-puzzle.mp4",
+      "kind": "atu",
+      "alt": "A drag turns a cube of coloured dots until a ginger kitten comes into focus. The dotted edges scatter and gather into a sphere.",
+      "caption": "The kitten comes into focus one dot at a time."
+    }
+  ],
+  "requirements": [
+    "your photos"
+  ],
+  "revision": "sha256:230cbc8817a2e59f69541886041f1bf18be718aa751f63e82cd2fe603629ee53"
+}
