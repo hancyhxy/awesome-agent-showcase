@@ -185,9 +185,9 @@ A web page where a printed shop receipt feeds out of a slot and you tear it off 
 </td>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2098082543966867524/media/cover-still.webp"><img src="entries/x-2098082543966867524/media/cover.webp" alt="A retro boarding pass scanner" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2098082543966867524?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2098082543966867524/media/cover-still.webp"><img src="entries/x-2098082543966867524/media/cover.webp" alt="A retro boarding pass scanner" width="100%"></picture></a>
 
-<p><strong>A retro boarding pass scanner</strong><br>Drag the pass through a beige reader: too fast is an error, steady gets you in.</p>
+<p><strong><a href="https://heyatu.com/market/x-2098082543966867524?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">A retro boarding pass scanner</a></strong><br>Drag the pass through a beige reader: too fast is an error, steady gets you in.</p>
 
 <p>via <a href="https://x.com/mjbarton_/status/2098082543966867524">@mjbarton_</a> · Tested in Hey Atu</p>
 
@@ -199,6 +199,8 @@ Build a beige boarding pass scanner that reads a pass as I drag it through the s
 ```
 
 </details>
+
+<p><a href="https://heyatu.com/market/x-2098082543966867524?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
 </tr>
