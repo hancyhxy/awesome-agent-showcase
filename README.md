@@ -204,7 +204,7 @@ Build a 14-second, 13-cut Swiss-editorial kinetic motion reel in a single web pa
 </tr>
 </table>
 
-### Coding (6)
+### Coding (7)
 
 <table>
 <tr>
@@ -230,6 +230,26 @@ A web page where a printed shop receipt feeds out of a slot and you tear it off 
 </td>
 <td width="50%" valign="top">
 
+<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2093637541572612188/media/cover-still.webp"><img src="entries/x-2093637541572612188/media/cover.webp" alt="A bouquet that becomes a QR code" width="100%"></picture>
+
+<p><strong>A bouquet that becomes a QR code</strong><br>Hide a link in a vase of flowers. A tap turns the bouquet into a code you can scan.</p>
+
+<p>via <a href="https://x.com/ann_nnng/status/2093637541572612188">@ann_nnng</a> · Tested in Hey Atu</p>
+
+<details>
+<summary>Brief</summary>
+
+```text
+Make a flower gift with my link inside. Give the lilies a patterned vase and let the bouquet turn into a QR code when I tap it.
+```
+
+</details>
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
 <picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2095083470011945418/media/cover-still.webp"><img src="entries/x-2095083470011945418/media/cover.webp" alt="A photo hidden in a cloud of dots" width="100%"></picture>
 
 <p><strong>A photo hidden in a cloud of dots</strong><br>Turn a cube of coloured dots until a face looks back at you.</p>
@@ -246,8 +266,6 @@ Build a puzzle that hides my photos in a cube and a sphere of coloured dots. Let
 </details>
 
 </td>
-</tr>
-<tr>
 <td width="50%" valign="top">
 
 <a href="https://heyatu.com/market/x-2098082543966867524?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2098082543966867524/media/cover-still.webp"><img src="entries/x-2098082543966867524/media/cover.webp" alt="A retro boarding pass scanner" width="100%"></picture></a>
@@ -268,6 +286,8 @@ Build a beige boarding pass scanner that reads a pass as I drag it through the s
 <p><a href="https://heyatu.com/market/x-2098082543966867524?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
+</tr>
+<tr>
 <td width="50%" valign="top">
 
 <a href="https://heyatu.com/market/x-2103770889116627075?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2103770889116627075/media/dog-still.webp"><img src="entries/x-2103770889116627075/media/dog-turns.webp" alt="A character that follows your cursor" width="100%"></picture></a>
@@ -288,8 +308,6 @@ A web page with a friendly flat cartoon character whose eyes and head turn smoot
 <p><a href="https://heyatu.com/market/x-2103770889116627075?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
-</tr>
-<tr>
 <td width="50%" valign="top">
 
 <a href="https://heyatu.com/market/x-2111383736243859714?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2111383736243859714/media/cover-still.webp"><img src="entries/x-2111383736243859714/media/cover.webp" alt="Fix the spacing in your app" width="100%"></picture></a>
@@ -310,6 +328,8 @@ Fix the spacing of an existing app and change nothing else. Set the sidebar widt
 <p><a href="https://heyatu.com/market/x-2111383736243859714?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
+</tr>
+<tr>
 <td width="50%" valign="top">
 
 <a href="https://heyatu.com/market/x-2122013352755126431?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2122013352755126431/media/whale-cove-still.webp"><img src="entries/x-2122013352755126431/media/whale-cove-reveal.webp" alt="A calm storybook game with a hand-painted feel" width="100%"></picture></a>
@@ -328,6 +348,9 @@ A gentle browser game where a child and a dog walk home across several scenes. N
 </details>
 
 <p><a href="https://heyatu.com/market/x-2122013352755126431?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
+
+</td>
+<td width="50%" valign="top">
 
 </td>
 </tr>

@@ -1,0 +1,70 @@
+{
+  "id": "x-2093637541572612188",
+  "title": "A bouquet that becomes a QR code",
+  "summary": "Hide a link in a vase of flowers. A tap turns the bouquet into a code you can scan.",
+  "brief": "Make a flower gift with my link inside. Give the lilies a patterned vase and let the bouquet turn into a QR code when I tap it.",
+  "purposes": [
+    "coding",
+    "personal-workflows"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/ann_nnng/status/2093637541572612188",
+    "author": "ann_nnng",
+    "credit": "via @ann_nnng",
+    "publishedAt": "2026-08-29",
+    "capturedAt": "2026-11-19",
+    "video": "https://video.twimg.com/amplify_video/2093636820399779840/vid/avc1/1302x720/x6EVT-BfLGm0zITR.mp4?tag=29"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/cover.webp",
+        "basis": "quoted",
+        "holder": "ann_nnng",
+        "sourceUrl": "https://x.com/ann_nnng/status/2093637541572612188",
+        "excerpt": "0:07–0:13 of the post video, cropped to the bouquet"
+      },
+      {
+        "path": "media/cover-still.webp",
+        "basis": "quoted",
+        "holder": "ann_nnng",
+        "sourceUrl": "https://x.com/ann_nnng/status/2093637541572612188",
+        "excerpt": "Frame at 0:07.2, cropped to the bouquet"
+      },
+      {
+        "path": "media/flower-gift.mp4",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "flower-gift",
+      "status": "tested",
+      "testedOn": "2026-11-19",
+      "text": "In a new folder inside the current project folder, make an offline flower gift page inspired by https://x.com/ann_nnng/status/2093637541572612188: on white, a slowly turning bouquet fills most of the height, an irregular, nearly round mass of roughly 120–180 small, overlapping deep raspberry lilies (a head about one eighth the dome width), not a few oversized pale trumpets with saturated cerise midtones rather than a whitewash, in a short glossy cream porcelain cylinder with intricate cobalt bands; model each bloom in depth with six long curling, recurved petals, darker raspberry throats, raised stamens, translucent thin edges and soft veins, vary the sizes and tilts so some flowers face us and others show their sides, and let green spear-shaped leaves break through between them, especially through the lower half, and show several curled petals that stick out around the rim. Give it soft overhead studio highlights, shadow inside the dome and a feathered contact shadow beneath the vase; tapping it should turn the flowers AND vase into little squares that first hold their exact silhouette and colours in space, then fly into a visibly tilted square grid which pivots to face us and settles into a sharp scannable QR with deep blue corners, reversing the same turn on a second tap. Keep only a small top-right panel for the link (start with https://heyatu.com), flower kind and colour, including recolouring the code; no logos, titles, downloaded models or third-party art. Use original procedural petal geometry rather than stamping flat flower icons; package the working scene as a reusable self-contained <flower-gift> web component in a classic script that sizes to its container so I can put it in another page. Ask before installing or loading anything, then open it in the browser and check the bouquet close up, the rotating grid in both directions and that the finished code decodes."
+    }
+  ],
+  "action": {
+    "label": "Make a flower QR gift in Atu",
+    "prompt": "flower-gift"
+  },
+  "cover": {
+    "motion": "media/cover.webp",
+    "still": "media/cover-still.webp"
+  },
+  "made": [
+    {
+      "path": "media/flower-gift.mp4",
+      "kind": "atu",
+      "alt": "Pink lilies in a patterned vase turn into a tilted grid of squares. The grid faces forward as a QR code, changes to coral and folds back into flowers.",
+      "caption": "Tap the flowers to reveal the gift link."
+    }
+  ],
+  "requirements": [
+    "permission to load three.js and a QR encoder"
+  ],
+  "revision": "sha256:676f991a2f27116204d73a6fb3063a543b32f95c714315780b76df9ec69ef17a"
+}
