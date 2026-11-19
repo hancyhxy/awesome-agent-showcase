@@ -1,56 +1,62 @@
 [
   {
     "id": "x-2089289550958903358",
-    "revision": "sha256:2d89b29f782dfd77f82a40c829c1abf4fad225150e01014a560131d13f41b845",
+    "revision": "sha256:59da72a399f3599fd5f37412555624c7340da66fad4c8aff8385c92f63fe688a",
     "url": "https://heyatu.com/market/x-2089289550958903358",
-    "release": "9a388712d81fa6465dd5eb8da6486f2228def700"
+    "release": "12972ebe679d4e0de64f9b9e25c244c08077a245"
   },
   {
     "id": "x-2097383854923538770",
-    "revision": "sha256:eeecee1b42baed68cc8c7baaa61fd846b56fc1a86f5c117220f3758a527ecb49",
+    "revision": "sha256:7ce50afaba063d80c6cb049dbbac72ca27604cf8222b3fd03719c95cffe6fdaa",
     "url": "https://heyatu.com/market/x-2097383854923538770",
-    "release": "9a388712d81fa6465dd5eb8da6486f2228def700"
+    "release": "12972ebe679d4e0de64f9b9e25c244c08077a245"
   },
   {
     "id": "x-2103473953868063151",
-    "revision": "sha256:231a29808a232aad4ad8f624442547e5bf2e0ed4b848e0f03254f1ea623d944e",
+    "revision": "sha256:6e0b7a34276e8264907dadfccde15738841a83c38fe42d7d8d2517a933513471",
     "url": "https://heyatu.com/market/x-2103473953868063151",
-    "release": "9a388712d81fa6465dd5eb8da6486f2228def700"
+    "release": "12972ebe679d4e0de64f9b9e25c244c08077a245"
   },
   {
     "id": "x-2103770889116627075",
-    "revision": "sha256:b57fd8fe839e9fcaae66dfc5fcbaf2b87bc851ddf3756582154d7e6b3e630446",
+    "revision": "sha256:2c3d418cc31f173a9ce8866997201007a38a9ef06711fccccd790a9d875bb326",
     "url": "https://heyatu.com/market/x-2103770889116627075",
-    "release": "9a388712d81fa6465dd5eb8da6486f2228def700"
+    "release": "12972ebe679d4e0de64f9b9e25c244c08077a245"
   },
   {
     "id": "x-2109112248832503895",
-    "revision": "sha256:04a1512f68381746996c6ef28c87afb6618f8b5e65466836798ce856540eff3c",
+    "revision": "sha256:4e84a96b23559fef371ac393c6d4a97d72dbd104c2f5bbe95d17dbb663ca40b7",
     "url": "https://heyatu.com/market/x-2109112248832503895",
-    "release": "9a388712d81fa6465dd5eb8da6486f2228def700"
+    "release": "12972ebe679d4e0de64f9b9e25c244c08077a245"
   },
   {
     "id": "x-2111383736243859714",
-    "revision": "sha256:0757445904f99973712cc6b423c6ff9b213b089c597ba0be5047eb2c6a79d5e4",
+    "revision": "sha256:9a552b7e8350c6ce4b5b4317dba8b68ce436486953f60f8fa078a9b89f5bd0b6",
     "url": "https://heyatu.com/market/x-2111383736243859714",
-    "release": "9a388712d81fa6465dd5eb8da6486f2228def700"
+    "release": "12972ebe679d4e0de64f9b9e25c244c08077a245"
   },
   {
     "id": "x-2119458988165370270",
-    "revision": "sha256:df49c336c368dba351b8655d7fb38d58ca931afb47aa5db9a16d48430b86fe02",
+    "revision": "sha256:87f83c0a237b6da73f999b29d84c73eae397ea0197699caa1685eb28fcfc8c86",
     "url": "https://heyatu.com/market/x-2119458988165370270",
-    "release": "9a388712d81fa6465dd5eb8da6486f2228def700"
+    "release": "12972ebe679d4e0de64f9b9e25c244c08077a245"
   },
   {
     "id": "x-2121392666244186327",
-    "revision": "sha256:7aeb30cfd09a671f18335e2c01d5b875cb23305d38e3713717f578e6d4ba0850",
+    "revision": "sha256:bea0f6bf909c4f7aabc46a33a144113dd83ccb7400917f0e1ed85d019fb6b3f6",
     "url": "https://heyatu.com/market/x-2121392666244186327",
-    "release": "9a388712d81fa6465dd5eb8da6486f2228def700"
+    "release": "12972ebe679d4e0de64f9b9e25c244c08077a245"
   },
   {
     "id": "x-2122013352755126431",
-    "revision": "sha256:0293387cd1bc7bb7c4f98e9fb932ac46c9b82ca3470d2caccd5d996c7228b0e2",
+    "revision": "sha256:25fd7a470cd03fdf73b5dd524d8872ff0059b37d60397aa0544a8f12a58d91dc",
     "url": "https://heyatu.com/market/x-2122013352755126431",
-    "release": "9a388712d81fa6465dd5eb8da6486f2228def700"
+    "release": "12972ebe679d4e0de64f9b9e25c244c08077a245"
+  },
+  {
+    "id": "x-2122988750250901956",
+    "revision": "sha256:8c2dea68e2a3e723593e3e72637da2a8fb6fc5a5c118f16725775f84f96122cb",
+    "url": "https://heyatu.com/market/x-2122988750250901956",
+    "release": "12972ebe679d4e0de64f9b9e25c244c08077a245"
   }
 ]

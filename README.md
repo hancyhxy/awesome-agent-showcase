@@ -113,9 +113,9 @@ An original pixel garden in the browser where the wind moves the leaves: chunky 
 </td>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2122988750250901956/media/prism-cover-still.webp"><img src="entries/x-2122988750250901956/media/prism-cover.webp" alt="Prismatic objects you can click" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2122988750250901956?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2122988750250901956/media/prism-cover-still.webp"><img src="entries/x-2122988750250901956/media/prism-cover.webp" alt="Prismatic objects you can click" width="100%"></picture></a>
 
-<p><strong>Prismatic objects you can click</strong><br>Traditional objects drift in rainbow light on white. Click one to bring it up close and watch it turn.</p>
+<p><strong><a href="https://heyatu.com/market/x-2122988750250901956?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">Prismatic objects you can click</a></strong><br>Traditional objects drift in rainbow light on white. Click one to bring it up close and watch it turn.</p>
 
 <p>via <a href="https://x.com/nono_ai_archive/status/2122988750250901956">@nono_ai_archive</a> · Tested in Hey Atu</p>
 
@@ -127,6 +127,8 @@ Make a browser gallery with rainbow-glazed vessels floating under a wind bell. L
 ```
 
 </details>
+
+<p><a href="https://heyatu.com/market/x-2122988750250901956?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
 </tr>
