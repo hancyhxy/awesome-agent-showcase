@@ -1,0 +1,69 @@
+{
+  "id": "x-2096571444058894446",
+  "title": "Turn a photo into a halftone collage",
+  "summary": "Keep the photograph above. Rebuild the same moment below with torn paper, tiny type and dots of ink.",
+  "brief": "Turn my portrait into a travel print with the colour photograph above a close-up made of torn scraps, halftone dots and rows of punctuation below.",
+  "purposes": [
+    "images"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/Hamburgerai/status/2096571444058894446",
+    "author": "Hamburgerai",
+    "credit": "via @Hamburgerai",
+    "publishedAt": "2026-09-06",
+    "capturedAt": "2026-11-19"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/cover.webp",
+        "basis": "quoted",
+        "holder": "Hamburgerai",
+        "sourceUrl": "https://x.com/Hamburgerai/status/2096571444058894446",
+        "excerpt": "Four-second push towards two of the four portrait posters on warm paper"
+      },
+      {
+        "path": "media/cover-still.webp",
+        "basis": "quoted",
+        "holder": "Hamburgerai",
+        "sourceUrl": "https://x.com/Hamburgerai/status/2096571444058894446",
+        "excerpt": "Two of the four portrait posters, shown together on warm paper"
+      },
+      {
+        "path": "media/between-pages.mp4",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "halftone-poster",
+      "status": "tested",
+      "testedOn": "2026-11-19",
+      "text": "Make a 3:4 travel poster from my portrait. Use the image attached or in the current project folder. Ask me for a portrait if there isn’t one. The idea in https://x.com/Hamburgerai/status/2096571444058894446 is to show the photo above a second portrait made from torn prints and type. Take the people, colours and place from my photo only; do not borrow the post’s words or images.\n\nMake two 3:2 landscape panels, joined at one clean horizontal line. For the upper panel use the actual colour photograph, not a generated likeness. Crop to fit around the face. For a vertical portrait, use the full photo width and start about 38.5% down the available vertical crop travel. No ink, margins, texture or lettering on this half.\n\nFor the lower panel, use image generation with my photo as the reference. Make an intimate cut-paper portrait: enlarge the head and shoulders, bringing a hand and its object close to the bottom edge. The person fills about three quarters of the panel. Cut the subject from a COLOUR print of the photo: the skin should still look alive, hair should keep its hue, and every piece of clothing and held object should keep its own local colour. Mute the colours just a little, as if printed on matte stock. Never turn the person into a grey photocopy. Where you print black halftone dots across skin and cloth, leave their colour visible between the dots.\n\nTake the setting apart. Tear a landmark, a window edge, a reflection or a horizon into displaced pieces; do not leave a complete view behind the subject. Assemble six to nine pieces at different scales, overlapping the shoulder and the paper. Let some scraps end in rough white fibres with a narrow, visibly displaced second ink edge. Mix alternating fields of photocopier dots and monospaced ASCII shading through the setting and some garment shadows. Use aligned, individually readable marks such as . : + # % @ to draw the tones; no keyboard sequences, labels or code. Let the face stay clear. Use warm grey only for the paper, and black for the printed marks.\n\nKeep about a quarter of the lower panel as open paper. In that space set an invented short title, “FIELD PROOF 01” and one short sentence about this moment, in small black monospaced type. Add one narrow red calibration bar and a few fine crop marks. Save the finished poster in a new folder inside the current project folder and show me the result."
+    }
+  ],
+  "action": {
+    "label": "Make a halftone poster in Atu",
+    "prompt": "halftone-poster"
+  },
+  "cover": {
+    "motion": "media/cover.webp",
+    "still": "media/cover-still.webp"
+  },
+  "made": [
+    {
+      "path": "media/between-pages.mp4",
+      "kind": "atu",
+      "alt": "A torn edge reveals a colour ferry portrait above a close-up made from photo scraps, punctuation and halftone. The view moves towards the face and returns to the original photo.",
+      "caption": "A ferry passenger and her book, first as a photograph and then as a torn-paper print."
+    }
+  ],
+  "requirements": [
+    "a portrait photo",
+    "image generation in Hey Atu"
+  ],
+  "revision": "sha256:1ba91a16be4958f6fda64b19f97912f733faddd4c28c203c26683dfa9c6c5236"
+}
