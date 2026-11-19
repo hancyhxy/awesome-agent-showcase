@@ -75,7 +75,7 @@ Turn my portrait into a travel print with the colour photograph above a close-up
 </tr>
 </table>
 
-### Animation and video (6)
+### Animation and video (7)
 
 <table>
 <tr>
@@ -185,6 +185,26 @@ Make a browser gallery with rainbow-glazed vessels floating under a wind bell. L
 </td>
 <td width="50%" valign="top">
 
+<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123083433744425116/media/jelly-melon-cover-still.webp"><img src="entries/x-2123083433744425116/media/jelly-melon-cover.webp" alt="A jelly watermelon you can poke" width="100%"></picture>
+
+<p><strong>A jelly watermelon you can poke</strong><br>A jelly watermelon slice that wobbles when you click it and stretches when you pull it.</p>
+
+<p>via <a href="https://x.com/vib3coded/status/2123083433744425116">@vib3coded</a> · Tested in Hey Atu</p>
+
+<details>
+<summary>Brief</summary>
+
+```text
+A 3D watermelon wedge made of red jelly on a plain cream floor. It sways when clicked and stretches flat when pulled, then springs back and wobbles until it settles. No text on the page.
+```
+
+</details>
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
 <picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123184113561817370/media/cover-still.webp"><img src="entries/x-2123184113561817370/media/cover.webp" alt="Kinetic motion reel in code" width="100%"></picture>
 
 <p><strong>Kinetic motion reel in code</strong><br>Turn a product or mascot into a fast-cut Swiss-poster motion reel that plays right in your browser.</p>
@@ -199,6 +219,9 @@ Build a 14-second, 13-cut Swiss-editorial kinetic motion reel in a single web pa
 ```
 
 </details>
+
+</td>
+<td width="50%" valign="top">
 
 </td>
 </tr>
