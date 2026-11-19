@@ -75,7 +75,7 @@ Turn my portrait into a travel print with the colour photograph above a close-up
 </tr>
 </table>
 
-### Animation and video (6)
+### Animation and video (7)
 
 <table>
 <tr>
@@ -165,6 +165,24 @@ An original pixel garden in the browser where the wind moves the leaves: chunky 
 <tr>
 <td width="50%" valign="top">
 
+<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2122849771954016572/media/star-invite-cover-still.webp"><img src="entries/x-2122849771954016572/media/star-invite-cover.webp" alt="Star-morph wedding invitation" width="100%"></picture>
+
+<p><strong>Star-morph wedding invitation</strong><br>A scroll-driven wedding invitation that uses a four-point star to transition between sections.</p>
+
+<p>via <a href="https://x.com/s5style/status/2122849771954016572">@s5style</a> · Tested in Hey Atu</p>
+
+<details>
+<summary>Brief</summary>
+
+```text
+Design an invitation for an imaginary couple. Let scrolling reshape a blue star into a note card, then use a star-shaped wipe to reveal the next section. Build the look with lettering and geometry, without photos.
+```
+
+</details>
+
+</td>
+<td width="50%" valign="top">
+
 <a href="https://heyatu.com/market/x-2122988750250901956?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2122988750250901956/media/prism-cover-still.webp"><img src="entries/x-2122988750250901956/media/prism-cover.webp" alt="Prismatic objects you can click" width="100%"></picture></a>
 
 <p><strong><a href="https://heyatu.com/market/x-2122988750250901956?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">Prismatic objects you can click</a></strong><br>Traditional objects drift in rainbow light on white. Click one to bring it up close and watch it turn.</p>
@@ -183,6 +201,8 @@ Make a browser gallery with rainbow-glazed vessels floating under a wind bell. L
 <p><a href="https://heyatu.com/market/x-2122988750250901956?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
+</tr>
+<tr>
 <td width="50%" valign="top">
 
 <picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123184113561817370/media/cover-still.webp"><img src="entries/x-2123184113561817370/media/cover.webp" alt="Kinetic motion reel in code" width="100%"></picture>
@@ -199,6 +219,9 @@ Build a 14-second, 13-cut Swiss-editorial kinetic motion reel in a single web pa
 ```
 
 </details>
+
+</td>
+<td width="50%" valign="top">
 
 </td>
 </tr>
