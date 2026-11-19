@@ -1,0 +1,69 @@
+{
+  "id": "x-2123083433744425116",
+  "title": "A jelly watermelon you can poke",
+  "summary": "A jelly watermelon slice that wobbles when you click it and stretches when you pull it.",
+  "brief": "A 3D watermelon wedge made of red jelly on a plain cream floor. It sways when clicked and stretches flat when pulled, then springs back and wobbles until it settles. No text on the page.",
+  "purposes": [
+    "animation-video",
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/vib3coded/status/2123083433744425116",
+    "author": "vib3coded",
+    "credit": "Vib3Coded (@vib3coded)",
+    "publishedAt": "2026-11-18",
+    "capturedAt": "2026-11-19",
+    "video": "https://video.twimg.com/amplify_video/2123083136955191296/vid/avc1/480x600/frTRzl1_dnvqbMfn.mp4?tag=29"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/jelly-melon-cover.webp",
+        "basis": "quoted",
+        "holder": "vib3coded",
+        "sourceUrl": "https://x.com/vib3coded/status/2123083433744425116",
+        "excerpt": "1.2–4.2 s of the post video, top panel cropped to the slice"
+      },
+      {
+        "path": "media/jelly-melon-cover-still.webp",
+        "basis": "quoted",
+        "holder": "vib3coded",
+        "sourceUrl": "https://x.com/vib3coded/status/2123083433744425116",
+        "excerpt": "Frame at 2.6 s of the post video, top panel cropped to the slice"
+      },
+      {
+        "path": "media/jelly-melon-made-with-atu.mp4",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "jelly-watermelon",
+      "status": "tested",
+      "text": "Make a full-screen real-time 3D web page with Three.js: one big jelly watermelon slice on a plain warm cream floor, seen from slightly above, with a soft shadow under it. The slice is a thick 3D wedge of glossy translucent red jelly with a pale-green and dark-green rind along the curved edge and small black seeds inside, and it behaves like a soft body: when the page opens it drops from above, squashes flat on landing, bends into an S-shape, springs back, tumbles and wobbles before it settles. Clicking it makes it jiggle hard, and dragging it lifts it so the jelly stretches and lags behind the pointer, then it falls, bounces and wobbles again when I let go. Keep strong squash and stretch, and no titles, buttons or text on the page. Build it in a new folder inside the current project folder, open it in the browser when it is done, check that it works, and ask me before installing or loading anything.",
+      "label": "Make a jelly watermelon slice",
+      "testedOn": "2026-11-19"
+    }
+  ],
+  "action": {
+    "label": "Make a jelly slice in Atu",
+    "prompt": "jelly-watermelon"
+  },
+  "cover": {
+    "motion": "media/jelly-melon-cover.webp",
+    "still": "media/jelly-melon-cover-still.webp"
+  },
+  "made": [
+    {
+      "kind": "atu",
+      "path": "media/jelly-melon-made-with-atu.mp4",
+      "alt": "A red jelly watermelon slice rests on a cream floor. A click makes it sway; pulling it stretches it flat, and it springs back, wobbles and settles.",
+      "caption": "The jelly slice Hey Atu built sways when clicked and stretches when pulled."
+    }
+  ],
+  "requirements": [],
+  "revision": "sha256:294ce3484d054203638104fcb305ddd9850debcf4aab068716c678c0e86550c0"
+}
