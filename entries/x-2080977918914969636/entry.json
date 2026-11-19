@@ -1,0 +1,79 @@
+{
+  "id": "x-2080977918914969636",
+  "title": "A koi made of 10,000 dots",
+  "summary": "One short formula draws a koi that swims forever.",
+  "brief": "Draw a swimming koi from ten thousand white points on a dark canvas. Let its tail turn and its fins ripple in a continuous loop.",
+  "purposes": [
+    "animation-video",
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/yuruyurau/status/2080977918914969636",
+    "author": "yuruyurau",
+    "credit": "via @yuruyurau",
+    "publishedAt": "2026-07-25",
+    "capturedAt": "2026-11-19",
+    "video": "https://video.twimg.com/amplify_video/2080977758411534337/vid/avc1/800x800/SiPHghApOl2DCGHo.mp4?tag=29"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/cover.webp",
+        "basis": "quoted",
+        "holder": "yuruyurau",
+        "sourceUrl": "https://x.com/yuruyurau/status/2080977918914969636",
+        "excerpt": "0:02–0:08 of the post video, padded to 16:9"
+      },
+      {
+        "path": "media/cover-still.webp",
+        "basis": "quoted",
+        "holder": "yuruyurau",
+        "sourceUrl": "https://x.com/yuruyurau/status/2080977918914969636",
+        "excerpt": "Frame at 0:05 of the post video, padded to 16:9"
+      },
+      {
+        "path": "media/dot-koi.mp4",
+        "basis": "quoted",
+        "holder": "yuruyurau",
+        "sourceUrl": "https://x.com/yuruyurau/status/2080977918914969636",
+        "excerpt": "One 6.4-second cycle of the recreated dot koi, recorded from the canvas page."
+      },
+      {
+        "path": "media/dot-koi-still.webp",
+        "basis": "quoted",
+        "holder": "yuruyurau",
+        "sourceUrl": "https://x.com/yuruyurau/status/2080977918914969636",
+        "excerpt": "Frame at 0:06 of the recording of the recreated dot koi."
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "dot-koi",
+      "status": "tested",
+      "text": "Open this post by @yuruyurau and read its p5.js sketch: https://x.com/yuruyurau/status/2080977918914969636. It draws a koi from 10,000 white dots that curls and trails its fins on black. Recreate the sketch exactly as a web page that draws on a plain canvas, without p5.js or any other library: keep its formula, point count, colours and speed, and centre the 400 x 400 drawing on a black full-window page scaled to the window height. If you cannot open the post, tell me and ask me to paste the sketch from it. Build it in a new folder inside the current project folder, open it in the browser when it is done, check that it works, and ask me before installing or loading anything.",
+      "testedOn": "2026-11-19"
+    }
+  ],
+  "action": {
+    "label": "Draw a dot koi in Atu",
+    "prompt": "dot-koi"
+  },
+  "cover": {
+    "motion": "media/cover.webp",
+    "still": "media/cover-still.webp"
+  },
+  "made": [
+    {
+      "path": "media/dot-koi.mp4",
+      "kind": "recreation",
+      "alt": "White points trace the curved body and trailing fins of a koi as it turns on a black field.",
+      "caption": "Sketch: @yuruyurau",
+      "creditUrl": "https://x.com/yuruyurau/status/2080977918914969636"
+    }
+  ],
+  "requirements": [],
+  "revision": "sha256:a7692e37f71e2ffa76fca9aa335f14bfa58c71890732ca43a5ae6172a2a4817d"
+}
