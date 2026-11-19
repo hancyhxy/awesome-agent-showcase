@@ -1,0 +1,67 @@
+{
+  "id": "x-2098082543966867524",
+  "title": "A retro boarding pass scanner",
+  "summary": "Drag the pass through a beige reader: too fast is an error, steady gets you in.",
+  "brief": "Build a beige boarding pass scanner that reads a pass as I drag it through the slot. Reject a fast swipe with a red light and grant access on a steady swipe.",
+  "purposes": [
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/mjbarton_/status/2098082543966867524",
+    "author": "mjbarton_",
+    "credit": "via @mjbarton_",
+    "publishedAt": "2026-09-10",
+    "capturedAt": "2026-11-19",
+    "video": "https://video.twimg.com/amplify_video/2098082297576837121/vid/avc1/880x720/Pxc00hQBBLyaJCB8.mp4?tag=14"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/cover.webp",
+        "basis": "quoted",
+        "holder": "mjbarton_",
+        "sourceUrl": "https://x.com/mjbarton_/status/2098082543966867524",
+        "excerpt": "0:00.3–0:05.9 of the post video, cropped and padded to 16:9"
+      },
+      {
+        "path": "media/cover-still.webp",
+        "basis": "quoted",
+        "holder": "mjbarton_",
+        "sourceUrl": "https://x.com/mjbarton_/status/2098082543966867524",
+        "excerpt": "Frame at 0:04 of the post video, cropped and padded to 16:9"
+      },
+      {
+        "path": "media/pass-scanner.mp4",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "pass-scanner",
+      "status": "tested",
+      "testedOn": "2026-11-19",
+      "text": "Make a web page with a beige 1980s plastic boarding pass scanner on a soft pinkish off-white background. Show only the objects, a soft cast shadow and one caption; no title or surrounding app. At 960 × 540, centre a chunky 465 × 150 reader in the lower middle: two banks of short vents on the top shelf, a horizontal slot and a deep bevelled front with a black dot-matrix display in the middle and one round status lamp on the right. Float a pale lilac paper ATU AIR pass above and to the left, slightly tilted, with tiny violet labels, SAM REYES, SYD to KIX, a perforated stub and a barcode. When I drag the pass down behind the reader and swipe it sideways through the slot, show READING in amber with a yellow glow; a fast half-second swipe gives ERROR and red, a steady two-second swipe gives SUCCESS and green. Let me retry after an error. On success change “Swipe boarding pass to enter” to “Access granted”, hold briefly, fly the pass away and reset to READY. Use only local HTML, CSS and JavaScript. Build it in a new folder inside the current project folder, open it in the browser when done, check that it works, and ask me before installing or loading anything."
+    }
+  ],
+  "action": {
+    "label": "Build the pass scanner in Atu",
+    "prompt": "pass-scanner"
+  },
+  "cover": {
+    "motion": "media/cover.webp",
+    "still": "media/cover-still.webp"
+  },
+  "made": [
+    {
+      "path": "media/pass-scanner.mp4",
+      "kind": "atu",
+      "alt": "A cursor lowers a boarding pass into a beige reader. Its display signals an error for the fast swipe and success for the steady swipe. The pass flies away and the reader resets.",
+      "caption": "A fast swipe fails. A steady swipe turns the light green and grants access."
+    }
+  ],
+  "requirements": [],
+  "revision": "sha256:a4647c8fd9129d377c554928fd04edbf39ecfc4534bc211b46e7aa9260c40593"
+}

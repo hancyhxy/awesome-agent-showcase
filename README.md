@@ -159,7 +159,7 @@ Make a browser gallery with rainbow-glazed vessels floating under a wind bell. L
 </tr>
 </table>
 
-### Coding (4)
+### Coding (5)
 
 <table>
 <tr>
@@ -185,6 +185,26 @@ A web page where a printed shop receipt feeds out of a slot and you tear it off 
 </td>
 <td width="50%" valign="top">
 
+<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2098082543966867524/media/cover-still.webp"><img src="entries/x-2098082543966867524/media/cover.webp" alt="A retro boarding pass scanner" width="100%"></picture>
+
+<p><strong>A retro boarding pass scanner</strong><br>Drag the pass through a beige reader: too fast is an error, steady gets you in.</p>
+
+<p>via <a href="https://x.com/mjbarton_/status/2098082543966867524">@mjbarton_</a> · Tested in Hey Atu</p>
+
+<details>
+<summary>Brief</summary>
+
+```text
+Build a beige boarding pass scanner that reads a pass as I drag it through the slot. Reject a fast swipe with a red light and grant access on a steady swipe.
+```
+
+</details>
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
 <a href="https://heyatu.com/market/x-2103770889116627075?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2103770889116627075/media/dog-still.webp"><img src="entries/x-2103770889116627075/media/dog-turns.webp" alt="A character that follows your cursor" width="100%"></picture></a>
 
 <p><strong><a href="https://heyatu.com/market/x-2103770889116627075?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">A character that follows your cursor</a></strong><br>Move the mouse and a cute character on a web page turns its eyes and head to follow it.</p>
@@ -203,8 +223,6 @@ A web page with a friendly flat cartoon character whose eyes and head turn smoot
 <p><a href="https://heyatu.com/market/x-2103770889116627075?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
-</tr>
-<tr>
 <td width="50%" valign="top">
 
 <a href="https://heyatu.com/market/x-2111383736243859714?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2111383736243859714/media/cover-still.webp"><img src="entries/x-2111383736243859714/media/cover.webp" alt="Fix the spacing in your app" width="100%"></picture></a>
@@ -225,6 +243,8 @@ Fix the spacing of an existing app and change nothing else. Set the sidebar widt
 <p><a href="https://heyatu.com/market/x-2111383736243859714?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
+</tr>
+<tr>
 <td width="50%" valign="top">
 
 <a href="https://heyatu.com/market/x-2122013352755126431?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2122013352755126431/media/whale-cove-still.webp"><img src="entries/x-2122013352755126431/media/whale-cove-reveal.webp" alt="A calm storybook game with a hand-painted feel" width="100%"></picture></a>
@@ -243,6 +263,9 @@ A gentle browser game where a child and a dog walk home across several scenes. N
 </details>
 
 <p><a href="https://heyatu.com/market/x-2122013352755126431?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
+
+</td>
+<td width="50%" valign="top">
 
 </td>
 </tr>
