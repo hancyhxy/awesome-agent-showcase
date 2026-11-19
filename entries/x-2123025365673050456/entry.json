@@ -1,0 +1,69 @@
+{
+  "id": "x-2123025365673050456",
+  "title": "Robot Octopus, Taken Apart",
+  "summary": "A Three.js robotic glass octopus whose dome, eye, core and arms come apart at a click.",
+  "brief": "Code a 3D mechanical octopus that visitors can take apart in the browser. Give it a glass dome with glowing machinery and curled arms built from many white links. Add buttons that lift off single parts, plus one exploded view that spreads every piece out and puts it back.",
+  "purposes": [
+    "animation-video",
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/dyfwsammy/status/2123025365673050456",
+    "author": "dyfwsammy",
+    "credit": "S (@dyfwsammy)",
+    "publishedAt": "2026-11-18",
+    "capturedAt": "2026-11-19",
+    "video": "https://video.twimg.com/amplify_video/2123025302502727680/vid/avc1/1280x720/2LvSq_s1LlI1S-Be.mp4?tag=29"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/robot-octopus-cover.webp",
+        "basis": "quoted",
+        "holder": "dyfwsammy",
+        "sourceUrl": "https://x.com/dyfwsammy/status/2123025365673050456",
+        "excerpt": "16.5–21.0 s of the post video, cropped to the model and its labels"
+      },
+      {
+        "path": "media/robot-octopus-cover-still.webp",
+        "basis": "quoted",
+        "holder": "dyfwsammy",
+        "sourceUrl": "https://x.com/dyfwsammy/status/2123025365673050456",
+        "excerpt": "Frame at 18.6 s of the post video, cropped to the model and its labels"
+      },
+      {
+        "path": "media/robot-octopus-made-with-atu.mp4",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "robot-octopus",
+      "status": "tested",
+      "text": "Make a full-screen interactive 3D page in Three.js of a robotic glass octopus that the visitor can take apart. Model it in code from many small parts: a large egg-shaped clear glass mantle tilted back, packed with dark gunmetal machinery and bright glowing green coils and light strips; a white body under it with one big glossy black eye lens inside a glowing green ring; and 8 long, thick arms made of 20 or more separate white ceramic segments each, with two rows of dark green suction wheels underneath, joined to one central toothed hub. The arms are never straight: each one rises, bends in a loose S-curve and curls into a tight spiral tip, all different, like a real octopus resting. View it from slightly above at a three-quarter angle; the octopus fills most of the screen, on a plain white background fading to pale mint, with soft contact shadows and a slow turntable spin; drag to orbit. Keep the interface thin and light over the scene, with no boxes or dark bars: a small centred title, a row of pill buttons under it (Optics, Glass head, Arm, Core, Arm roots, Teardown, Release), a quiet chapter list on the left and four small white gauge cards on the right. Each button plays a clear animation: the eye lens pulls forward and its iris opens, the glass mantle lifts high and flips over in midair before settling back, one arm comes apart link by link, the glowing core slides out, the arms pull away from the hub. Teardown is the big moment: every part moves outward from its own place, so the gaps open along each curled arm and the mantle, eye, core and gears float apart while the octopus shape stays readable, with thin callout lines and labels; it holds for a second, then everything flies back together. Release makes the octopus swim forward with its arms trailing. Build it in a new folder inside the current project folder, open it in the browser when it is done, check that every button works, and ask me before installing or loading anything.",
+      "label": "Build a robot octopus you can take apart",
+      "testedOn": "2026-11-19"
+    }
+  ],
+  "action": {
+    "label": "Build a robot octopus in Atu",
+    "prompt": "robot-octopus"
+  },
+  "cover": {
+    "motion": "media/robot-octopus-cover.webp",
+    "still": "media/robot-octopus-cover-still.webp"
+  },
+  "made": [
+    {
+      "kind": "atu",
+      "path": "media/robot-octopus-made-with-atu.mp4",
+      "alt": "A white robot octopus turns slowly. Glass head lifts the clear dome above the glowing core. Teardown spreads the arm links and separates the dome, core and eye, with small labels, before the octopus reassembles.",
+      "caption": "Hey Atu's glass dome lifts, then Teardown separates the main assemblies before the octopus reassembles."
+    }
+  ],
+  "requirements": [],
+  "revision": "sha256:b0959d6796a4f3d2aacc1e449da6674b88a56fd120f2ae7fefd0fb2a8bb7b38f"
+}

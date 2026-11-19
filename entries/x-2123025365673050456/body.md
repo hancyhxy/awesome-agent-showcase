@@ -1,0 +1,3 @@
+[@dyfwsammy](https://x.com/dyfwsammy/status/2123025365673050456) showed a robotic glass octopus built in Three.js from a single render: chapter buttons pull out the eye, lift the glass dome and split the arms, and Teardown sends every part flying before it reassembles. The button opens a draft in Hey Atu. In our run, Atu modelled the whole octopus in code, with eight curled arms of white links, a glowing core under a glass dome and seven working chapter buttons.
+
+Our version leaves out the hoses and opens gaps between the arm links while keeping the octopus shape readable. The recording plays at 1.35× speed.

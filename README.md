@@ -75,7 +75,7 @@ Turn my portrait into a travel print with the colour photograph above a close-up
 </tr>
 </table>
 
-### Animation and video (6)
+### Animation and video (7)
 
 <table>
 <tr>
@@ -185,6 +185,26 @@ Make a browser gallery with rainbow-glazed vessels floating under a wind bell. L
 </td>
 <td width="50%" valign="top">
 
+<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123025365673050456/media/robot-octopus-cover-still.webp"><img src="entries/x-2123025365673050456/media/robot-octopus-cover.webp" alt="Robot Octopus, Taken Apart" width="100%"></picture>
+
+<p><strong>Robot Octopus, Taken Apart</strong><br>A Three.js robotic glass octopus whose dome, eye, core and arms come apart at a click.</p>
+
+<p>via <a href="https://x.com/dyfwsammy/status/2123025365673050456">@dyfwsammy</a> · Tested in Hey Atu</p>
+
+<details>
+<summary>Brief</summary>
+
+```text
+Code a 3D mechanical octopus that visitors can take apart in the browser. Give it a glass dome with glowing machinery and curled arms built from many white links. Add buttons that lift off single parts, plus one exploded view that spreads every piece out and puts it back.
+```
+
+</details>
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
 <picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123184113561817370/media/cover-still.webp"><img src="entries/x-2123184113561817370/media/cover.webp" alt="Kinetic motion reel in code" width="100%"></picture>
 
 <p><strong>Kinetic motion reel in code</strong><br>Turn a product or mascot into a fast-cut Swiss-poster motion reel that plays right in your browser.</p>
@@ -199,6 +219,9 @@ Build a 14-second, 13-cut Swiss-editorial kinetic motion reel in a single web pa
 ```
 
 </details>
+
+</td>
+<td width="50%" valign="top">
 
 </td>
 </tr>
