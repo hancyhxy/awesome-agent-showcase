@@ -1,0 +1,3 @@
+[@Jakubantalik](https://x.com/Jakubantalik/status/2123457524070273426) showed new looks for his free [Voice library](https://libraries.dev/voice): a dark input bar whose bottom edge is a living rainbow wave of square dots, with Listening and Thinking states and a 3D tilt that follows the cursor. The button opens a draft in Hey Atu. In our run, Atu built the whole bar as one web page with a simulated voice level, so it works without a microphone: the panel tilts toward the pointer, a rainbow dot hump pulses while it listens, and a teal band with a bright sweeping head shows that it is thinking.
+
+Atu's Thinking sweep is a rounded cluster of dots rather than the post's loose glow, and our version leaves out the emotion recognition model and the live transcript card.
