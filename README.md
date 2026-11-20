@@ -273,7 +273,7 @@ Build a 14-second, 13-cut Swiss-editorial kinetic motion reel in a single web pa
 </tr>
 </table>
 
-### Coding (9)
+### Coding (10)
 
 <table>
 <tr>
@@ -447,6 +447,24 @@ A browser tool for packaging mockups: choose a box shape and size, put a picture
 <tr>
 <td width="50%" valign="top">
 
+<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123280359978942481/media/keypad-3d-cover-still.webp"><img src="entries/x-2123280359978942481/media/keypad-3d-cover.webp" alt="3D macro keypad you can remap" width="100%"></picture>
+
+<p><strong>3D macro keypad you can remap</strong><br>Spin and flip a glowing 3D macro keypad in the browser, then click a key to give it a new action.</p>
+
+<p>via <a href="https://x.com/Linmiv/status/2123280359978942481">@Linmiv</a> · Tested in Hey Atu</p>
+
+<details>
+<summary>Brief</summary>
+
+```text
+Create an interactive Three.js model of a small programmable keypad in see-through peach acrylic with chunky keycaps, a dial and a knob. Let visitors flip it over by dragging, light a key in blue when they click it, and pick its action from a side panel.
+```
+
+</details>
+
+</td>
+<td width="50%" valign="top">
+
 <picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123457524070273426/media/voice-wave-cover-still.webp"><img src="entries/x-2123457524070273426/media/voice-wave-cover.webp" alt="Voice bar with rainbow dot wave" width="100%"></picture>
 
 <p><strong>Voice bar with rainbow dot wave</strong><br>A dark voice input bar with a rainbow dot wave for Listening and a teal sweep for Thinking.</p>
@@ -461,9 +479,6 @@ Make a dark AI voice input panel for the browser whose lower edge carries a wave
 ```
 
 </details>
-
-</td>
-<td width="50%" valign="top">
 
 </td>
 </tr>
