@@ -165,9 +165,9 @@ An original pixel garden in the browser where the wind moves the leaves: chunky 
 <tr>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2122849771954016572/media/star-invite-cover-still.webp"><img src="entries/x-2122849771954016572/media/star-invite-cover.webp" alt="Star-morph wedding invitation" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2122849771954016572?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2122849771954016572/media/star-invite-cover-still.webp"><img src="entries/x-2122849771954016572/media/star-invite-cover.webp" alt="Star-morph wedding invitation" width="100%"></picture></a>
 
-<p><strong>Star-morph wedding invitation</strong><br>A scroll-driven wedding invitation that uses a four-point star to transition between sections.</p>
+<p><strong><a href="https://heyatu.com/market/x-2122849771954016572?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">Star-morph wedding invitation</a></strong><br>A scroll-driven wedding invitation that uses a four-point star to transition between sections.</p>
 
 <p>via <a href="https://x.com/s5style/status/2122849771954016572">@s5style</a> · Tested in Hey Atu</p>
 
@@ -179,6 +179,8 @@ Design an invitation for an imaginary couple. Let scrolling reshape a blue star 
 ```
 
 </details>
+
+<p><a href="https://heyatu.com/market/x-2122849771954016572?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
 <td width="50%" valign="top">
@@ -205,9 +207,9 @@ Make a browser gallery with rainbow-glazed vessels floating under a wind bell. L
 <tr>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123025365673050456/media/robot-octopus-cover-still.webp"><img src="entries/x-2123025365673050456/media/robot-octopus-cover.webp" alt="Robot Octopus, Taken Apart" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2123025365673050456?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123025365673050456/media/robot-octopus-cover-still.webp"><img src="entries/x-2123025365673050456/media/robot-octopus-cover.webp" alt="Robot Octopus, Taken Apart" width="100%"></picture></a>
 
-<p><strong>Robot Octopus, Taken Apart</strong><br>A Three.js robotic glass octopus whose dome, eye, core and arms come apart at a click.</p>
+<p><strong><a href="https://heyatu.com/market/x-2123025365673050456?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">Robot Octopus, Taken Apart</a></strong><br>A Three.js robotic glass octopus whose dome, eye, core and arms come apart at a click.</p>
 
 <p>via <a href="https://x.com/dyfwsammy/status/2123025365673050456">@dyfwsammy</a> · Tested in Hey Atu</p>
 
@@ -220,12 +222,14 @@ Code a 3D mechanical octopus that visitors can take apart in the browser. Give i
 
 </details>
 
+<p><a href="https://heyatu.com/market/x-2123025365673050456?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
+
 </td>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123083433744425116/media/jelly-melon-cover-still.webp"><img src="entries/x-2123083433744425116/media/jelly-melon-cover.webp" alt="A jelly watermelon you can poke" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2123083433744425116?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123083433744425116/media/jelly-melon-cover-still.webp"><img src="entries/x-2123083433744425116/media/jelly-melon-cover.webp" alt="A jelly watermelon you can poke" width="100%"></picture></a>
 
-<p><strong>A jelly watermelon you can poke</strong><br>A jelly watermelon slice that wobbles when you click it and stretches when you pull it.</p>
+<p><strong><a href="https://heyatu.com/market/x-2123083433744425116?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">A jelly watermelon you can poke</a></strong><br>A jelly watermelon slice that wobbles when you click it and stretches when you pull it.</p>
 
 <p>via <a href="https://x.com/vib3coded/status/2123083433744425116">@vib3coded</a> · Tested in Hey Atu</p>
 
@@ -238,14 +242,16 @@ A 3D watermelon wedge made of red jelly on a plain cream floor. It sways when cl
 
 </details>
 
+<p><a href="https://heyatu.com/market/x-2123083433744425116?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
+
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123184113561817370/media/cover-still.webp"><img src="entries/x-2123184113561817370/media/cover.webp" alt="Kinetic motion reel in code" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2123184113561817370?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123184113561817370/media/cover-still.webp"><img src="entries/x-2123184113561817370/media/cover.webp" alt="Kinetic motion reel in code" width="100%"></picture></a>
 
-<p><strong>Kinetic motion reel in code</strong><br>Turn a product or mascot into a fast-cut Swiss-poster motion reel that plays right in your browser.</p>
+<p><strong><a href="https://heyatu.com/market/x-2123184113561817370?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">Kinetic motion reel in code</a></strong><br>Turn a product or mascot into a fast-cut Swiss-poster motion reel that plays right in your browser.</p>
 
 <p>via <a href="https://x.com/chetaslua/status/2123184113561817370">@chetaslua</a></p>
 
@@ -257,6 +263,8 @@ Build a 14-second, 13-cut Swiss-editorial kinetic motion reel in a single web pa
 ```
 
 </details>
+
+<p><a href="https://heyatu.com/market/x-2123184113561817370?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Try it in Hey Atu →</a></p>
 
 </td>
 <td width="50%" valign="top">
@@ -417,9 +425,9 @@ A gentle browser game where a child and a dog walk home across several scenes. N
 </td>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123106462096654599/media/fold-box-cover-still.webp"><img src="entries/x-2123106462096654599/media/fold-box-cover.webp" alt="Fold a design into a box" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2123106462096654599?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123106462096654599/media/fold-box-cover-still.webp"><img src="entries/x-2123106462096654599/media/fold-box-cover.webp" alt="Fold a design into a box" width="100%"></picture></a>
 
-<p><strong>Fold a design into a box</strong><br>Put a picture on a flat box template, fold it into 3D, spin it and open the lid.</p>
+<p><strong><a href="https://heyatu.com/market/x-2123106462096654599?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">Fold a design into a box</a></strong><br>Put a picture on a flat box template, fold it into 3D, spin it and open the lid.</p>
 
 <p>via <a href="https://x.com/youraipulse/status/2123106462096654599">@youraipulse</a> · Tested in Hey Atu</p>
 
@@ -431,6 +439,8 @@ A browser tool for packaging mockups: choose a box shape and size, put a picture
 ```
 
 </details>
+
+<p><a href="https://heyatu.com/market/x-2123106462096654599?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
 </tr>
