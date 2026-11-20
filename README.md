@@ -273,7 +273,7 @@ Build a 14-second, 13-cut Swiss-editorial kinetic motion reel in a single web pa
 </tr>
 </table>
 
-### Coding (8)
+### Coding (9)
 
 <table>
 <tr>
@@ -441,6 +441,29 @@ A browser tool for packaging mockups: choose a box shape and size, put a picture
 </details>
 
 <p><a href="https://heyatu.com/market/x-2123106462096654599?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123457524070273426/media/voice-wave-cover-still.webp"><img src="entries/x-2123457524070273426/media/voice-wave-cover.webp" alt="Voice bar with rainbow dot wave" width="100%"></picture>
+
+<p><strong>Voice bar with rainbow dot wave</strong><br>A dark voice input bar with a rainbow dot wave for Listening and a teal sweep for Thinking.</p>
+
+<p>via <a href="https://x.com/Jakubantalik/status/2123457524070273426">@Jakubantalik</a> · Tested in Hey Atu</p>
+
+<details>
+<summary>Brief</summary>
+
+```text
+Make a dark AI voice input panel for the browser whose lower edge carries a wave of tiny square dots. Let the dots swell into a bright rainbow hump while it listens, turn into a teal sweeping band while it thinks, and tilt the whole panel toward the pointer.
+```
+
+</details>
+
+</td>
+<td width="50%" valign="top">
 
 </td>
 </tr>

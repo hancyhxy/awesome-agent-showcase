@@ -1,0 +1,68 @@
+{
+  "id": "x-2123457524070273426",
+  "title": "Voice bar with rainbow dot wave",
+  "summary": "A dark voice input bar with a rainbow dot wave for Listening and a teal sweep for Thinking.",
+  "brief": "Make a dark AI voice input panel for the browser whose lower edge carries a wave of tiny square dots. Let the dots swell into a bright rainbow hump while it listens, turn into a teal sweeping band while it thinks, and tilt the whole panel toward the pointer.",
+  "purposes": [
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/Jakubantalik/status/2123457524070273426",
+    "author": "Jakubantalik",
+    "credit": "Jakub Antalik (@Jakubantalik)",
+    "publishedAt": "2026-11-19",
+    "capturedAt": "2026-11-20",
+    "video": "https://video.twimg.com/amplify_video/2123447146477228032/vid/avc1/1066x720/QaPKjg4sIwJf2yci.mp4?tag=29"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/voice-wave-cover.webp",
+        "basis": "quoted",
+        "holder": "Jakubantalik",
+        "sourceUrl": "https://x.com/Jakubantalik/status/2123457524070273426",
+        "excerpt": "6.2–12.5 s of the post video, cropped to a centred 16:9 band"
+      },
+      {
+        "path": "media/voice-wave-cover-still.webp",
+        "basis": "quoted",
+        "holder": "Jakubantalik",
+        "sourceUrl": "https://x.com/Jakubantalik/status/2123457524070273426",
+        "excerpt": "Frame at 8.5 s of the post video, cropped to a centred 16:9 band"
+      },
+      {
+        "path": "media/voice-wave-made-with-atu.mp4",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "voice-dot-wave",
+      "status": "tested",
+      "text": "Build a voice input bar for an AI assistant as one self-contained web page (HTML, CSS and Canvas JavaScript). Show only the bar, large and centred on a pure black background, with no titles, labels or other text on the page. The bar fills about 75% of the window width and is about a quarter as tall as it is wide: a dark charcoal glassy panel (radius about 36px, faint lighter top edge, soft shadow) seen in perspective. Its placeholder text \"Ask me anything...\" is large (about 30px), dim grey and slightly blurred, as if out of focus. The bottom row has big round frosted grey buttons (about 64px, a subtle highlight on top): + on the left, a voice-wave button on the right. Along the panel's bottom edge, clipped by its rounded corners, draw a delicate wave of small separate square dots (about 3px dots on a 6px grid, clear gaps between them, never a solid block). While listening it is a clearly visible glowing hump, centred and about half the panel wide, peaking at about 10 rows of dots (roughly a quarter of the panel height) and tapering to 1 or 2 rows at its ends, with loose scattered dots trailing out to both sides; its colours run along the full rainbow from teal and green on the left through blue and violet to hot pink, red and orange on the right; dots are fully bright in the bottom rows and fade toward the top of the hump, and a soft coloured bloom glows around it. The hump breathes and wobbles with a simulated voice level, so it works without a microphone. At idle only a few faint dots show. The whole panel tilts strongly in 3D toward the cursor (up to about 15 degrees on both axes, easing smoothly), and where the cursor passes near the wave, small coloured dots spark upward and fade. Clicking the voice button replaces it with a frosted mic button and a close button, and the text becomes \"Listening...\" while the hump rises. After about 3 seconds the text becomes \"Thinking...\": the hump dissolves into sparse, flickering teal and cyan dots scattered thinly along the whole bottom edge, and one bright, dense, glowing cluster of teal, cyan and white dots, about a sixth of the panel wide and 5 to 6 rows tall, with a little pink and orange at its leading tip, sweeps from left to right along the edge about every 2 seconds, wrapping around the rounded corner. The close button returns to idle. Build it in a new folder inside the current project folder, open it in the browser when done, check that it works, and ask me before installing or loading anything.",
+      "label": "Build a voice bar with a dot wave",
+      "testedOn": "2026-11-20"
+    }
+  ],
+  "action": {
+    "label": "Make a voice input bar in Atu",
+    "prompt": "voice-dot-wave"
+  },
+  "cover": {
+    "motion": "media/voice-wave-cover.webp",
+    "still": "media/voice-wave-cover-still.webp"
+  },
+  "made": [
+    {
+      "kind": "atu",
+      "path": "media/voice-wave-made-with-atu.mp4",
+      "alt": "A dark voice bar tilts toward the cursor. Clicking the voice button shows Listening as a rainbow hump of square dots rises along its bottom edge and sparks under the cursor. Thinking turns it into a teal dot band with a sweeping head; close returns to idle.",
+      "caption": "The voice bar built with Hey Atu tilts, listens with a rainbow dot hump and thinks with a teal sweep."
+    }
+  ],
+  "requirements": [],
+  "revision": "sha256:9da63e5d2b0293a29b12cf2cdb2db0a253ad9579e2422cf174da3d9c6d1f028f"
+}
