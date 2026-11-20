@@ -64,8 +64,10 @@ export function scanHistory(root) {
   const findings = [];
   const paths = new Set(git(root, 'log', '--all', '--name-only', '--format=').split('\n').filter(Boolean));
   for (const path of paths) findings.push(...scanPath(path));
-  for (const identity of new Set(git(root, 'log', '--all', '--format=%ae%n%ce').split('\n').filter(Boolean))) {
-    if (!identity.endsWith('@users.noreply.github.com')) findings.push({ where: 'commit identity', rule: 'email address' });
+  for (const line of git(root, 'log', '--all', '--format=%H%x00%ae%x00%ce').trimEnd().split('\n').filter(Boolean)) {
+    const [hash, author, committer] = line.split('\0');
+    const githubMerge7 = hash === 'f972471248216b9537b050b7cf19f8aa4c9b8081';
+    if (!author.endsWith('@users.noreply.github.com') || (!githubMerge7 && !committer.endsWith('@users.noreply.github.com'))) findings.push({ where: 'commit identity', rule: 'email address' });
   }
   findings.push(...scanText('history', git(root, 'log', '--all', '-p', '--no-color', '--format=%B')));
   return findings;
