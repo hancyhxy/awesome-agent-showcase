@@ -273,7 +273,7 @@ Build a 14-second, 13-cut Swiss-editorial kinetic motion reel in a single web pa
 </tr>
 </table>
 
-### Coding (8)
+### Coding (9)
 
 <table>
 <tr>
@@ -441,6 +441,29 @@ A browser tool for packaging mockups: choose a box shape and size, put a picture
 </details>
 
 <p><a href="https://heyatu.com/market/x-2123106462096654599?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123280359978942481/media/keypad-3d-cover-still.webp"><img src="entries/x-2123280359978942481/media/keypad-3d-cover.webp" alt="3D macro keypad you can remap" width="100%"></picture>
+
+<p><strong>3D macro keypad you can remap</strong><br>Spin and flip a glowing 3D macro keypad in the browser, then click a key to give it a new action.</p>
+
+<p>via <a href="https://x.com/Linmiv/status/2123280359978942481">@Linmiv</a> · Tested in Hey Atu</p>
+
+<details>
+<summary>Brief</summary>
+
+```text
+Create an interactive Three.js model of a small programmable keypad in see-through peach acrylic with chunky keycaps, a dial and a knob. Let visitors flip it over by dragging, light a key in blue when they click it, and pick its action from a side panel.
+```
+
+</details>
+
+</td>
+<td width="50%" valign="top">
 
 </td>
 </tr>

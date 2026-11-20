@@ -1,0 +1,68 @@
+{
+  "id": "x-2123280359978942481",
+  "title": "3D macro keypad you can remap",
+  "summary": "Spin and flip a glowing 3D macro keypad in the browser, then click a key to give it a new action.",
+  "brief": "Create an interactive Three.js model of a small programmable keypad in see-through peach acrylic with chunky keycaps, a dial and a knob. Let visitors flip it over by dragging, light a key in blue when they click it, and pick its action from a side panel.",
+  "purposes": [
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/Linmiv/status/2123280359978942481",
+    "author": "Linmiv",
+    "credit": "Linmi (@Linmiv)",
+    "publishedAt": "2026-11-19",
+    "capturedAt": "2026-11-20",
+    "video": "https://video.twimg.com/amplify_video/2123280232832712704/vid/avc1/1116x720/anUkR45rswCvdxuW.mp4?tag=29"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/keypad-3d-cover.webp",
+        "basis": "quoted",
+        "holder": "Linmiv",
+        "sourceUrl": "https://x.com/Linmiv/status/2123280359978942481",
+        "excerpt": "1.0–8.0 s of the post video, cropped to the keypad model and its key panel"
+      },
+      {
+        "path": "media/keypad-3d-cover-still.webp",
+        "basis": "quoted",
+        "holder": "Linmiv",
+        "sourceUrl": "https://x.com/Linmiv/status/2123280359978942481",
+        "excerpt": "Frame at 6.0 s of the post video, cropped to the keypad model and its key panel"
+      },
+      {
+        "path": "media/keypad-3d-made-with-atu.mp4",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "remap-keypad-3d",
+      "status": "tested",
+      "text": "Build a 3D macro keypad configurator as one self-contained web page using Three.js, on a plain off-white page with no titles, captions or labels other than the settings panel. On the left two thirds, show a large, realistic 3D model of a small square macro keypad, filling about 70% of that area's height, seen mostly from above, tilted only about 20 degrees and turned about 25 degrees, so the whole key layout reads clearly. The case is a thick, softly rounded slab of clear, glowing translucent peach acrylic, lit from inside so its edges glow warm peach and you can see through it (glassy and luminous, not an opaque cream or saturated orange block). Its top is a frosted, semi-transparent white plate with small printed markings, in which a grid of chunky, clearly separate keycaps sits raised, with visible gaps and side walls: the top two rows are translucent frosted keys with a cool grey-lavender tint that let light through, the bottom rows are solid white keys with simple grey line icons, one key twice as wide, a round white dial with a notch in the top-left corner, a dark round knob in the top-right corner and small dark screws in the four corners. Use soft studio lighting, gentle contact shadows and subtle reflections. The model turns slowly on its own. Dragging spins it freely, including flipping it over to show the dark underside; when you let go, it eases back to the three-quarter top view within about 2 seconds. Scrolling zooms. On the right, show a white rounded settings panel with the selected key's name in bold (for example \"Key 4\"), tabs Press, Double press and Hold, and a list of actions with small purple icons (Copy, Paste, Screenshot, Mute, Play or Pause, Volume Up, Volume Down, Open Browser). Clicking a key on the model makes it press down, then the whole keycap stays clearly lit in bright saturated blue (around #3b82f6, with a soft blue glow, easy to see from across the room) until another key is selected, and the panel switches to that key; clicking an action assigns it with a check mark, and every remapped key keeps its icon drawn in blue so the changes stay visible. Build it in a new folder inside the current project folder, open it in the browser when done, check that it works, and ask me before installing or loading anything.",
+      "label": "Build a 3D keypad you can remap",
+      "testedOn": "2026-11-20"
+    }
+  ],
+  "action": {
+    "label": "Build a 3D keypad in Atu",
+    "prompt": "remap-keypad-3d"
+  },
+  "cover": {
+    "motion": "media/keypad-3d-cover.webp",
+    "still": "media/keypad-3d-cover-still.webp"
+  },
+  "made": [
+    {
+      "kind": "atu",
+      "path": "media/keypad-3d-made-with-atu.mp4",
+      "alt": "A peach acrylic macro keypad with lavender and white keys, a dial and a knob is dragged over to show its dark underside and eases back. Clicking a key turns it bright blue and the side panel assigns Screenshot; then the wide key turns blue and gets Play or Pause.",
+      "caption": "The keypad built with Hey Atu flips over, then two keys light up blue and get new actions."
+    }
+  ],
+  "requirements": [],
+  "revision": "sha256:4fe88da6a75d587bec48b114092f0e5a6d45833846b9f823c82f840dea73b07c"
+}
