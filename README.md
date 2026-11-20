@@ -75,7 +75,7 @@ Turn my portrait into a travel print with the colour photograph above a close-up
 </tr>
 </table>
 
-### Animation and video (9)
+### Animation and video (10)
 
 <table>
 <tr>
@@ -268,6 +268,21 @@ Build a 14-second, 13-cut Swiss-editorial kinetic motion reel in a single web pa
 
 </td>
 <td width="50%" valign="top">
+
+<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123240616012226628/media/jelly-scan-cover-still.webp"><img src="entries/x-2123240616012226628/media/jelly-scan-cover.webp" alt="Glowing jellyfish scan render" width="100%"></picture>
+
+<p><strong>Glowing jellyfish scan render</strong><br>A glowing sea-creature scan that glitches between a honeycomb shell, a blue jellyfish, an ASCII silhouette and violet shards, with HUD labels.</p>
+
+<p>via <a href="https://x.com/fredremotion/status/2123240616012226628">@fredremotion</a> · Tested in Hey Atu</p>
+
+<details>
+<summary>Brief</summary>
+
+```text
+Make a looping Three.js render of a deep-sea creature built from glowing particles on black. Cut between a few looks, such as a hexagon shell, a see-through jellyfish and a text-character version, with a short glitch, and tag its parts with tiny monospace callouts.
+```
+
+</details>
 
 </td>
 </tr>
