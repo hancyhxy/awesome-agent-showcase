@@ -1,0 +1,69 @@
+{
+  "id": "x-2122849771954016572",
+  "title": "Star-morph wedding invitation",
+  "summary": "A scroll-driven wedding invitation that uses a four-point star to transition between sections.",
+  "brief": "Design an invitation for an imaginary couple. Let scrolling reshape a blue star into a note card, then use a star-shaped wipe to reveal the next section. Build the look with lettering and geometry, without photos.",
+  "purposes": [
+    "animation-video",
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/s5style/status/2122849771954016572",
+    "author": "s5style",
+    "credit": "ノイ / S5-Style (@s5style)",
+    "publishedAt": "2026-11-18",
+    "capturedAt": "2026-11-19",
+    "video": "https://video.twimg.com/amplify_video/2122742926744907777/vid/avc1/960x720/dqqRvYoRzI1e4WzC.mp4?tag=14"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/star-invite-cover.webp",
+        "basis": "quoted",
+        "holder": "s5style",
+        "sourceUrl": "https://x.com/s5style/status/2122849771954016572",
+        "excerpt": "2.4–5.8 s of the post video, cropped to 16:9"
+      },
+      {
+        "path": "media/star-invite-cover-still.webp",
+        "basis": "quoted",
+        "holder": "s5style",
+        "sourceUrl": "https://x.com/s5style/status/2122849771954016572",
+        "excerpt": "Frame at 5.1 s of the post video, cropped to 16:9"
+      },
+      {
+        "path": "media/star-invite-made-with-atu.mp4",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "star-invitation",
+      "status": "tested",
+      "text": "Make a scroll-driven wedding invitation web page for a fictional couple, Mira and Theo. Pale grey-white grain background with soft blurred grey blobs, one electric blue (#0a6cdc) accent, an elegant italic serif for big headings and a clean sans for small labels. The hero is a huge italic \"WEDDING\" with a thin orbit ring and a small star. As the visitor scrolls, a single four-point star morphs from section to section: an outline star holds \"Welcome\" and folds into a blue rounded card titled MESSAGE, a white star expands to wipe the card away into ABOUT US, then big blue words scatter around a solid star that shrinks into a dot for OUR STORY. Use no photos or logos, only shapes and type, and no extra titles or labels beyond these. Build it in a new folder inside the current project folder, open it in the browser when it is done, check that it works, and ask me before installing or loading anything.",
+      "label": "Make a star invitation page",
+      "testedOn": "2026-11-19"
+    }
+  ],
+  "action": {
+    "label": "Make a star invitation page in Atu",
+    "prompt": "star-invitation"
+  },
+  "cover": {
+    "motion": "media/star-invite-cover.webp",
+    "still": "media/star-invite-cover-still.webp"
+  },
+  "made": [
+    {
+      "kind": "atu",
+      "path": "media/star-invite-made-with-atu.mp4",
+      "alt": "Scrolling an invitation for Mira and Theo: an outline star around Welcome fills and folds into a blue Message card, a star-shaped wipe reveals About us, the names scatter round a blue star, then Our story, and back to the WEDDING title.",
+      "caption": "In the invitation Hey Atu built, the Welcome star folds into a message card, and a star-shaped wipe reveals About Us."
+    }
+  ],
+  "requirements": [],
+  "revision": "sha256:ccb8d7f37ceac9e3eee1e2ae8838d07f4d6a68b4ea66bfe12d6527ae0073d0df"
+}
