@@ -75,7 +75,7 @@ Turn my portrait into a travel print with the colour photograph above a close-up
 </tr>
 </table>
 
-### Animation and video (7)
+### Animation and video (9)
 
 <table>
 <tr>
@@ -221,6 +221,24 @@ Code a 3D mechanical octopus that visitors can take apart in the browser. Give i
 </details>
 
 </td>
+<td width="50%" valign="top">
+
+<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123083433744425116/media/jelly-melon-cover-still.webp"><img src="entries/x-2123083433744425116/media/jelly-melon-cover.webp" alt="A jelly watermelon you can poke" width="100%"></picture>
+
+<p><strong>A jelly watermelon you can poke</strong><br>A jelly watermelon slice that wobbles when you click it and stretches when you pull it.</p>
+
+<p>via <a href="https://x.com/vib3coded/status/2123083433744425116">@vib3coded</a> · Tested in Hey Atu</p>
+
+<details>
+<summary>Brief</summary>
+
+```text
+A 3D watermelon wedge made of red jelly on a plain cream floor. It sways when clicked and stretches flat when pulled, then springs back and wobbles until it settles. No text on the page.
+```
+
+</details>
+
+</td>
 </tr>
 <tr>
 <td width="50%" valign="top">
@@ -247,7 +265,7 @@ Build a 14-second, 13-cut Swiss-editorial kinetic motion reel in a single web pa
 </tr>
 </table>
 
-### Coding (7)
+### Coding (8)
 
 <table>
 <tr>
@@ -399,11 +417,6 @@ A gentle browser game where a child and a dog walk home across several scenes. N
 </td>
 <td width="50%" valign="top">
 
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-
 <picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123106462096654599/media/fold-box-cover-still.webp"><img src="entries/x-2123106462096654599/media/fold-box-cover.webp" alt="Fold a design into a box" width="100%"></picture>
 
 <p><strong>Fold a design into a box</strong><br>Put a picture on a flat box template, fold it into 3D, spin it and open the lid.</p>
@@ -418,9 +431,6 @@ A browser tool for packaging mockups: choose a box shape and size, put a picture
 ```
 
 </details>
-
-</td>
-<td width="50%" valign="top">
 
 </td>
 </tr>
