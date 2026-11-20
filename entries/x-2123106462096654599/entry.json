@@ -1,0 +1,69 @@
+{
+  "id": "x-2123106462096654599",
+  "title": "Fold a design into a box",
+  "summary": "Put a picture on a flat box template, fold it into 3D, spin it and open the lid.",
+  "brief": "A browser tool for packaging mockups: choose a box shape and size, put a picture on the flat template with its cut and fold lines, then fold it into a 3D box you can spin and open.",
+  "purposes": [
+    "coding",
+    "images"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/youraipulse/status/2123106462096654599",
+    "author": "youraipulse",
+    "credit": "AI Pulse (@youraipulse)",
+    "publishedAt": "2026-11-18",
+    "capturedAt": "2026-11-19",
+    "video": "https://video.twimg.com/amplify_video/2123062205537001472/vid/avc1/960x720/WaqACcddwK1LWsJA.mp4?tag=29"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/fold-box-cover.webp",
+        "basis": "quoted",
+        "holder": "youraipulse",
+        "sourceUrl": "https://x.com/youraipulse/status/2123106462096654599",
+        "excerpt": "6.95–9.55 s of the post video, cropped to 16:9"
+      },
+      {
+        "path": "media/fold-box-cover-still.webp",
+        "basis": "quoted",
+        "holder": "youraipulse",
+        "sourceUrl": "https://x.com/youraipulse/status/2123106462096654599",
+        "excerpt": "Frame at 8.6 s of the post video, cropped to 16:9"
+      },
+      {
+        "path": "media/fold-box-made-with-atu.mp4",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "box-folder",
+      "status": "tested",
+      "text": "Build a small web tool that folds a flat box template into a 3D box. Show a flat dieline for a lidded carton, with solid cut lines and dashed fold lines, and a sample image applied to its faces. Add a button that folds the dieline into a 3D box with an animated fold. In 3D, drag to rotate, click to open and close the lid, and scroll to zoom. Add a shape picker with six simple box shapes (carton, tuck box, pyramid, gift bag, tall box, flat mailer), width/depth/height fields, and an upload button that puts any picture you choose onto the box. Keep the page clean: white background, one 3D stage, one side panel, no extra titles. Build it in a new folder inside the current project folder, open it in the browser when done, check that it works, and ask before installing or loading anything.",
+      "label": "Make a box folding tool",
+      "testedOn": "2026-11-19"
+    }
+  ],
+  "action": {
+    "label": "Make a foldable 3D box in Atu",
+    "prompt": "box-folder"
+  },
+  "cover": {
+    "motion": "media/fold-box-cover.webp",
+    "still": "media/fold-box-cover-still.webp"
+  },
+  "made": [
+    {
+      "kind": "atu",
+      "path": "media/fold-box-made-with-atu.mp4",
+      "alt": "A flat carton template with an orange print folds into a 3D box and turns; then a pyramid template is chosen and folds up, and the carton template returns.",
+      "caption": "The box tool Hey Atu built: a carton folds and turns, then a pyramid folds up."
+    }
+  ],
+  "requirements": [],
+  "revision": "sha256:fb5603e0e4b0293a07425f002ead8d57cae1da56c7849f15b3ec88a6cd536e3b"
+}

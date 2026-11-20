@@ -381,6 +381,29 @@ A gentle browser game where a child and a dog walk home across several scenes. N
 
 </td>
 </tr>
+<tr>
+<td width="50%" valign="top">
+
+<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123106462096654599/media/fold-box-cover-still.webp"><img src="entries/x-2123106462096654599/media/fold-box-cover.webp" alt="Fold a design into a box" width="100%"></picture>
+
+<p><strong>Fold a design into a box</strong><br>Put a picture on a flat box template, fold it into 3D, spin it and open the lid.</p>
+
+<p>via <a href="https://x.com/youraipulse/status/2123106462096654599">@youraipulse</a> · Tested in Hey Atu</p>
+
+<details>
+<summary>Brief</summary>
+
+```text
+A browser tool for packaging mockups: choose a box shape and size, put a picture on the flat template with its cut and fold lines, then fold it into a 3D box you can spin and open.
+```
+
+</details>
+
+</td>
+<td width="50%" valign="top">
+
+</td>
+</tr>
 </table>
 
 ### Personal workflows (1)
