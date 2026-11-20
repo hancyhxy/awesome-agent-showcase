@@ -269,9 +269,9 @@ Build a 14-second, 13-cut Swiss-editorial kinetic motion reel in a single web pa
 </td>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123240616012226628/media/jelly-scan-cover-still.webp"><img src="entries/x-2123240616012226628/media/jelly-scan-cover.webp" alt="Glowing jellyfish scan render" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2123240616012226628?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123240616012226628/media/jelly-scan-cover-still.webp"><img src="entries/x-2123240616012226628/media/jelly-scan-cover.webp" alt="Glowing jellyfish scan render" width="100%"></picture></a>
 
-<p><strong>Glowing jellyfish scan render</strong><br>A glowing sea-creature scan that glitches between a honeycomb shell, a blue jellyfish, an ASCII silhouette and violet shards, with HUD labels.</p>
+<p><strong><a href="https://heyatu.com/market/x-2123240616012226628?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">Glowing jellyfish scan render</a></strong><br>A glowing sea-creature scan that glitches between a honeycomb shell, a blue jellyfish, an ASCII silhouette and violet shards, with HUD labels.</p>
 
 <p>via <a href="https://x.com/fredremotion/status/2123240616012226628">@fredremotion</a> · Tested in Hey Atu</p>
 
@@ -283,6 +283,8 @@ Make a looping Three.js render of a deep-sea creature built from glowing particl
 ```
 
 </details>
+
+<p><a href="https://heyatu.com/market/x-2123240616012226628?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
 </tr>
@@ -462,9 +464,9 @@ A browser tool for packaging mockups: choose a box shape and size, put a picture
 <tr>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123280359978942481/media/keypad-3d-cover-still.webp"><img src="entries/x-2123280359978942481/media/keypad-3d-cover.webp" alt="3D macro keypad you can remap" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2123280359978942481?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123280359978942481/media/keypad-3d-cover-still.webp"><img src="entries/x-2123280359978942481/media/keypad-3d-cover.webp" alt="3D macro keypad you can remap" width="100%"></picture></a>
 
-<p><strong>3D macro keypad you can remap</strong><br>Spin and flip a glowing 3D macro keypad in the browser, then click a key to give it a new action.</p>
+<p><strong><a href="https://heyatu.com/market/x-2123280359978942481?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">3D macro keypad you can remap</a></strong><br>Spin and flip a glowing 3D macro keypad in the browser, then click a key to give it a new action.</p>
 
 <p>via <a href="https://x.com/Linmiv/status/2123280359978942481">@Linmiv</a> · Tested in Hey Atu</p>
 
@@ -477,12 +479,14 @@ Create an interactive Three.js model of a small programmable keypad in see-throu
 
 </details>
 
+<p><a href="https://heyatu.com/market/x-2123280359978942481?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
+
 </td>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123457524070273426/media/voice-wave-cover-still.webp"><img src="entries/x-2123457524070273426/media/voice-wave-cover.webp" alt="Voice bar with rainbow dot wave" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2123457524070273426?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123457524070273426/media/voice-wave-cover-still.webp"><img src="entries/x-2123457524070273426/media/voice-wave-cover.webp" alt="Voice bar with rainbow dot wave" width="100%"></picture></a>
 
-<p><strong>Voice bar with rainbow dot wave</strong><br>A dark voice input bar with a rainbow dot wave for Listening and a teal sweep for Thinking.</p>
+<p><strong><a href="https://heyatu.com/market/x-2123457524070273426?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">Voice bar with rainbow dot wave</a></strong><br>A dark voice input bar with a rainbow dot wave for Listening and a teal sweep for Thinking.</p>
 
 <p>via <a href="https://x.com/Jakubantalik/status/2123457524070273426">@Jakubantalik</a> · Tested in Hey Atu</p>
 
@@ -494,6 +498,8 @@ Make a dark AI voice input panel for the browser whose lower edge carries a wave
 ```
 
 </details>
+
+<p><a href="https://heyatu.com/market/x-2123457524070273426?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
 </tr>
