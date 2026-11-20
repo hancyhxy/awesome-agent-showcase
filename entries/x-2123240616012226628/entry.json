@@ -1,0 +1,69 @@
+{
+  "id": "x-2123240616012226628",
+  "title": "Glowing jellyfish scan render",
+  "summary": "A glowing sea-creature scan that glitches between a honeycomb shell, a blue jellyfish, an ASCII silhouette and violet shards, with HUD labels.",
+  "brief": "Make a looping Three.js render of a deep-sea creature built from glowing particles on black. Cut between a few looks, such as a hexagon shell, a see-through jellyfish and a text-character version, with a short glitch, and tag its parts with tiny monospace callouts.",
+  "purposes": [
+    "animation-video",
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/fredremotion/status/2123240616012226628",
+    "author": "fredremotion",
+    "credit": "Frederico Ferreira (@fredremotion)",
+    "publishedAt": "2026-11-19",
+    "capturedAt": "2026-11-20",
+    "video": "https://video.twimg.com/amplify_video/2123238783407570945/vid/avc1/720x720/4aleayuNidPfIYNw.mp4?tag=29"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/jelly-scan-cover.webp",
+        "basis": "quoted",
+        "holder": "fredremotion",
+        "sourceUrl": "https://x.com/fredremotion/status/2123240616012226628",
+        "excerpt": "0.0–4.8 s of the post video (the whole clip), square frame padded with black to 16:9"
+      },
+      {
+        "path": "media/jelly-scan-cover-still.webp",
+        "basis": "quoted",
+        "holder": "fredremotion",
+        "sourceUrl": "https://x.com/fredremotion/status/2123240616012226628",
+        "excerpt": "Frame at 3.0 s of the post video, square frame padded with black to 16:9"
+      },
+      {
+        "path": "media/jelly-scan-made-with-atu.mp4",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "glowing-jelly-scan",
+      "status": "tested",
+      "text": "Build a looping sci-fi scan render of a glowing sea creature as one self-contained web page using Three.js, filling the window on a pure black background, with no titles or other page text. The creature fills about 80% of the window height and looks like a rich, translucent, glowing 3D scan render, not thin lines and not flat cartoon colours: draw it from tens of thousands of fine particles and small glowing shapes with additive blending and bloom, with deep shadowed areas, glassy see-through layers and bright highlights only on edges and details. Cycle through four looks about every 2 seconds, and cut between them with a hard 0.3-second glitch: horizontal bands that shift sideways, RGB split, blocky pixel tearing and a bright white flash. (1) A round, chunky hexagonal shell like a honeycomb sea urchin: dark brown and amber cells with a soft inner glow, separated by thick glowing white rims, and a dark red underside fading into shadow. (2) A jellyfish with a thick, see-through glassy pale blue bell with fine inner detail, a ring of bright dots around its rim, and a dense, bushy cluster of frilly oral arms made of many small glowing cyan and white points and curls hanging from the centre with a few long thin tentacles; the bell pulses and flashes hot magenta and red for a moment. (3) The same jellyfish as white ASCII characters for a brief beat. (4) A violet and blue low-poly creature made of jagged shards with a network of white points joined by thin lines and a few bright green flares. Pin five or six small monospace HUD labels directly onto the creature, sitting on or right next to its parts (not out at the screen edges), such as BELL-0721, ORAL-ARM-3305, LURE-4180, SHELL-CELL-2269 and FILAMENT-9031 (use these, not other names), each with a tiny coordinate readout, a small square marker box on the part and a short leader line, plus a few loose corner brackets framing the creature; the labels follow the parts as they move and change with each look. The camera slowly orbits and dragging rotates the view. Build it in a new folder inside the current project folder, open it in the browser when done, check that it works, and ask me before installing or loading anything.",
+      "label": "Render a glowing jellyfish scan",
+      "testedOn": "2026-11-20"
+    }
+  ],
+  "action": {
+    "label": "Render a glowing jellyfish in Atu",
+    "prompt": "glowing-jelly-scan"
+  },
+  "cover": {
+    "motion": "media/jelly-scan-cover.webp",
+    "still": "media/jelly-scan-cover-still.webp"
+  },
+  "made": [
+    {
+      "kind": "atu",
+      "path": "media/jelly-scan-made-with-atu.mp4",
+      "alt": "A dark honeycomb sphere with glowing rims glitches into a translucent blue jellyfish with glowing oral arms that flashes pink, then into white ASCII characters and violet shards tied by a network of white lines, each with small labels pinned to its parts.",
+      "caption": "The scan render built with Hey Atu cycles through four looks with glitch cuts and pinned labels."
+    }
+  ],
+  "requirements": [],
+  "revision": "sha256:81159758dc179a40cfac0a818d8ec2e952d550998b8b9184d3c4775ae50aab09"
+}
