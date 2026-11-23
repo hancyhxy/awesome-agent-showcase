@@ -1,0 +1,3 @@
+[@Linmiv](https://x.com/Linmiv/status/2123280359978942481) showed a 3D preview of a macro keypad inside a device settings app: you can spin and flip the model, and clicking a key opens its action list so you can remap it. The button opens a draft in Hey Atu. In our run, Atu built a standalone Three.js page with a glowing peach acrylic keypad, lavender and white keys, a dial and a knob. Dragging flips it to show the underside before it eases back, the selected key turns bright blue, and a side panel assigns Press, Double press and Hold actions.
+
+Our keypad has more keys than the one in the post, and its actions are generic examples rather than the post's app recipes.
