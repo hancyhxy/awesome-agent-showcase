@@ -53,9 +53,9 @@ Aesthetic Remake: we rebuild projects we liked with one prompt.
 <tr>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2122943582156034441/media/footage-sorter-cover-still.webp"><img src="entries/x-2122943582156034441/media/footage-sorter-cover.webp" alt="Sort creator footage with a flying 3D ball" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2122943582156034441?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2122943582156034441/media/footage-sorter-cover-still.webp"><img src="entries/x-2122943582156034441/media/footage-sorter-cover.webp" alt="Sort creator footage with a flying 3D ball" width="100%"></picture></a>
 
-<p><strong>Sort creator footage with a flying 3D ball</strong><br>Aesthetic Remake EP01: a viral camera-roll sorter rebuilt for video footage. Clips fly from a spinning ball of thumbnails into category cards.</p>
+<p><strong><a href="https://heyatu.com/market/x-2122943582156034441?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">Sort creator footage with a flying 3D ball</a></strong><br>Aesthetic Remake EP01: a viral camera-roll sorter rebuilt for video footage. Clips fly from a spinning ball of thumbnails into category cards.</p>
 
 <p>★ Editor's Pick · Tested in Hey Atu</p>
 
@@ -68,12 +68,14 @@ A local web tool that sorts a folder of video clips by what is in them: thumbnai
 
 </details>
 
+<p><a href="https://heyatu.com/market/x-2122943582156034441?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
+
 </td>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2124758346498715671/media/pixel-trees-cover-still.webp"><img src="entries/x-2124758346498715671/media/pixel-trees-cover.webp" alt="Pixel trees that feel the wind" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2124758346498715671?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2124758346498715671/media/pixel-trees-cover-still.webp"><img src="entries/x-2124758346498715671/media/pixel-trees-cover.webp" alt="Pixel trees that feel the wind" width="100%"></picture></a>
 
-<p><strong>Pixel trees that feel the wind</strong><br>Aesthetic Remake EP02: FeralUI's Pixel Play rebuilt with one prompt, then turned into wind chimes that ring in the breeze.</p>
+<p><strong><a href="https://heyatu.com/market/x-2124758346498715671?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">Pixel trees that feel the wind</a></strong><br>Aesthetic Remake EP02: FeralUI's Pixel Play rebuilt with one prompt, then turned into wind chimes that ring in the breeze.</p>
 
 <p>★ Editor's Pick · Tested in Hey Atu</p>
 
@@ -85,6 +87,8 @@ A browser garden of three pixel-art trees built on bones: a tap makes one trembl
 ```
 
 </details>
+
+<p><a href="https://heyatu.com/market/x-2124758346498715671?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
 </tr>
@@ -210,9 +214,9 @@ An original pixel garden in the browser where the wind moves the leaves: chunky 
 <tr>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2119622784729096453/media/volume-bar-cover-still.webp"><img src="entries/x-2119622784729096453/media/volume-bar-cover.webp" alt="A volume bar with a resident" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2119622784729096453?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2119622784729096453/media/volume-bar-cover-still.webp"><img src="entries/x-2119622784729096453/media/volume-bar-cover.webp" alt="A volume bar with a resident" width="100%"></picture></a>
 
-<p><strong>A volume bar with a resident</strong><br>Turn the volume up and a tiny pixel-art person wakes, reads, then covers their ears.</p>
+<p><strong><a href="https://heyatu.com/market/x-2119622784729096453?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">A volume bar with a resident</a></strong><br>Turn the volume up and a tiny pixel-art person wakes, reads, then covers their ears.</p>
 
 <p>via <a href="https://x.com/Lattice_Node/status/2119622784729096453">@Lattice_Node</a> · Tested in Hey Atu</p>
 
@@ -224,6 +228,8 @@ Make a wide pill-shaped volume slider in the browser whose knob is a glass bead 
 ```
 
 </details>
+
+<p><a href="https://heyatu.com/market/x-2119622784729096453?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
 <td width="50%" valign="top">
@@ -354,9 +360,9 @@ Make a looping Three.js render of a deep-sea creature built from glowing particl
 </td>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2124758346498715671/media/pixel-trees-cover-still.webp"><img src="entries/x-2124758346498715671/media/pixel-trees-cover.webp" alt="Pixel trees that feel the wind" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2124758346498715671?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2124758346498715671/media/pixel-trees-cover-still.webp"><img src="entries/x-2124758346498715671/media/pixel-trees-cover.webp" alt="Pixel trees that feel the wind" width="100%"></picture></a>
 
-<p><strong>Pixel trees that feel the wind</strong><br>Aesthetic Remake EP02: FeralUI's Pixel Play rebuilt with one prompt, then turned into wind chimes that ring in the breeze.</p>
+<p><strong><a href="https://heyatu.com/market/x-2124758346498715671?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">Pixel trees that feel the wind</a></strong><br>Aesthetic Remake EP02: FeralUI's Pixel Play rebuilt with one prompt, then turned into wind chimes that ring in the breeze.</p>
 
 <p>★ Editor's Pick · Tested in Hey Atu</p>
 
@@ -368,6 +374,8 @@ A browser garden of three pixel-art trees built on bones: a tap makes one trembl
 ```
 
 </details>
+
+<p><a href="https://heyatu.com/market/x-2124758346498715671?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
 </tr>
@@ -614,9 +622,9 @@ A printable front page of my day, styled as a vintage newspaper with a dated mas
 </td>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2122943582156034441/media/footage-sorter-cover-still.webp"><img src="entries/x-2122943582156034441/media/footage-sorter-cover.webp" alt="Sort creator footage with a flying 3D ball" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2122943582156034441?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2122943582156034441/media/footage-sorter-cover-still.webp"><img src="entries/x-2122943582156034441/media/footage-sorter-cover.webp" alt="Sort creator footage with a flying 3D ball" width="100%"></picture></a>
 
-<p><strong>Sort creator footage with a flying 3D ball</strong><br>Aesthetic Remake EP01: a viral camera-roll sorter rebuilt for video footage. Clips fly from a spinning ball of thumbnails into category cards.</p>
+<p><strong><a href="https://heyatu.com/market/x-2122943582156034441?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">Sort creator footage with a flying 3D ball</a></strong><br>Aesthetic Remake EP01: a viral camera-roll sorter rebuilt for video footage. Clips fly from a spinning ball of thumbnails into category cards.</p>
 
 <p>★ Editor's Pick · Tested in Hey Atu</p>
 
@@ -628,6 +636,8 @@ A local web tool that sorts a folder of video clips by what is in them: thumbnai
 ```
 
 </details>
+
+<p><a href="https://heyatu.com/market/x-2122943582156034441?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
 </tr>

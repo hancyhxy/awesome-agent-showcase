@@ -136,5 +136,23 @@
     "revision": "sha256:81159758dc179a40cfac0a818d8ec2e952d550998b8b9184d3c4775ae50aab09",
     "url": "https://heyatu.com/market/x-2123240616012226628",
     "release": "4b2e8c68f23e0adc7b6ff6c030b47fd67fc168bb"
+  },
+  {
+    "id": "x-2119622784729096453",
+    "revision": "sha256:2c09645c2774250ec1e8d9bdd4235d1c486064d90df03c39fa6c473642eb1865",
+    "url": "https://heyatu.com/market/x-2119622784729096453",
+    "release": "11ffe26e448d58455668b7791ddd540fa3dbff45"
+  },
+  {
+    "id": "x-2122943582156034441",
+    "revision": "sha256:d17527a04a88f0128eddb0ed1e3cdf1aac365875f337c81b9b6ca8904e5983ed",
+    "url": "https://heyatu.com/market/x-2122943582156034441",
+    "release": "11ffe26e448d58455668b7791ddd540fa3dbff45"
+  },
+  {
+    "id": "x-2124758346498715671",
+    "revision": "sha256:e38516d35106b65e6747fe19ef7965ed1d9120f6ace075c58bb6e94041d82445",
+    "url": "https://heyatu.com/market/x-2124758346498715671",
+    "release": "11ffe26e448d58455668b7791ddd540fa3dbff45"
   }
 ]
