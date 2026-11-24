@@ -1,0 +1,52 @@
+{
+  "id": "x-2124758346498715671",
+  "title": "Pixel trees that feel the wind",
+  "summary": "Aesthetic Remake EP02: FeralUI's Pixel Play rebuilt with one prompt, then turned into wind chimes that ring in the breeze.",
+  "brief": "A browser garden of three pixel-art trees built on bones: a tap makes one tremble and drop leaves, a pulled branch springs back, and a wind switch bends the crowns and strips leaves that later regrow.",
+  "purposes": [
+    "animation-video",
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/heyatuapp/status/2124758346498715671",
+    "author": "heyatuapp",
+    "credit": "Hey Atu (@heyatuapp)",
+    "publishedAt": "2026-11-23",
+    "capturedAt": "2026-11-23",
+    "video": "https://video.twimg.com/amplify_video/2124757730254884864/vid/avc1/1280x720/nQhSL_o2Rrcrsrix.mp4?tag=14"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/pixel-trees-cover.webp",
+        "basis": "original"
+      },
+      {
+        "path": "media/pixel-trees-cover-still.webp",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "pixel-play-remake",
+      "status": "tested",
+      "text": "Rebuild FeralUI's \"Pixel Play\" 1:1 as a single HTML file (vanilla HTML/CSS/JS, no libraries, no image files, no network requests): a pixel-art cherry tree, shrub and autumn maple, left to right, each with a skeleton — click to shake, drag to bend, wind to sway. First open https://feralui.dev/pixel-play, screenshot it and match the plants by eye; don't copy its code or images.\n\nPage: background #f1f1f3, system sans-serif. Top bar: round back button and moon/sun theme button on the left, \"Pixel Play\" with a grey \"BETA\" badge in the centre, a black \"Download\" pill on the right. Below it a white pill counter, tiny pixel blossom + \"Shaken 88,633 times\", +1 per shake, saved in localStorage.\n\nPlants: 1 art pixel = 3 CSS px, scaled by whole numbers, image-rendering: pixelated. Side by side on one ground line, about 10 art px apart, together about half the viewport width at 1280px. Fixed random seed. Nothing overlaps. Every silhouette is organic and lopsided, never boxy or symmetric.\n- Cherry — 60 art px wide, 60 tall. Dark trunk (#3a2224) visible only in the bottom third, leaning and curving; it forks into 3–4 crooked branches that fan up as connected dark lines and fade into the blossoms. Crown wider than tall, a cauliflower cloud of blossom puffs with tufts breaking the edge, pinks #f5d1d0 to #d48194, palest on top. A thin oval of fallen petals.\n- Shrub — 56 wide, 36 tall: a dense rounded dome, widest at the bottom, lumpy edge, flat bottom, no holes. Darkest bottom-left (#22351c), mid #69892f, highlights #b8d152 top-right. One dark twig peeks out low.\n- Maple — 76 wide, 62 tall. Short thick trunk (#703c28), flared at the base, splits into a Y; two crooked limbs spread sideways under the crown and disappear into it. Crown fills the top 70%: an irregular dome of leaf clusters with small gaps and a dozen five-point star leaves (5–7 art px) along its edge, half sticking out, none floating free. Gold #f2cc84 on top, burnt orange #b76135 below. A thin pile of fallen leaves.\n\nDock: white rounded panel fixed to the bottom, centred. A pixel windsock that hangs limp in calm air and lifts horizontal, fluttering downwind, as the wind grows. Weather iOS switch (on = #34c759) + \"Breezy / Storm\". Direction \"Left / Right\", default Right. Wind speed slider 0–100 (Calm / Light / Breezy / Strong / Gale). Gusts slider (Steady / Light gusts / Wild gusts). \"Skeleton\" and \"Sound\" switches. On load Weather is off and the trees stand still until touched.\n\nMotion: each plant is a bone tree solved with forward kinematics every frame; each bone is an underdamped angular spring, outer bones softer. Every leaf and petal pixel is bound to its nearest bone, so foliage moves with the branches and stays on the pixel grid.\n\nClick Shake: an impulse away from the click point, strongest nearby. Branches flick and spring back, outer leaves on that side drop first, counter +1.\n\nBranch Drag: grab a branch; it bends toward the pointer up to a limit, children follow, and it springs back on release. A drag is not a shake.\n\nFalling Leaves: particles with gravity and flutter, pushed downwind; they settle, fade and grow back.\n\nWind: Breezy = speed 40 / gusts 45; Storm = speed 100 / gusts 85; moving the speed slider turns Weather on. Each bone sways with its own phase under a gust envelope. In Storm the crowns lean 4–8 art px downwind and stay bent while leaves stream off.\n\nSkeleton shows the bones as blue lines. Sound: WebAudio noise for each shake and the wind, started on the first tap.\n\nBuild it in a new folder inside the current project folder and open it in the browser when done. Before delivering, screenshot your page beside the reference and fix differences in tree shape, size and spacing, then check: no console errors; a click shakes and counts; a drag bends and returns; Storm bends all three trees and lifts the windsock; 390px wide with no overflow. Ask me before installing or loading anything.",
+      "label": "Rebuild the pixel garden",
+      "testedOn": "2026-11-23"
+    }
+  ],
+  "action": {
+    "label": "Grow a pixel garden in Atu",
+    "prompt": "pixel-play-remake"
+  },
+  "cover": {
+    "motion": "media/pixel-trees-cover.webp",
+    "still": "media/pixel-trees-cover-still.webp"
+  },
+  "collection": "editors-pick",
+  "requirements": [],
+  "revision": "sha256:e38516d35106b65e6747fe19ef7965ed1d9120f6ace075c58bb6e94041d82445"
+}

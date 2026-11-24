@@ -1,0 +1,52 @@
+{
+  "id": "x-2122943582156034441",
+  "title": "Sort creator footage with a flying 3D ball",
+  "summary": "Aesthetic Remake EP01: a viral camera-roll sorter rebuilt for video footage. Clips fly from a spinning ball of thumbnails into category cards.",
+  "brief": "A local web tool that sorts a folder of video clips by what is in them: thumbnails form a slowly turning 3D ball, then each clip flies in an arc into its category card, with live counts and a pile of duplicates.",
+  "purposes": [
+    "personal-workflows",
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/heyatuapp/status/2122943582156034441",
+    "author": "heyatuapp",
+    "credit": "Hey Atu (@heyatuapp)",
+    "publishedAt": "2026-11-18",
+    "capturedAt": "2026-11-23",
+    "video": "https://video.twimg.com/amplify_video/2122943486165237760/vid/avc1/1280x720/l2L--3R2O83VeybD.mp4?tag=14"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/footage-sorter-cover.webp",
+        "basis": "original"
+      },
+      {
+        "path": "media/footage-sorter-cover-still.webp",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "footage-sorter",
+      "status": "tested",
+      "text": "Local web app, 16:9 single screen, clean Mac-app UI. Remake from scratch — no code from any existing project.\n\nReference: \"Sort My Camera Roll\" on X — AI reads every photo and files it into folders while a few hundred thumbnails form a spinning 3D ball and arc one by one into category cards. Rebuild it for video footage. Clips: any folder of my own creator footage, picked in the page.\n\nEngine: a local Python service on 127.0.0.1 only. \"Choose folder\" opens the native macOS picker (or accepts a pasted path) and shows clip count and total size. \"Start\" processes 4 clips in parallel — ffmpeg grabs frames at 15%, 50% and 85%; Apple Vision (pyobjc) reads scene labels, face size and on-screen text, plus sharpness, brightness and length. Push each thumbnail to the page the moment it's extracted and each verdict the moment it's decided (SSE). Save results as JSON. Never move, rename, delete or upload anything.\n\nCategories: talking head, outfits, workout, coffee & food, outdoor & city, interiors, detail B-roll, screen recordings, desk & laptop, junk to review (too short, dark or blurry). Same frames and same length = duplicate; keep the first.\n\nLook: white background, thin grey borders, rounded cards, black text, green as the only accent. Layout starts at the top, no vertical centring. Top bar — logo \"footage sorter\", a status pill (\"Pick your footage\" → \"Atu is watching every clip\" → \"Sorted\"), one black button that reads \"Choose folder\", then \"Start\", then \"Replay\". Title row — \"Sorting my footage\", count badge, folder path. Stats strip — one rounded box, six cells: clips checked (total size below), life clips, work clips, folders x/y, duplicates, space saved; a green progress line along its base; elapsed and remaining time beside it; every number ticks live. Three columns: \"Life & on camera\" (cards in 3 columns), the stage, \"Work & review\" (cards in 2 columns plus a dashed \"Duplicates\" card spanning both). Column heads are small grey uppercase with the count on the right. Each card is one line — emoji, name, grey count pill — over a 6×2 grid of light grey slots (12×2 for duplicates). No subtitles, descriptions or paths. The stage has no border and no fill; the ball floats on the page.\n\nMotion — one move per element, no overlap.\n\nFibonacci Ball: up to 320 rounded 28px tiles (3 frames per clip) on a Fibonacci sphere, 75% of the stage width. Tiles join the moment they're pushed, so the ball grows as the scan runs. Slow spin on the vertical axis, gentle tilt. Depth sets scale 0.45–1.2 and opacity 0.2–1, drawn back to front.\n\nArc Flight: a clip leaves its exact spot on the ball, bows upward, swells to 1.2× with a random spin at the apex, then shrinks into the next empty slot of its card in 0.65 to 1 second. Its other two frames follow a beat later. No text on flying tiles.\n\nSteady Queue: verdicts arrive in bursts; queue them and release evenly so something is always in the air.\n\nCard Hit: border darkens, count pill pops. Nothing else moves.\n\nFinale: green round check mark, \"N sorted\" counting up from 0, \"into N folders · with one message\", pills \"🗂️ N duplicates\" and \"💾 X GB freed\", one burst of confetti.\n\nReplay (about 12 s, from the saved JSON, for screen recording): empty slots and a \"Choose folder\" card; the ball fills tile by tile while the stats start ticking; tiles peel off in arcs, slow then steady, lighting up cards; the ball empties, the pill flips to \"Sorted\", the check mark and confetti land.\n\nClicking a card opens all its thumbnails; clicking a thumbnail shows it large with the reason it was sorted there.\n\nBuild it in a new folder inside the current project folder, start it, open it in the browser when done and check that it works. Ask me before installing or loading anything. Report the URL, the count per category and the number of duplicates.",
+      "label": "Sort my footage",
+      "testedOn": "2026-11-23"
+    }
+  ],
+  "action": {
+    "label": "Sort your footage in Atu",
+    "prompt": "footage-sorter"
+  },
+  "cover": {
+    "motion": "media/footage-sorter-cover.webp",
+    "still": "media/footage-sorter-cover-still.webp"
+  },
+  "collection": "editors-pick",
+  "requirements": [],
+  "revision": "sha256:d17527a04a88f0128eddb0ed1e3cdf1aac365875f337c81b9b6ca8904e5983ed"
+}
