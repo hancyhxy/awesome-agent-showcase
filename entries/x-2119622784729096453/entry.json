@@ -1,0 +1,73 @@
+{
+  "id": "x-2119622784729096453",
+  "title": "A volume bar with a resident",
+  "summary": "Turn the volume up and a tiny pixel-art person wakes, reads, then covers their ears.",
+  "brief": "Make a wide pill-shaped volume slider in the browser whose knob is a glass bead that magnifies a pixel-art living room inside it. Dragging right brightens the room from night to day, wakes the person on the couch and makes them walk and cover their ears as sound waves grow, and ドン appears at the maximum.",
+  "purposes": [
+    "animation-video",
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/Lattice_Node/status/2119622784729096453",
+    "author": "Lattice_Node",
+    "credit": "via @Lattice_Node",
+    "publishedAt": "2026-11-09",
+    "capturedAt": "2026-11-20",
+    "video": "https://video.twimg.com/amplify_video/2119622650939232256/vid/avc1/960x720/PpuaE84e2lW7GJA4.mp4"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/volume-bar-cover.webp",
+        "basis": "quoted",
+        "holder": "Lattice_Node",
+        "sourceUrl": "https://x.com/Lattice_Node/status/2119622784729096453",
+        "excerpt": "0:04.5–0:12.5 of the post video, centred 16:9 crop"
+      },
+      {
+        "path": "media/volume-bar-cover-still.webp",
+        "basis": "quoted",
+        "holder": "Lattice_Node",
+        "sourceUrl": "https://x.com/Lattice_Node/status/2119622784729096453",
+        "excerpt": "Frame at 0:11.4 of the post video, centred 16:9 crop"
+      },
+      {
+        "path": "media/volume-bar-made-with-atu.mp4",
+        "basis": "original"
+      },
+      {
+        "path": "media/volume-bar-made-with-atu-still.jpg",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "volume-bar-resident",
+      "status": "tested",
+      "text": "Make a web page that is only a wide pill-shaped volume slider, centred on a light grey-lilac (#e8e6ee) full-window page: no title, text, logo or label. The pill is about 3.7 times as wide as it is tall, up to 1200 px wide, with a thick bevelled silver rim and a soft drop shadow. Inside it, on a small canvas of about 240 x 65 art pixels scaled up with crisp pixels, draw a pixel-art living room that you design yourself. From left to right: a long couch under a window with a moon in it, a big floor speaker, a bookshelf, a floor lamp, a picture, a plant, a record player on a cabinet, a pink rug on the wooden floor, and a dark brick wall at the far right. A person is lying asleep on the couch with small Z z z, in a purple night room.\nThe knob is a glass bead about a quarter of the pill's width and slightly taller than wide. It starts at the far left, over the sleeper. It must really magnify and refract the room behind it: render the room first, then for every pixel inside the bead sample the room at 1.4x in the centre, falling to 0.9x at the edge, nearest pixel so the art stays crisp. Give it a thin dark rim, a bright specular highlight and a soft shadow.\nDragging the bead (pointer and keyboard) sets the volume from 0 to 100%, and everything in the room is a function of that value. About 25%: the lamp comes on and the person wakes, sits up and reads a book. About 50%: full daylight and they stand up. From 50% they walk right with the bead, so they stay inside it, while at least six orange concentric sound arcs, each 3 art pixels thick, travel outward from the speaker as half rings, and their number, size and brightness grow with the volume until they reach the right wall at 100%; they pass over the furniture and the person. At 100% they stand by the right wall with both hands over their ears, and ドン appears on the wall beside them. Draw ドン in code with no font, as two stacked white pixel glyphs with a dark outline, ド above ン, each 12 art pixels tall. Use these bitmaps (# is white):\nド\n..##....#.#.\n..##.....#.#\n..##........\n..##........\n..##.##.....\n..##..####..\n..##....####\n..##........\n..##........\n..##........\n..##........\n..##........\nン\n............\n.##.........\n..##........\n...##.......\n.........##.\n........##..\n.......##...\n......##....\n.....##.....\n....##......\n.###........\n............\nThe person is about half as tall as the room. At 100% their arms are raised beside the head with both hands pressed on the ears, eyes shut and mouth open, so the pose is clear inside the bead. Dragging back left rewinds the room to the sleeping night scene. Let the bead follow the pointer smoothly and stay where it is released.\nMake small sounds with the Web Audio API only, with no sound file: a soft chiptune hum whose loudness follows the volume, and a thud for ドン. Start sound only after the first pointer press. Use no library, font, image or network.\nBuild it in a new folder inside the current project folder, open it in the browser when it is done, check that it works, and ask me before installing or loading anything.",
+      "label": "Build a living volume bar",
+      "testedOn": "2026-11-24"
+    }
+  ],
+  "action": {
+    "label": "Build a living volume bar in Atu",
+    "prompt": "volume-bar-resident"
+  },
+  "cover": {
+    "motion": "media/volume-bar-cover.webp",
+    "still": "media/volume-bar-cover-still.webp"
+  },
+  "made": [
+    {
+      "kind": "atu",
+      "path": "media/volume-bar-made-with-atu.mp4",
+      "alt": "A glass bead slides along a pill-shaped slider. Dragging it right turns a pixel-art living room from night to day, wakes the sleeper, who stands and walks right as orange sound arcs grow, then covers their ears as ドン appears. Dragging back left returns the room to night.",
+      "caption": "The volume bar built with Hey Atu: drag the glass bead to wake the resident, watch orange waves spread, then rewind."
+    }
+  ],
+  "requirements": [],
+  "revision": "sha256:2c09645c2774250ec1e8d9bdd4235d1c486064d90df03c39fa6c473642eb1865"
+}
