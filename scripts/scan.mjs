@@ -60,14 +60,17 @@ export function scanTree(root) {
 
 const git = (root, ...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', maxBuffer: 1 << 28 });
 
+// Reviewed merges of pull requests 7 and 8. GitHub is their committer; their authors use a noreply address.
+const GITHUB_COMMITTER_MERGES = new Set(['f972471248216b9537b050b7cf19f8aa4c9b8081', '52aa333d179dd7757d972af1494b5234b26da96c']);
+
 export function scanHistory(root) {
   const findings = [];
   const paths = new Set(git(root, 'log', '--all', '--name-only', '--format=').split('\n').filter(Boolean));
   for (const path of paths) findings.push(...scanPath(path));
   for (const line of git(root, 'log', '--all', '--format=%H%x00%ae%x00%ce').trimEnd().split('\n').filter(Boolean)) {
     const [hash, author, committer] = line.split('\0');
-    const githubMerge7 = hash === 'f972471248216b9537b050b7cf19f8aa4c9b8081';
-    if (!author.endsWith('@users.noreply.github.com') || (!githubMerge7 && !committer.endsWith('@users.noreply.github.com'))) findings.push({ where: 'commit identity', rule: 'email address' });
+    const githubMerge = GITHUB_COMMITTER_MERGES.has(hash);
+    if (!author.endsWith('@users.noreply.github.com') || (!githubMerge && !committer.endsWith('@users.noreply.github.com'))) findings.push({ where: 'commit identity', rule: 'email address' });
   }
   findings.push(...scanText('history', git(root, 'log', '--all', '-p', '--no-color', '--format=%B')));
   return findings;
