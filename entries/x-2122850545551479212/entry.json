@@ -1,0 +1,69 @@
+{
+  "id": "x-2122850545551479212",
+  "title": "Pixel night dive animation",
+  "summary": "A tiny pixel swimmer dives into the dark and crawls up a river whose pattern changes as the swimmer moves.",
+  "brief": "Make a looping pixel-art canvas animation of a small red-suited swimmer who leaps into black space, splashes down and swims up a diagonal river seen in perspective. Leave a smeared rainbow reflection behind them, and cut the river surface to a new dithered green pattern every half second or so.",
+  "purposes": [
+    "animation-video",
+    "coding"
+  ],
+  "source": {
+    "type": "x-post",
+    "url": "https://x.com/anikrisn/status/2122850545551479212",
+    "author": "anikrisn",
+    "credit": "Ani (@anikrisn)",
+    "publishedAt": "2026-11-18",
+    "capturedAt": "2026-11-24",
+    "video": "https://video.twimg.com/amplify_video/2122850315372306432/vid/avc1/720x720/sIgiTJ1gysI2Mjgy.mp4?tag=29"
+  },
+  "rights": {
+    "assets": [
+      {
+        "path": "media/night-dive-cover.webp",
+        "basis": "quoted",
+        "holder": "anikrisn",
+        "sourceUrl": "https://x.com/anikrisn/status/2122850545551479212",
+        "excerpt": "0.4–7.0 s of the post video, square frame cropped to a 16:9 band (y 120–525)"
+      },
+      {
+        "path": "media/night-dive-cover-still.webp",
+        "basis": "quoted",
+        "holder": "anikrisn",
+        "sourceUrl": "https://x.com/anikrisn/status/2122850545551479212",
+        "excerpt": "Frame at 2.4 s of the post video, square frame cropped to a 16:9 band (y 120–525)"
+      },
+      {
+        "path": "media/night-dive-made-with-atu.mp4",
+        "basis": "original"
+      }
+    ]
+  },
+  "media": [],
+  "prompts": [
+    {
+      "choice": "pixel-night-dive",
+      "status": "tested",
+      "text": "Build a looping 8-second pixel-art animation called \"Night Dive\" in a new folder inside the current project folder: one HTML page, no libraries. Black full-window page, one centred 16:9 canvas rendered at 192x108 and shown at a fixed whole-number scale with crisp pixels: 5x (960x540) by default, smaller whole number if it does not fit, ?scale=n overrides. ?t=seconds freezes a frame; clamp the first frame's elapsed time to 0. No text.\n\nBuild it like a 2D game: each layer has its own 192x108 canvas and motion, stacked bottom-up: sky dots; river texture on a perspective ground plane sliding bottom-left at swim speed; pale-lime flecks; ragged breathing banks with a dark rim; wake; effects; swimmer. Pre-paint each texture as a seamless 96x96 tile, so a cut is a tile swap with a 2-frame ordered-dither dissolve.\n\nCamera: 40 degrees down at the water plane, tracking the swimmer a little left of centre. The river is a third of the frame tall and runs at about 20 degrees from off-screen bottom left to top right, gently meandering.\n\nSwimmer (about 24 px long, angled up-right): an 8-frame front-crawl cycle on a 34x18 grid, head right, rotated once at load with 4x4 majority-vote sampling. Big white-grey helmet (no face), grey pack, red suit (#e23c55) with pink top and wine underside. Arms alternate: one pulls under while the other lifts elbow-up and reaches past the helmet; legs flutter-kick at twice the stroke rate. 12 fps.\n\nShots:\n1. 0-0.95 s, on black: she runs in from the left edge with little hops (22 px run sprite); each hop leaves a tiny green dotted pad and sparks. At 0.5 s she pushes off knee-up, turns to the dive pose in mid-air and glides down; a dotted green ellipse follows below like a shadow; a lime flash as she hits the water.\n2. 0.95-1.45 s: she dives under; 4 concentric dotted rings (pale and green) spread flat in perspective.\n3. 1.45 s: she surfaces and the river opens fast from that point. Textures: moss blotches; 2.0-3.3 s contour lines radiating from her and slowly expanding; then about 0.55 s each of rimmed squares, big leaves, stars with small crosses, zigzags, eye spots, tartan; broad curved bands from 6.6 s.\n4. 6.7-7.6 s: the camera drops to a third of its height and pushes in; the bands grow huge and she drifts top right.\n5. 7.6-8 s: black, a tiny swimmer top right with a dotted streak; fade out and loop.\n\nWake: a poster-paint splash blob from under her hips, fullest behind the feet, tapering over 1.5 body lengths, the tail breaking into islands. Flat royal blue (#1a34c8), 1 px cream foam rim, cyan patches, magenta and yellow chunks at the feet, droplets. Redraw at 12 fps with a travelling-wave outline plus fresh jitter and reshuffled patches, so it never keeps one shape.\n\nLook: near-black navy, dark teal, deep green and sage with soft pale-green highlights (#9fbf7a, #d5e7b2), never neon. Warp every texture lookup with a slow 2-3 px sine wobble so lines look hand-drawn. Darken towards the banks and away from her, like a soft pool of light.\n\nDirector's panel: keep every tunable value in one object whose defaults give this look. ?panel=1, and a copy panel.html, open a tuning view: a light left panel of live sliders and colour pickers grouped by layer (swimmer size, stroke fps, kick; wake length, width, wave, jitter, tail break, rim, colours; river width, meander, wobble, scale, cut gap, speed; light pool, darkening, highlights; camera pitch, position); the canvas beside it at the largest whole-number scale that fits; below, a timeline split into the named shots (click a shot to loop it, click the bar to seek), play/pause (space), speed 0.25x-2x incl. 1.2x, loop all, Copy parameters (changed values as JSON) and Reset. Remember tuned values in the panel view only. If x-original.mp4 sits next to the page, play it as a same-height square beside the canvas, synced to the timeline, with a checkbox to hide it.\n\nOpen it in the browser, check frames with ?t=, and ask me before installing or loading anything.",
+      "label": "Animate a pixel night dive",
+      "testedOn": "2026-11-26"
+    }
+  ],
+  "action": {
+    "label": "Animate a pixel night dive in Atu",
+    "prompt": "pixel-night-dive"
+  },
+  "cover": {
+    "motion": "media/night-dive-cover.webp",
+    "still": "media/night-dive-cover-still.webp"
+  },
+  "made": [
+    {
+      "kind": "atu",
+      "path": "media/night-dive-made-with-atu.mp4",
+      "alt": "On black, a red-suited swimmer with a white helmet runs in, dives and surfaces in rings of green dots, then crawls up a diagonal river trailing a blue paint-splash wake while the surface cuts through moss, contour lines, squares and leaves, before the camera pushes in.",
+      "caption": "The night dive built with Hey Atu: run, dive and a front crawl up a river that cuts to a new pixel pattern mostly about half a second apart."
+    }
+  ],
+  "requirements": [],
+  "revision": "sha256:4f4dab36ad423a788959df72f217a7bd7adf3347e5f9012b2a632d0e2c8ce37e"
+}

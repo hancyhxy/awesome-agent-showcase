@@ -124,7 +124,7 @@ Turn my portrait into a travel print with the colour photograph above a close-up
 </tr>
 </table>
 
-### Animation and video (12)
+### Animation and video (13)
 
 <table>
 <tr>
@@ -256,6 +256,24 @@ Design an invitation for an imaginary couple. Let scrolling reshape a blue star 
 <tr>
 <td width="50%" valign="top">
 
+<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2122850545551479212/media/night-dive-cover-still.webp"><img src="entries/x-2122850545551479212/media/night-dive-cover.webp" alt="Pixel night dive animation" width="100%"></picture>
+
+<p><strong>Pixel night dive animation</strong><br>A tiny pixel swimmer dives into the dark and crawls up a river whose pattern changes as the swimmer moves.</p>
+
+<p>via <a href="https://x.com/anikrisn/status/2122850545551479212">@anikrisn</a> · Tested in Hey Atu</p>
+
+<details>
+<summary>Brief</summary>
+
+```text
+Make a looping pixel-art canvas animation of a small red-suited swimmer who leaps into black space, splashes down and swims up a diagonal river seen in perspective. Leave a smeared rainbow reflection behind them, and cut the river surface to a new dithered green pattern every half second or so.
+```
+
+</details>
+
+</td>
+<td width="50%" valign="top">
+
 <a href="https://heyatu.com/market/x-2122988750250901956?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2122988750250901956/media/prism-cover-still.webp"><img src="entries/x-2122988750250901956/media/prism-cover.webp" alt="Prismatic objects you can click" width="100%"></picture></a>
 
 <p><strong><a href="https://heyatu.com/market/x-2122988750250901956?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">Prismatic objects you can click</a></strong><br>Traditional objects drift in rainbow light on white. Click one to bring it up close and watch it turn.</p>
@@ -274,6 +292,8 @@ Make a browser gallery with rainbow-glazed vessels floating under a wind bell. L
 <p><a href="https://heyatu.com/market/x-2122988750250901956?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
+</tr>
+<tr>
 <td width="50%" valign="top">
 
 <a href="https://heyatu.com/market/x-2123025365673050456?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123025365673050456/media/robot-octopus-cover-still.webp"><img src="entries/x-2123025365673050456/media/robot-octopus-cover.webp" alt="Robot Octopus, Taken Apart" width="100%"></picture></a>
@@ -294,8 +314,6 @@ Code a 3D mechanical octopus that visitors can take apart in the browser. Give i
 <p><a href="https://heyatu.com/market/x-2123025365673050456?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
-</tr>
-<tr>
 <td width="50%" valign="top">
 
 <a href="https://heyatu.com/market/x-2123083433744425116?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123083433744425116/media/jelly-melon-cover-still.webp"><img src="entries/x-2123083433744425116/media/jelly-melon-cover.webp" alt="A jelly watermelon you can poke" width="100%"></picture></a>
@@ -316,6 +334,8 @@ A 3D watermelon wedge made of red jelly on a plain cream floor. It sways when cl
 <p><a href="https://heyatu.com/market/x-2123083433744425116?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
+</tr>
+<tr>
 <td width="50%" valign="top">
 
 <a href="https://heyatu.com/market/x-2123184113561817370?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123184113561817370/media/cover-still.webp"><img src="entries/x-2123184113561817370/media/cover.webp" alt="Kinetic motion reel in code" width="100%"></picture></a>
@@ -336,8 +356,6 @@ Build a 14-second, 13-cut Swiss-editorial kinetic motion reel in a single web pa
 <p><a href="https://heyatu.com/market/x-2123184113561817370?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Try it in Hey Atu →</a></p>
 
 </td>
-</tr>
-<tr>
 <td width="50%" valign="top">
 
 <a href="https://heyatu.com/market/x-2123240616012226628?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123240616012226628/media/jelly-scan-cover-still.webp"><img src="entries/x-2123240616012226628/media/jelly-scan-cover.webp" alt="Glowing jellyfish scan render" width="100%"></picture></a>
@@ -358,6 +376,8 @@ Make a looping Three.js render of a deep-sea creature built from glowing particl
 <p><a href="https://heyatu.com/market/x-2123240616012226628?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
+</tr>
+<tr>
 <td width="50%" valign="top">
 
 <a href="https://heyatu.com/market/x-2124758346498715671?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2124758346498715671/media/pixel-trees-cover-still.webp"><img src="entries/x-2124758346498715671/media/pixel-trees-cover.webp" alt="Pixel trees that feel the wind" width="100%"></picture></a>
@@ -376,6 +396,9 @@ A browser garden of three pixel-art trees built on bones: a tap makes one trembl
 </details>
 
 <p><a href="https://heyatu.com/market/x-2124758346498715671?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
+
+</td>
+<td width="50%" valign="top">
 
 </td>
 </tr>
