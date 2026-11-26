@@ -160,5 +160,11 @@
     "revision": "sha256:4665f51d936c1c14668f0710c878414bf9a8909f37f8b401dddebb623f7219b2",
     "url": "https://heyatu.com/market/x-2123822724002853362",
     "release": "c19357657c35f3382d3dae80486d49a5897066a4"
+  },
+  {
+    "id": "x-2122850545551479212",
+    "revision": "sha256:4f4dab36ad423a788959df72f217a7bd7adf3347e5f9012b2a632d0e2c8ce37e",
+    "url": "https://heyatu.com/market/x-2122850545551479212",
+    "release": "3d40d9af68325d0c9fe1a5dbb5e6dfecfd933839"
   }
 ]

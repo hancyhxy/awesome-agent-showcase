@@ -256,9 +256,9 @@ Design an invitation for an imaginary couple. Let scrolling reshape a blue star 
 <tr>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2122850545551479212/media/night-dive-cover-still.webp"><img src="entries/x-2122850545551479212/media/night-dive-cover.webp" alt="Pixel night dive animation" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2122850545551479212?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2122850545551479212/media/night-dive-cover-still.webp"><img src="entries/x-2122850545551479212/media/night-dive-cover.webp" alt="Pixel night dive animation" width="100%"></picture></a>
 
-<p><strong>Pixel night dive animation</strong><br>A tiny pixel swimmer dives into the dark and crawls up a river whose pattern changes as the swimmer moves.</p>
+<p><strong><a href="https://heyatu.com/market/x-2122850545551479212?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">Pixel night dive animation</a></strong><br>A tiny pixel swimmer dives into the dark and crawls up a river whose pattern changes as the swimmer moves.</p>
 
 <p>via <a href="https://x.com/anikrisn/status/2122850545551479212">@anikrisn</a> · Tested in Hey Atu</p>
 
@@ -270,6 +270,8 @@ Make a looping pixel-art canvas animation of a small red-suited swimmer who leap
 ```
 
 </details>
+
+<p><a href="https://heyatu.com/market/x-2122850545551479212?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
 <td width="50%" valign="top">
