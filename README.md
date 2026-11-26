@@ -597,9 +597,9 @@ Make a dark AI voice input panel for the browser whose lower edge carries a wave
 <tr>
 <td width="50%" valign="top">
 
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123822724002853362/media/frost-card-cover-still.webp"><img src="entries/x-2123822724002853362/media/frost-card-cover.webp" alt="Frosted wallet card animations" width="100%"></picture>
+<a href="https://heyatu.com/market/x-2123822724002853362?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid"><picture><source media="(prefers-reduced-motion: reduce)" srcset="entries/x-2123822724002853362/media/frost-card-cover-still.webp"><img src="entries/x-2123822724002853362/media/frost-card-cover.webp" alt="Frosted wallet card animations" width="100%"></picture></a>
 
-<p><strong>Frosted wallet card animations</strong><br>A dark wallet card you can freeze under scrapeable frost, reveal, and shatter into grain on delete.</p>
+<p><strong><a href="https://heyatu.com/market/x-2123822724002853362?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-grid">Frosted wallet card animations</a></strong><br>A dark wallet card you can freeze under scrapeable frost, reveal, and shatter into grain on delete.</p>
 
 <p>via <a href="https://x.com/sucodeee/status/2123822724002853362">@sucodeee</a> · Tested in Hey Atu</p>
 
@@ -611,6 +611,8 @@ Make a dark phone wallet in the browser whose graphite card freezes under needle
 ```
 
 </details>
+
+<p><a href="https://heyatu.com/market/x-2123822724002853362?utm_source=github&amp;utm_medium=readme&amp;utm_campaign=market-category">Run the tested version in Hey Atu →</a></p>
 
 </td>
 <td width="50%" valign="top">
